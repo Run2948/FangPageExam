@@ -6,7 +6,7 @@
 <script runat="server">
 override protected void OnInitComplete(EventArgs e)
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：3.7*/
+	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：V3.9*/
 	base.OnInitComplete(e);
 	int loop__id=0;
 	ViewBuilder.Append("<!DOCTYPE html>\r\n");
