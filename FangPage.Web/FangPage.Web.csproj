@@ -1,0 +1,910 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13767FBC-82BE-46E7-AA08-B5C7D9188EE9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FangPage.Web</RootNamespace>
+    <AssemblyName>FangPage.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin\activationuser.aspx" />
+    <Content Include="admin\css\admin.css" />
+    <Content Include="admin\css\datagrid.css" />
+    <Content Include="admin\css\desktop.css" />
+    <Content Include="admin\css\tab.css" />
+    <Content Include="admin\dbset\dbbackup.aspx" />
+    <Content Include="admin\dbset\dbreset.aspx" />
+    <Content Include="admin\dbset\dbshrink.aspx" />
+    <Content Include="admin\dbset\runsql.aspx" />
+    <Content Include="admin\dbset\sqlreset.sql" />
+    <Content Include="admin\global\appdown.aspx" />
+    <Content Include="admin\global\appinstall.aspx" />
+    <Content Include="admin\global\appmanage.aspx" />
+    <Content Include="admin\global\appset.aspx" />
+    <Content Include="admin\global\appsortmanage.aspx" />
+    <Content Include="admin\global\appupdate.aspx" />
+    <Content Include="admin\global\appuserseting.aspx" />
+    <Content Include="admin\global\attachmanage.aspx" />
+    <Content Include="admin\global\attachtypemanage.aspx" />
+    <Content Include="admin\global\cachemanage.aspx" />
+    <Content Include="admin\global\desktopadd.aspx" />
+    <Content Include="admin\global\desktopmanage.aspx" />
+    <Content Include="admin\global\emailconfigmanage.aspx" />
+    <Content Include="admin\global\pluginadd.aspx" />
+    <Content Include="admin\global\plugininstall.aspx" />
+    <Content Include="admin\global\pluginmanage.aspx" />
+    <Content Include="admin\global\pluginupdate.aspx" />
+    <Content Include="admin\global\siteadd.aspx" />
+    <Content Include="admin\global\sitefileedit.aspx" />
+    <Content Include="admin\global\sitefilemanage.aspx" />
+    <Content Include="admin\global\siteinstall.aspx" />
+    <Content Include="admin\global\sitemanage.aspx" />
+    <Content Include="admin\global\siteupdate.aspx" />
+    <Content Include="admin\global\sysconfigmanage.aspx" />
+    <Content Include="admin\global\sysfileedit.aspx" />
+    <Content Include="admin\global\sysfilesmanage.aspx" />
+    <Content Include="admin\global\syslogmanage.aspx" />
+    <Content Include="admin\global\sysmenuadd.aspx" />
+    <Content Include="admin\global\sysmenudisplay.aspx" />
+    <Content Include="admin\global\sysmenumanage.aspx" />
+    <Content Include="admin\global\sysupdate.aspx" />
+    <Content Include="admin\global\taskadd.aspx" />
+    <Content Include="admin\global\taskinstall.aspx" />
+    <Content Include="admin\global\tasklog.aspx" />
+    <Content Include="admin\global\taskmanage.aspx" />
+    <Content Include="admin\global\watermarkset.aspx" />
+    <Content Include="admin\images\add.gif" />
+    <Content Include="admin\images\adddesk.gif" />
+    <Content Include="admin\images\adminsubmit.gif" />
+    <Content Include="admin\images\adminsubmit_long.gif" />
+    <Content Include="admin\images\admintitleft.gif" />
+    <Content Include="admin\images\b11-1.gif" />
+    <Content Include="admin\images\back.png" />
+    <Content Include="admin\images\bar_left.gif" />
+    <Content Include="admin\images\bar_right.gif" />
+    <Content Include="admin\images\bdesk.gif" />
+    <Content Include="admin\images\bgline.gif" />
+    <Content Include="admin\images\bt1.gif" />
+    <Content Include="admin\images\bt2.gif" />
+    <Content Include="admin\images\caidanbg.gif" />
+    <Content Include="admin\images\credit.png" />
+    <Content Include="admin\images\database.png" />
+    <Content Include="admin\images\default.gif" />
+    <Content Include="admin\images\delete.gif" />
+    <Content Include="admin\images\desktop.gif" />
+    <Content Include="admin\images\exit.png" />
+    <Content Include="admin\images\filetype\ascx.gif" />
+    <Content Include="admin\images\filetype\asp.gif" />
+    <Content Include="admin\images\filetype\aspx.gif" />
+    <Content Include="admin\images\filetype\avi.gif" />
+    <Content Include="admin\images\filetype\bmp.gif" />
+    <Content Include="admin\images\filetype\config.gif" />
+    <Content Include="admin\images\filetype\cs.gif" />
+    <Content Include="admin\images\filetype\css.gif" />
+    <Content Include="admin\images\filetype\default.gif" />
+    <Content Include="admin\images\filetype\directory.gif" />
+    <Content Include="admin\images\filetype\dll.gif" />
+    <Content Include="admin\images\filetype\doc.gif" />
+    <Content Include="admin\images\filetype\docx.gif" />
+    <Content Include="admin\images\filetype\fla.gif" />
+    <Content Include="admin\images\filetype\flv.gif" />
+    <Content Include="admin\images\filetype\gif.gif" />
+    <Content Include="admin\images\filetype\htm.gif" />
+    <Content Include="admin\images\filetype\img.gif" />
+    <Content Include="admin\images\filetype\iso.gif" />
+    <Content Include="admin\images\filetype\jpg.gif" />
+    <Content Include="admin\images\filetype\js.gif" />
+    <Content Include="admin\images\filetype\mdb.gif" />
+    <Content Include="admin\images\filetype\mp3.gif" />
+    <Content Include="admin\images\filetype\msi.gif" />
+    <Content Include="admin\images\filetype\pdf.gif" />
+    <Content Include="admin\images\filetype\png.gif" />
+    <Content Include="admin\images\filetype\pps.gif" />
+    <Content Include="admin\images\filetype\ppt.gif" />
+    <Content Include="admin\images\filetype\pptx.gif" />
+    <Content Include="admin\images\filetype\psd.gif" />
+    <Content Include="admin\images\filetype\rar.gif" />
+    <Content Include="admin\images\filetype\rm.gif" />
+    <Content Include="admin\images\filetype\rtf.gif" />
+    <Content Include="admin\images\filetype\sql.gif" />
+    <Content Include="admin\images\filetype\swf.gif" />
+    <Content Include="admin\images\filetype\txt.gif" />
+    <Content Include="admin\images\filetype\unknown.gif" />
+    <Content Include="admin\images\filetype\wav.gif" />
+    <Content Include="admin\images\filetype\wmv.gif" />
+    <Content Include="admin\images\filetype\xls.gif" />
+    <Content Include="admin\images\filetype\xlsx.gif" />
+    <Content Include="admin\images\filetype\xml.gif" />
+    <Content Include="admin\images\filetype\zip.gif" />
+    <Content Include="admin\images\fillup.gif" />
+    <Content Include="admin\images\flower.jpg" />
+    <Content Include="admin\images\folder.gif" />
+    <Content Include="admin\images\folders.gif" />
+    <Content Include="admin\images\folders_hidden.gif" />
+    <Content Include="admin\images\folder_hidden.gif" />
+    <Content Include="admin\images\have.png" />
+    <Content Include="admin\images\icon1.gif" />
+    <Content Include="admin\images\icon2.gif" />
+    <Content Include="admin\images\icon32\role.gif" />
+    <Content Include="admin\images\icon32\sites.gif" />
+    <Content Include="admin\images\icon32\sort.gif" />
+    <Content Include="admin\images\icon32\sys.gif" />
+    <Content Include="admin\images\icon32\users.gif" />
+    <Content Include="admin\images\install.gif" />
+    <Content Include="admin\images\jtbg.png" />
+    <Content Include="admin\images\left1.gif" />
+    <Content Include="admin\images\left_main.gif" />
+    <Content Include="admin\images\left_menubg.gif" />
+    <Content Include="admin\images\left_top.gif" />
+    <Content Include="admin\images\left_yy.gif" />
+    <Content Include="admin\images\loadout.gif" />
+    <Content Include="admin\images\login_bu01.gif" />
+    <Content Include="admin\images\login_foot.jpg" />
+    <Content Include="admin\images\login_head.jpg" />
+    <Content Include="admin\images\login_line01.gif" />
+    <Content Include="admin\images\login_line02.gif" />
+    <Content Include="admin\images\login_logo.jpg" />
+    <Content Include="admin\images\login_pic.jpg" />
+    <Content Include="admin\images\login_textfiled01.gif" />
+    <Content Include="admin\images\login_textfiled02.gif" />
+    <Content Include="admin\images\logo.gif" />
+    <Content Include="admin\images\main_line.gif" />
+    <Content Include="admin\images\menubg.gif" />
+    <Content Include="admin\images\more.gif" />
+    <Content Include="admin\images\nav.gif" />
+    <Content Include="admin\images\nav1.gif" />
+    <Content Include="admin\images\nav1.png" />
+    <Content Include="admin\images\nav2.gif" />
+    <Content Include="admin\images\nav3.gif" />
+    <Content Include="admin\images\newapp.gif" />
+    <Content Include="admin\images\no.png" />
+    <Content Include="admin\images\noserver.gif" />
+    <Content Include="admin\images\order.gif" />
+    <Content Include="admin\images\quick.gif" />
+    <Content Include="admin\images\refresh.gif" />
+    <Content Include="admin\images\return.gif" />
+    <Content Include="admin\images\right1.gif" />
+    <Content Include="admin\images\save.gif" />
+    <Content Include="admin\images\score.gif" />
+    <Content Include="admin\images\search.gif" />
+    <Content Include="admin\images\selectbg2.png" />
+    <Content Include="admin\images\space.gif" />
+    <Content Include="admin\images\sysmenu1.gif" />
+    <Content Include="admin\images\sysmenu2.gif" />
+    <Content Include="admin\images\sysmenu3.gif" />
+    <Content Include="admin\images\systime.gif" />
+    <Content Include="admin\images\tasks.gif" />
+    <Content Include="admin\images\title.gif" />
+    <Content Include="admin\images\topbg.gif" />
+    <Content Include="admin\images\top_b.gif" />
+    <Content Include="admin\images\top_bg.gif" />
+    <Content Include="admin\images\type.gif" />
+    <Content Include="admin\images\types.gif" />
+    <Content Include="admin\images\type_hidden.gif" />
+    <Content Include="admin\images\user.gif" />
+    <Content Include="admin\images\usergroups.gif" />
+    <Content Include="admin\images\users.gif" />
+    <Content Include="admin\images\vote_co.gif" />
+    <Content Include="admin\images\website.gif" />
+    <Content Include="admin\images\websize.gif" />
+    <Content Include="admin\images\wepsite.png" />
+    <Content Include="admin\images\wms.ico" />
+    <Content Include="admin\images\xls.gif" />
+    <Content Include="admin\index.aspx" />
+    <Content Include="admin\js\admin.js" />
+    <Content Include="admin\login.aspx" />
+    <Content Include="admin\logout.aspx" />
+    <Content Include="admin\main.aspx" />
+    <Content Include="admin\sorttree.aspx" />
+    <Content Include="admin\sort\channeladd.aspx" />
+    <Content Include="admin\sort\channelmanage.aspx" />
+    <Content Include="admin\sort\sortadd.aspx" />
+    <Content Include="admin\sort\sortappadd.aspx" />
+    <Content Include="admin\sort\sortappmanage.aspx" />
+    <Content Include="admin\sort\sortdisplay.aspx" />
+    <Content Include="admin\sort\sortmanage.aspx" />
+    <Content Include="admin\sort\typeadd.aspx" />
+    <Content Include="admin\sort\typedisplay.aspx" />
+    <Content Include="admin\sort\typemanage.aspx" />
+    <Content Include="admin\swich.aspx" />
+    <Content Include="admin\sysmenu.aspx" />
+    <Content Include="admin\top.aspx" />
+    <Content Include="admin\user\creditadd.aspx" />
+    <Content Include="admin\user\creditmanage.aspx" />
+    <Content Include="admin\user\departmentadd.aspx" />
+    <Content Include="admin\user\departmentdisplay.aspx" />
+    <Content Include="admin\user\departmentmanage.aspx" />
+    <Content Include="admin\user\emailconfigmanage.aspx" />
+    <Content Include="admin\user\emailtemplate.aspx" />
+    <Content Include="admin\user\msgtemplateadd.aspx" />
+    <Content Include="admin\user\msgtemplatemanage.aspx" />
+    <Content Include="admin\user\permissionadd.aspx" />
+    <Content Include="admin\user\permissionmanage.aspx" />
+    <Content Include="admin\user\regconfigmanage.aspx" />
+    <Content Include="admin\user\roleadd.aspx" />
+    <Content Include="admin\user\roledesktop.aspx" />
+    <Content Include="admin\user\rolemanage.aspx" />
+    <Content Include="admin\user\rolemenus.aspx" />
+    <Content Include="admin\user\rolepermission.aspx" />
+    <Content Include="admin\user\rolesites.aspx" />
+    <Content Include="admin\user\rolesorts.aspx" />
+    <Content Include="admin\user\smsbalance.aspx" />
+    <Content Include="admin\user\smsconfigmanage.aspx" />
+    <Content Include="admin\user\useradd.aspx" />
+    <Content Include="admin\user\userauditing.aspx" />
+    <Content Include="admin\user\usercheckinfo.aspx" />
+    <Content Include="admin\user\usercheckmanage.aspx" />
+    <Content Include="admin\user\usergradeadd.aspx" />
+    <Content Include="admin\user\usergrademanage.aspx" />
+    <Content Include="admin\user\userimport.aspx" />
+    <Content Include="admin\user\usermanage.aspx" />
+    <Content Include="admin\user\userprofile.aspx" />
+    <Content Include="admin\user\userpwd.aspx" />
+    <Content Include="admin\user\usersearch.aspx" />
+    <Content Include="exam\admin\examadd.aspx" />
+    <Content Include="exam\admin\examadminmanage.aspx" />
+    <Content Include="exam\admin\examconfig.aspx" />
+    <Content Include="exam\admin\examexpmanage.aspx" />
+    <Content Include="exam\admin\exammanage.aspx" />
+    <Content Include="exam\admin\exammonitor.aspx" />
+    <Content Include="exam\admin\examquestionadd.aspx" />
+    <Content Include="exam\admin\examresultmanage.aspx" />
+    <Content Include="exam\admin\examresultprint.aspx" />
+    <Content Include="exam\admin\examsearch.aspx" />
+    <Content Include="exam\admin\examtopicadd.aspx" />
+    <Content Include="exam\admin\examtopicajax.aspx" />
+    <Content Include="exam\admin\examtopicmanage.aspx" />
+    <Content Include="exam\admin\examtopicrandom.aspx" />
+    <Content Include="exam\admin\examtopicselect.aspx" />
+    <Content Include="exam\admin\images\exam.png" />
+    <Content Include="exam\admin\outputpaper.aspx" />
+    <Content Include="exam\admin\questionadd.aspx" />
+    <Content Include="exam\admin\questionajax.aspx" />
+    <Content Include="exam\admin\questionimport.aspx" />
+    <Content Include="exam\admin\questionmanage.aspx" />
+    <Content Include="exam\admin\questionmove.aspx" />
+    <Content Include="exam\admin\questionselect.aspx" />
+    <Content Include="exam\admin\userexam.aspx" />
+    <Content Include="exam\admin\userexamajax.aspx" />
+    <Content Include="exam\admin\userimport.aspx" />
+    <Content Include="exam\admin\userimportajax.aspx" />
+    <Content Include="exam\admin\usersearch.aspx" />
+    <Content Include="exam\admin\userselect.aspx" />
+    <Content Include="exam\exam.aspx" />
+    <Content Include="exam\examanswer.aspx" />
+    <Content Include="exam\examhistory.aspx" />
+    <Content Include="exam\examlist.aspx" />
+    <Content Include="exam\examnote.aspx" />
+    <Content Include="exam\exampost.aspx" />
+    <Content Include="exam\exampreview.aspx" />
+    <Content Include="exam\examread.aspx" />
+    <Content Include="exam\examreadpost.aspx" />
+    <Content Include="exam\examreport.aspx" />
+    <Content Include="exam\examresult.aspx" />
+    <Content Include="exam\examsave.aspx" />
+    <Content Include="exam\examview.aspx" />
+    <Content Include="exam\favajax.aspx" />
+    <Content Include="exam\favorite.aspx" />
+    <Content Include="exam\incorrect.aspx" />
+    <Content Include="exam\index.aspx" />
+    <Content Include="exam\login.aspx" />
+    <Content Include="exam\logout.aspx" />
+    <Content Include="exam\noteajax.aspx" />
+    <Content Include="exam\questionview.aspx" />
+    <Content Include="exam\register.aspx" />
+    <Content Include="exam\test.aspx" />
+    <Content Include="exam\testpost.aspx" />
+    <Content Include="exam\testview_csk.aspx" />
+    <Content Include="exam\testview_instant.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="index.aspx" />
+    <Content Include="plugins\calendar\calendar.js" />
+    <Content Include="plugins\calendar\config.js" />
+    <Content Include="plugins\calendar\lang\en.js" />
+    <Content Include="plugins\calendar\lang\zh-cn.js" />
+    <Content Include="plugins\calendar\lang\zh-tw.js" />
+    <Content Include="plugins\calendar\My97DatePicker.htm" />
+    <Content Include="plugins\calendar\skin\datePicker.gif" />
+    <Content Include="plugins\calendar\skin\default\datepicker.css" />
+    <Content Include="plugins\calendar\skin\default\img.gif" />
+    <Content Include="plugins\calendar\skin\WdatePicker.css" />
+    <Content Include="plugins\calendar\skin\whyGreen\bg.jpg" />
+    <Content Include="plugins\calendar\skin\whyGreen\datepicker.css" />
+    <Content Include="plugins\calendar\skin\whyGreen\img.gif" />
+    <Content Include="plugins\calendar\WdatePicker.js" />
+    <Content Include="plugins\codemirror\codemirror.css" />
+    <Content Include="plugins\codemirror\codemirror.js" />
+    <Content Include="plugins\codemirror\css.js" />
+    <Content Include="plugins\codemirror\doc\docs.css" />
+    <Content Include="plugins\codemirror\htmlembedded.js" />
+    <Content Include="plugins\codemirror\htmlmixed.js" />
+    <Content Include="plugins\codemirror\javascript.js" />
+    <Content Include="plugins\codemirror\lib\codemirror.css" />
+    <Content Include="plugins\codemirror\lib\codemirror.js" />
+    <Content Include="plugins\codemirror\mode\css.js" />
+    <Content Include="plugins\codemirror\mode\htmlembedded.js" />
+    <Content Include="plugins\codemirror\mode\htmlmixed.js" />
+    <Content Include="plugins\codemirror\mode\javascript.js" />
+    <Content Include="plugins\codemirror\mode\sql.js" />
+    <Content Include="plugins\codemirror\mode\xml.js" />
+    <Content Include="plugins\codemirror\sql.js" />
+    <Content Include="plugins\codemirror\xml.js" />
+    <Content Include="plugins\dateselector\dateselector.js" />
+    <Content Include="plugins\dateselector\index.html" />
+    <Content Include="plugins\editor\kindeditor.js" />
+    <Content Include="plugins\editor\lang\ar.js" />
+    <Content Include="plugins\editor\lang\en.js" />
+    <Content Include="plugins\editor\lang\ko.js" />
+    <Content Include="plugins\editor\lang\zh_CN.js" />
+    <Content Include="plugins\editor\lang\zh_TW.js" />
+    <Content Include="plugins\editor\plugins\anchor\anchor.js" />
+    <Content Include="plugins\editor\plugins\autoheight\autoheight.js" />
+    <Content Include="plugins\editor\plugins\baidumap\baidumap.js" />
+    <Content Include="plugins\editor\plugins\baidumap\index.html" />
+    <Content Include="plugins\editor\plugins\baidumap\map.html" />
+    <Content Include="plugins\editor\plugins\clearhtml\clearhtml.js" />
+    <Content Include="plugins\editor\plugins\code\code.js" />
+    <Content Include="plugins\editor\plugins\code\prettify.css" />
+    <Content Include="plugins\editor\plugins\code\prettify.js" />
+    <Content Include="plugins\editor\plugins\emoticons\emoticons.js" />
+    <Content Include="plugins\editor\plugins\emoticons\images\0.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\1.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\10.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\100.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\101.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\102.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\103.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\104.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\105.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\106.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\107.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\108.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\109.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\11.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\110.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\111.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\112.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\113.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\114.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\115.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\116.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\117.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\118.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\119.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\12.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\120.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\121.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\122.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\123.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\124.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\125.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\126.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\127.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\128.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\129.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\13.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\130.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\131.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\132.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\133.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\134.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\14.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\15.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\16.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\17.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\18.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\19.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\2.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\20.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\21.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\22.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\23.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\24.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\25.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\26.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\27.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\28.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\29.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\3.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\30.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\31.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\32.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\33.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\34.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\35.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\36.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\37.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\38.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\39.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\4.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\40.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\41.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\42.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\43.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\44.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\45.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\46.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\47.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\48.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\49.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\5.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\50.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\51.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\52.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\53.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\54.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\55.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\56.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\57.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\58.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\59.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\6.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\60.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\61.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\62.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\63.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\64.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\65.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\66.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\67.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\68.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\69.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\7.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\70.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\71.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\72.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\73.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\74.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\75.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\76.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\77.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\78.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\79.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\8.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\80.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\81.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\82.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\83.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\84.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\85.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\86.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\87.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\88.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\89.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\9.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\90.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\91.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\92.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\93.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\94.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\95.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\96.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\97.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\98.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\99.gif" />
+    <Content Include="plugins\editor\plugins\emoticons\images\static.gif" />
+    <Content Include="plugins\editor\plugins\filemanager\filemanager.js" />
+    <Content Include="plugins\editor\plugins\filemanager\images\file-16.gif" />
+    <Content Include="plugins\editor\plugins\filemanager\images\file-64.gif" />
+    <Content Include="plugins\editor\plugins\filemanager\images\folder-16.gif" />
+    <Content Include="plugins\editor\plugins\filemanager\images\folder-64.gif" />
+    <Content Include="plugins\editor\plugins\filemanager\images\go-up.gif" />
+    <Content Include="plugins\editor\plugins\flash\flash.js" />
+    <Content Include="plugins\editor\plugins\image\image.js" />
+    <Content Include="plugins\editor\plugins\image\images\align_left.gif" />
+    <Content Include="plugins\editor\plugins\image\images\align_right.gif" />
+    <Content Include="plugins\editor\plugins\image\images\align_top.gif" />
+    <Content Include="plugins\editor\plugins\image\images\refresh.png" />
+    <Content Include="plugins\editor\plugins\insertfile\insertfile.js" />
+    <Content Include="plugins\editor\plugins\lineheight\lineheight.js" />
+    <Content Include="plugins\editor\plugins\link\link.js" />
+    <Content Include="plugins\editor\plugins\media\media.js" />
+    <Content Include="plugins\editor\plugins\multiimage\images\image.png" />
+    <Content Include="plugins\editor\plugins\multiimage\images\select-files-en.png" />
+    <Content Include="plugins\editor\plugins\multiimage\images\select-files-zh_CN.png" />
+    <Content Include="plugins\editor\plugins\multiimage\images\swfupload.swf" />
+    <Content Include="plugins\editor\plugins\multiimage\multiimage.js" />
+    <Content Include="plugins\editor\plugins\pagebreak\pagebreak.js" />
+    <Content Include="plugins\editor\plugins\plainpaste\plainpaste.js" />
+    <Content Include="plugins\editor\plugins\preview\preview.js" />
+    <Content Include="plugins\editor\plugins\quickformat\quickformat.js" />
+    <Content Include="plugins\editor\plugins\table\table.js" />
+    <Content Include="plugins\editor\plugins\template\html\1.html" />
+    <Content Include="plugins\editor\plugins\template\html\2.html" />
+    <Content Include="plugins\editor\plugins\template\html\3.html" />
+    <Content Include="plugins\editor\plugins\template\template.js" />
+    <Content Include="plugins\editor\plugins\wordpaste\wordpaste.js" />
+    <Content Include="plugins\editor\themes\common\anchor.gif" />
+    <Content Include="plugins\editor\themes\common\blank.gif" />
+    <Content Include="plugins\editor\themes\common\flash.gif" />
+    <Content Include="plugins\editor\themes\common\loading.gif" />
+    <Content Include="plugins\editor\themes\common\media.gif" />
+    <Content Include="plugins\editor\themes\common\rm.gif" />
+    <Content Include="plugins\editor\themes\default\background.png" />
+    <Content Include="plugins\editor\themes\default\default.css" />
+    <Content Include="plugins\editor\themes\default\default.png" />
+    <Content Include="plugins\editor\themes\simple\simple.css" />
+    <Content Include="plugins\error\error.htm" />
+    <Content Include="plugins\error\images\nofound.png" />
+    <Content Include="plugins\error\images\warning.jpg" />
+    <Content Include="plugins\jqchart\canvas.js" />
+    <Content Include="plugins\jqchart\demo.html" />
+    <Content Include="plugins\jqchart\jquery.jqChart.min.js" />
+    <Content Include="plugins\jquery\jquery.js" />
+    <Content Include="plugins\jsaddress\index.html" />
+    <Content Include="plugins\jsaddress\jsaddress.js" />
+    <Content Include="plugins\layer\extend\layer.ext.js" />
+    <Content Include="plugins\layer\layer.js" />
+    <Content Include="plugins\layer\skin\default\icon_ext.png" />
+    <Content Include="plugins\layer\skin\default\textbg.png" />
+    <Content Include="plugins\layer\skin\default\xubox_ico0.png" />
+    <Content Include="plugins\layer\skin\default\xubox_loading0.gif" />
+    <Content Include="plugins\layer\skin\default\xubox_loading1.gif" />
+    <Content Include="plugins\layer\skin\default\xubox_loading2.gif" />
+    <Content Include="plugins\layer\skin\default\xubox_loading3.gif" />
+    <Content Include="plugins\layer\skin\default\xubox_title0.png" />
+    <Content Include="plugins\layer\skin\layer.css" />
+    <Content Include="plugins\layer\skin\layer.ext.css" />
+    <Content Include="plugins\progressbar\demo.html" />
+    <Content Include="plugins\progressbar\images\progressbar.gif" />
+    <Content Include="plugins\progressbar\images\progressbg_black.gif" />
+    <Content Include="plugins\progressbar\images\progressbg_green.gif" />
+    <Content Include="plugins\progressbar\images\progressbg_orange.gif" />
+    <Content Include="plugins\progressbar\images\progressbg_red.gif" />
+    <Content Include="plugins\progressbar\images\progressbg_yellow.gif" />
+    <Content Include="plugins\progressbar\jquery.progressbar.js" />
+    <Content Include="plugins\progressbar\jquery.progressbar.min.js" />
+    <Content Include="plugins\swfupload\swfupload.handlers.js" />
+    <Content Include="plugins\swfupload\swfupload.js" />
+    <Content Include="plugins\swfupload\swfupload.queue.js" />
+    <Content Include="plugins\swfupload\swfupload.swf" />
+    <Content Include="plugins\ztree\img\diy\1_close.png" />
+    <Content Include="plugins\ztree\img\diy\1_open.png" />
+    <Content Include="plugins\ztree\img\diy\2.png" />
+    <Content Include="plugins\ztree\img\diy\3.png" />
+    <Content Include="plugins\ztree\img\diy\4.png" />
+    <Content Include="plugins\ztree\img\diy\5.png" />
+    <Content Include="plugins\ztree\img\diy\6.png" />
+    <Content Include="plugins\ztree\img\diy\7.png" />
+    <Content Include="plugins\ztree\img\diy\8.png" />
+    <Content Include="plugins\ztree\img\diy\9.png" />
+    <Content Include="plugins\ztree\img\line_conn.gif" />
+    <Content Include="plugins\ztree\img\loading.gif" />
+    <Content Include="plugins\ztree\img\zTreeStandard.gif" />
+    <Content Include="plugins\ztree\img\zTreeStandard.png" />
+    <Content Include="plugins\ztree\jquery.ztree.all-3.5.js" />
+    <Content Include="plugins\ztree\jquery.ztree.all-3.5.min.js" />
+    <Content Include="plugins\ztree\jquery.ztree.core-3.5.js" />
+    <Content Include="plugins\ztree\jquery.ztree.core-3.5.min.js" />
+    <Content Include="plugins\ztree\jquery.ztree.excheck-3.5.js" />
+    <Content Include="plugins\ztree\jquery.ztree.excheck-3.5.min.js" />
+    <Content Include="plugins\ztree\jquery.ztree.exedit-3.5.js" />
+    <Content Include="plugins\ztree\jquery.ztree.exedit-3.5.min.js" />
+    <Content Include="plugins\ztree\jquery.ztree.exhide-3.5.js" />
+    <Content Include="plugins\ztree\jquery.ztree.exhide-3.5.min.js" />
+    <Content Include="plugins\ztree\zTreeStyle.css" />
+    <Content Include="sites\exam\admin\css\exam.css" />
+    <Content Include="sites\exam\admin\examadd.aspx" />
+    <Content Include="sites\exam\admin\examconfig.aspx" />
+    <Content Include="sites\exam\admin\examexpmanage.aspx" />
+    <Content Include="sites\exam\admin\exammanage.aspx" />
+    <Content Include="sites\exam\admin\exammonitor.aspx" />
+    <Content Include="sites\exam\admin\examresultmanage.aspx" />
+    <Content Include="sites\exam\admin\examresultprint.aspx" />
+    <Content Include="sites\exam\admin\examsearch.aspx" />
+    <Content Include="sites\exam\admin\examtopicadd.aspx" />
+    <Content Include="sites\exam\admin\examtopicajax.aspx" />
+    <Content Include="sites\exam\admin\examtopicmanage.aspx" />
+    <Content Include="sites\exam\admin\examtopicrandom.aspx" />
+    <Content Include="sites\exam\admin\examtopicselect.aspx" />
+    <Content Include="sites\exam\admin\images\clear.gif" />
+    <Content Include="sites\exam\admin\images\create.gif" />
+    <Content Include="sites\exam\admin\images\display.gif" />
+    <Content Include="sites\exam\admin\images\doc.gif" />
+    <Content Include="sites\exam\admin\images\down.gif" />
+    <Content Include="sites\exam\admin\images\export.gif" />
+    <Content Include="sites\exam\admin\images\folders.gif" />
+    <Content Include="sites\exam\admin\images\invalidation.gif" />
+    <Content Include="sites\exam\admin\images\move.gif" />
+    <Content Include="sites\exam\admin\images\paper.gif" />
+    <Content Include="sites\exam\admin\images\preview.gif" />
+    <Content Include="sites\exam\admin\images\question.gif" />
+    <Content Include="sites\exam\admin\images\report.png" />
+    <Content Include="sites\exam\admin\images\select.gif" />
+    <Content Include="sites\exam\admin\images\state0.gif" />
+    <Content Include="sites\exam\admin\images\state1.gif" />
+    <Content Include="sites\exam\admin\images\tag.gif" />
+    <Content Include="sites\exam\admin\images\tree0.gif" />
+    <Content Include="sites\exam\admin\images\tree1.gif" />
+    <Content Include="sites\exam\admin\images\up.gif" />
+    <Content Include="sites\exam\admin\images\xls.gif" />
+    <Content Include="sites\exam\admin\outputpaper.aspx" />
+    <Content Include="sites\exam\admin\questionadd.aspx" />
+    <Content Include="sites\exam\admin\questionajax.aspx" />
+    <Content Include="sites\exam\admin\questionimport.aspx" />
+    <Content Include="sites\exam\admin\questionmanage.aspx" />
+    <Content Include="sites\exam\admin\questionmove.aspx" />
+    <Content Include="sites\exam\admin\questionselect.aspx" />
+    <Content Include="sites\exam\admin\userexam.aspx" />
+    <Content Include="sites\exam\admin\userexamajax.aspx" />
+    <Content Include="sites\exam\admin\userimport.aspx" />
+    <Content Include="sites\exam\admin\userimportajax.aspx" />
+    <Content Include="sites\exam\admin\usersearch.aspx" />
+    <Content Include="sites\exam\admin\userselect.aspx" />
+    <Content Include="sites\exam\admin\_dopost.aspx" />
+    <Content Include="sites\exam\admin\_success.aspx" />
+    <Content Include="sites\exam\exam.aspx" />
+    <Content Include="sites\exam\examanswer.aspx" />
+    <Content Include="sites\exam\examhistory.aspx" />
+    <Content Include="sites\exam\examlist.aspx" />
+    <Content Include="sites\exam\examnote.aspx" />
+    <Content Include="sites\exam\exampost.aspx" />
+    <Content Include="sites\exam\exampreview.aspx" />
+    <Content Include="sites\exam\examread.aspx" />
+    <Content Include="sites\exam\examreadpost.aspx" />
+    <Content Include="sites\exam\examreport.aspx" />
+    <Content Include="sites\exam\examresult.aspx" />
+    <Content Include="sites\exam\examsave.aspx" />
+    <Content Include="sites\exam\examview.aspx" />
+    <Content Include="sites\exam\favajax.aspx" />
+    <Content Include="sites\exam\favorite.aspx" />
+    <Content Include="sites\exam\incorrect.aspx" />
+    <Content Include="sites\exam\index.aspx" />
+    <Content Include="sites\exam\login.aspx" />
+    <Content Include="sites\exam\logout.aspx" />
+    <Content Include="sites\exam\noteajax.aspx" />
+    <Content Include="sites\exam\questionview.aspx" />
+    <Content Include="sites\exam\register.aspx" />
+    <Content Include="sites\exam\statics\css\exam.css" />
+    <Content Include="sites\exam\statics\css\index.css" />
+    <Content Include="sites\exam\statics\css\login.css" />
+    <Content Include="sites\exam\statics\css\report.css" />
+    <Content Include="sites\exam\statics\images\add_btn.jpg" />
+    <Content Include="sites\exam\statics\images\add_img_btn.jpg" />
+    <Content Include="sites\exam\statics\images\bc.png" />
+    <Content Include="sites\exam\statics\images\beginload_img.jpg" />
+    <Content Include="sites\exam\statics\images\blank.gif" />
+    <Content Include="sites\exam\statics\images\bottom.png" />
+    <Content Include="sites\exam\statics\images\btn.gif" />
+    <Content Include="sites\exam\statics\images\btn1.gif" />
+    <Content Include="sites\exam\statics\images\btn1.png" />
+    <Content Include="sites\exam\statics\images\btn2.png" />
+    <Content Include="sites\exam\statics\images\bx4.gif" />
+    <Content Include="sites\exam\statics\images\col.gif" />
+    <Content Include="sites\exam\statics\images\course-bg.png" />
+    <Content Include="sites\exam\statics\images\dialogBoxClose.gif" />
+    <Content Include="sites\exam\statics\images\dianbian.gif" />
+    <Content Include="sites\exam\statics\images\duigou.png" />
+    <Content Include="sites\exam\statics\images\exambg.png" />
+    <Content Include="sites\exam\statics\images\examjt.png" />
+    <Content Include="sites\exam\statics\images\examtype1.png" />
+    <Content Include="sites\exam\statics\images\examtype2.png" />
+    <Content Include="sites\exam\statics\images\examtype3.png" />
+    <Content Include="sites\exam\statics\images\examtype4.png" />
+    <Content Include="sites\exam\statics\images\fav.gif" />
+    <Content Include="sites\exam\statics\images\fir.png" />
+    <Content Include="sites\exam\statics\images\footer-bg.jpg" />
+    <Content Include="sites\exam\statics\images\footer-tip.png" />
+    <Content Include="sites\exam\statics\images\gbi_img.jpg" />
+    <Content Include="sites\exam\statics\images\gold.png" />
+    <Content Include="sites\exam\statics\images\gth.png" />
+    <Content Include="sites\exam\statics\images\h1.png" />
+    <Content Include="sites\exam\statics\images\halflings-white.png" />
+    <Content Include="sites\exam\statics\images\halflings.png" />
+    <Content Include="sites\exam\statics\images\header-bg.png" />
+    <Content Include="sites\exam\statics\images\header-course-bg.png" />
+    <Content Include="sites\exam\statics\images\header-shadow.png" />
+    <Content Include="sites\exam\statics\images\ic5.gif" />
+    <Content Include="sites\exam\statics\images\ic7.gif" />
+    <Content Include="sites\exam\statics\images\ic7.png" />
+    <Content Include="sites\exam\statics\images\ic8.png" />
+    <Content Include="sites\exam\statics\images\ico.png" />
+    <Content Include="sites\exam\statics\images\jplayer.blue.monday.jpg" />
+    <Content Include="sites\exam\statics\images\jplayer.blue.monday.seeking.gif" />
+    <Content Include="sites\exam\statics\images\jplayer.blue.monday.video.play.png" />
+    <Content Include="sites\exam\statics\images\jpy1.png" />
+    <Content Include="sites\exam\statics\images\jpy1a.png" />
+    <Content Include="sites\exam\statics\images\jpy1b.png" />
+    <Content Include="sites\exam\statics\images\jpy1c.png" />
+    <Content Include="sites\exam\statics\images\jthui.gif" />
+    <Content Include="sites\exam\statics\images\lamp.gif" />
+    <Content Include="sites\exam\statics\images\layout.png" />
+    <Content Include="sites\exam\statics\images\line1.png" />
+    <Content Include="sites\exam\statics\images\loadimg.jpg" />
+    <Content Include="sites\exam\statics\images\loading-16.gif" />
+    <Content Include="sites\exam\statics\images\load_headbg.jpg" />
+    <Content Include="sites\exam\statics\images\logo.png" />
+    <Content Include="sites\exam\statics\images\navbg.png" />
+    <Content Include="sites\exam\statics\images\noavatar_small.gif" />
+    <Content Include="sites\exam\statics\images\note.png" />
+    <Content Include="sites\exam\statics\images\pay-icon-2.png" />
+    <Content Include="sites\exam\statics\images\pay-icon.png" />
+    <Content Include="sites\exam\statics\images\pay-input-blue.png" />
+    <Content Include="sites\exam\statics\images\pay-input.png" />
+    <Content Include="sites\exam\statics\images\ptks.png" />
+    <Content Include="sites\exam\statics\images\repeat-x.png" />
+    <Content Include="sites\exam\statics\images\repeat-y.png" />
+    <Content Include="sites\exam\statics\images\save-tip.png" />
+    <Content Include="sites\exam\statics\images\section-shadow.png" />
+    <Content Include="sites\exam\statics\images\slide.png" />
+    <Content Include="sites\exam\statics\images\sp.png" />
+    <Content Include="sites\exam\statics\images\sprite.png" />
+    <Content Include="sites\exam\statics\images\tb3.png" />
+    <Content Include="sites\exam\statics\images\tit3.gif" />
+    <Content Include="sites\exam\statics\images\top.jpg" />
+    <Content Include="sites\exam\statics\images\trbg.png" />
+    <Content Include="sites\exam\statics\images\userface02.png" />
+    <Content Include="sites\exam\statics\images\zwbz.gif" />
+    <Content Include="sites\exam\statics\js\exam.js" />
+    <Content Include="sites\exam\statics\js\iepng.js" />
+    <Content Include="sites\exam\statics\js\jquery-1.8.2.min.js" />
+    <Content Include="sites\exam\statics\js\jquery-ui.min.js" />
+    <Content Include="sites\exam\statics\js\jquery.form.js" />
+    <Content Include="sites\exam\statics\js\jquery.nicescroll.min.js" />
+    <Content Include="sites\exam\statics\js\popup.js" />
+    <Content Include="sites\exam\test.aspx" />
+    <Content Include="sites\exam\testpost.aspx" />
+    <Content Include="sites\exam\testview_csk.aspx" />
+    <Content Include="sites\exam\testview_instant.aspx" />
+    <Content Include="sites\exam\_footer.aspx" />
+    <Content Include="sites\exam\_header.aspx" />
+    <Content Include="sites\exam\_iehack.aspx" />
+    <Content Include="sites\exam\_limitkey.aspx" />
+    <Content Include="tools\filemanagerajax.aspx" />
+    <Content Include="tools\smsverify.aspx" />
+    <Content Include="tools\uploadajax.aspx" />
+    <Content Include="tools\userajax.aspx" />
+    <Content Include="tools\verify.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin\images\userxls.xls" />
+    <Content Include="admin\site.config" />
+    <Content Include="cache\views.config" />
+    <Content Include="config\exam.config" />
+    <Content Include="config\reg.config" />
+    <Content Include="config\sys.config" />
+    <Content Include="datas\FP_Exam.config" />
+    <Content Include="exam\admin\images\exampaper_a3.doc" />
+    <Content Include="exam\admin\images\exampaper_a4.doc" />
+    <Content Include="exam\admin\images\examreport.doc" />
+    <Content Include="exam\admin\images\examuser.xls" />
+    <Content Include="exam\admin\images\import.xls" />
+    <Content Include="exam\app.config" />
+    <Content Include="exam\site.config" />
+    <Content Include="plugins\calendar\plugin.config" />
+    <Content Include="plugins\codemirror\plugin.config" />
+    <Content Include="plugins\dateselector\plugin.config" />
+    <Content Include="plugins\editor\plugin.config" />
+    <Content Include="plugins\error\plugin.config" />
+    <Content Include="plugins\jqchart\plugin.config" />
+    <Content Include="plugins\jquery\plugin.config" />
+    <Content Include="plugins\jsaddress\plugin.config" />
+    <Content Include="plugins\layer\plugin.config" />
+    <Content Include="plugins\progressbar\plugin.config" />
+    <Content Include="plugins\swfupload\plugin.config" />
+    <Content Include="plugins\ztree\plugin.config" />
+    <Content Include="sites\exam\site.config" />
+    <Content Include="sites\exam\statics\images\examtype.psd" />
+    <Content Include="sites\exam\statics\images\logo.psd" />
+    <Content Include="sites\exam\statics\images\noavatar_small.psd" />
+    <Content Include="sites\exam\statics\images\top.psd" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FangPage.Data\FangPage.Data.csproj">
+      <Project>{4410bdfe-07e0-4440-b585-6cd3c9334c12}</Project>
+      <Name>FangPage.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.MVC\FangPage.MVC.csproj">
+      <Project>{3a383c4e-c364-4ea0-b441-4ff9d6f88e53}</Project>
+      <Name>FangPage.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS.Admin\FangPage.WMS.Admin.csproj">
+      <Project>{5bae27a4-4de2-4091-a2a5-98ec4230db90}</Project>
+      <Name>FangPage.WMS.Admin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS\FangPage.WMS.csproj">
+      <Project>{f5785018-3008-41a5-a441-3ae724a87bb5}</Project>
+      <Name>FangPage.WMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FP_Exam\FP_Exam.csproj">
+      <Project>{4733f932-0fa1-4e1e-8f1d-0505858875a2}</Project>
+      <Name>FP_Exam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51673</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51272/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

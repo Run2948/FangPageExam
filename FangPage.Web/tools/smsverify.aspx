@@ -1,0 +1,1 @@
+﻿<%@ Page Inherits="FangPage.WMS.Tools.smsverify,FangPage.WMS" %>

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5785018-3008-41A5-A441-3AE724A87BB5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FangPage.WMS</RootNamespace>
+    <AssemblyName>FangPage.WMS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.JRO">
+      <HintPath>..\Libs\Interop.JRO.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.SQLDMO">
+      <HintPath>..\Libs\Interop.SQLDMO.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="LitJSON">
+      <HintPath>..\Libs\LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminController.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AttachBll.cs" />
+    <Compile Include="BaseController.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CacheBll.cs" />
+    <Compile Include="ChannelBll.cs" />
+    <Compile Include="Controller\activationuser.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\adminmenu.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\avatar.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\changeemail.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\checkemail.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\checkmobile.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\checkrealname.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\forget.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\getpass.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\index.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\login.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\logout.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\register.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\userlog.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\userprofile.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\userpwd.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\userpwd2.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DbBll.cs" />
+    <Compile Include="DepartmentBll.cs" />
+    <Compile Include="Email.cs" />
+    <Compile Include="EmailConfigs.cs" />
+    <Compile Include="HttpModule.cs" />
+    <Compile Include="LoginController.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Model\AppInfo.cs" />
+    <Compile Include="Model\AttachInfo.cs" />
+    <Compile Include="Model\AttachType.cs" />
+    <Compile Include="Model\ChannelInfo.cs" />
+    <Compile Include="Model\CreditInfo.cs" />
+    <Compile Include="Model\Department.cs" />
+    <Compile Include="Model\DesktopInfo.cs" />
+    <Compile Include="Model\EmailConfig.cs" />
+    <Compile Include="Model\FullUserInfo.cs" />
+    <Compile Include="Model\MenuInfo.cs" />
+    <Compile Include="Model\MsgTempInfo.cs" />
+    <Compile Include="Model\Permission.cs" />
+    <Compile Include="Model\PluginConfig.cs" />
+    <Compile Include="Model\RegConfig.cs" />
+    <Compile Include="Model\RoleInfo.cs" />
+    <Compile Include="Model\SMSConfig.cs" />
+    <Compile Include="Model\SortAppInfo.cs" />
+    <Compile Include="Model\SortInfo.cs" />
+    <Compile Include="Model\SysConfig.cs" />
+    <Compile Include="Model\SysLogInfo.cs" />
+    <Compile Include="Model\TypeInfo.cs" />
+    <Compile Include="Model\UserGrade.cs" />
+    <Compile Include="Model\UserInfo.cs" />
+    <Compile Include="MsgTempBll.cs" />
+    <Compile Include="PermissionBll.cs" />
+    <Compile Include="PluginBll.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegConfigs.cs" />
+    <Compile Include="RoleBll.cs" />
+    <Compile Include="SiteBll.cs" />
+    <Compile Include="SMS.cs" />
+    <Compile Include="SMSConfigs.cs" />
+    <Compile Include="SortBll.cs" />
+    <Compile Include="SuperController.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysBll.cs" />
+    <Compile Include="SysConfigs.cs" />
+    <Compile Include="Task\Events.cs" />
+    <Compile Include="Task\IEvent.cs" />
+    <Compile Include="Task\ManagedThreadPool.cs" />
+    <Compile Include="Task\Semaphore.cs" />
+    <Compile Include="Task\TaskInfo.cs" />
+    <Compile Include="Task\TaskLog.cs" />
+    <Compile Include="Task\TaskManager.cs" />
+    <Compile Include="Tools\filemanagerajax.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\smsverify.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\swfupload.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\uploadajax.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\userajax.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tools\verify.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TypeBll.cs" />
+    <Compile Include="UpLoad.cs" />
+    <Compile Include="UserBll.cs" />
+    <Compile Include="WaterMark.cs" />
+    <Compile Include="WMSController.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WMSCookie.cs" />
+    <Compile Include="WMSKey.cs" />
+    <Compile Include="WMSUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FangPage.Data\FangPage.Data.csproj">
+      <Project>{4410bdfe-07e0-4440-b585-6cd3c9334c12}</Project>
+      <Name>FangPage.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.MVC\FangPage.MVC.csproj">
+      <Project>{3a383c4e-c364-4ea0-b441-4ff9d6f88e53}</Project>
+      <Name>FangPage.MVC</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

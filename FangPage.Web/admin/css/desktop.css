@@ -1,0 +1,59 @@
+﻿.applist li {
+	float:left;
+	margin:0 2px 5px 0;
+}
+.applist li a {
+	float:left;
+	width:64px;
+	height:64px;
+	overflow:hidden;
+	text-align:center;
+	background:url(../images/selectbg2.png) no-repeat 0 999px;
+	cursor:pointer;
+}
+.applist li a:hover {
+	color:#333;
+	background-position:0 0;
+	text-decoration:none;
+}
+.applist li a span {
+	float:left;
+	width:64px;
+	padding:40px 6px 0 0px;
+	background-repeat:no-repeat;
+	background-position:50% 5px;
+}
+.applist a:link, .appdockwin a:visited {
+	color:#666;
+	text-decoration:none;
+}
+.applist a:link, .applist a:visited {
+	color:#000;
+}
+.rightboxx {
+	padding-bottom: 0px;
+	padding-left: 10px;
+	width: 200px;
+	height:100%;
+	padding-right: 10px;
+	background: #f7f7f7;
+	float: right;
+}
+.rightboxx .grouptitle
+{
+	margin-bottom: 6px;
+}
+.rightboxx .grouptitle span {
+	padding:5px;
+	font-size: 12px;
+	font-weight:bold;
+	color:#09c;
+	font-family:tahoma, verdana, "宋体";
+}
+.rightboxx .content {
+	width:100%;
+	overflow:hidden;
+}
+.blank10 {
+	height: 10px; clear: both; overflow: hidden
+}
