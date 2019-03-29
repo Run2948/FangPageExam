@@ -1,7 +1,7 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller._examresult" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller._examresult" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FP_Exam" %>
-<%@ Import namespace="FP_Exam.Model" %>
+<%@ Import namespace="FangPage.Exam" %>
+<%@ Import namespace="FangPage.Exam.Model" %>
 
 <%@ Import namespace="System" %>
 <script runat="server">
@@ -14,7 +14,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
-	ViewBuilder.Append("    <title>成绩单打印</title>\r\n");
+	ViewBuilder.Append("    <title>成绩单打�?/title>\r\n");
 	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
 	ViewBuilder.Append("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE7\">\r\n");
 	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
@@ -92,7 +92,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            var hideNum = document.getElementsByName(hideName).length;\r\n");
 	ViewBuilder.Append("            //alert(hideNum);  \r\n");
 	ViewBuilder.Append("            for (i = 0; i < hideNum; i++) {\r\n");
-	ViewBuilder.Append("                document.getElementsByName(hideName)[i].style.display = \"none\";//打印时隐藏  \r\n");
+	ViewBuilder.Append("                document.getElementsByName(hideName)[i].style.display = \"none\";//打印时隐�? \r\n");
 	ViewBuilder.Append("            }\r\n");
 	ViewBuilder.Append("            window.print();//打印  \r\n");
 	ViewBuilder.Append("            for (i = 0; i < hideNum; i++) {\r\n");
@@ -113,7 +113,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("        <br>\r\n");
 	ViewBuilder.Append("        <br>\r\n");
 	ViewBuilder.Append("        <p class=\"MsoNormal\" align=\"center\" style=\"text-align: center\">\r\n");
-	ViewBuilder.Append("            <b><span style=\"font-size: 20pt; font-family: 宋体\">成绩单</span></b>\r\n");
+	ViewBuilder.Append("            <b><span style=\"font-size: 20pt; font-family: 宋体\">成绩�?/span></b>\r\n");
 	ViewBuilder.Append("        </p>\r\n");
 	ViewBuilder.Append("        <br>\r\n");
 	ViewBuilder.Append("        <br>\r\n");
@@ -131,7 +131,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                    </tr>\r\n");
 	ViewBuilder.Append("                    <tr style=\"height: 1.0cm\">\r\n");
 	ViewBuilder.Append("                        <td style=\"border: solid windowtext 1.0pt;width:150px;text-align:right\" class=\"auto-style1\">\r\n");
-	ViewBuilder.Append("                            <span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">考生姓名：</span>\r\n");
+	ViewBuilder.Append("                            <span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">考生姓名�?/span>\r\n");
 	ViewBuilder.Append("                        </td>\r\n");
 	ViewBuilder.Append("                        <td style=\"border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; padding: 0cm 5.4pt; border-left-style: none; border-left-color: inherit; border-left-width: medium;\">\r\n");
 	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: left\"><span lang=\"EN-US\" style=\"font-size: 10.5pt\">\r\n");
@@ -154,15 +154,15 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                    </tr>\r\n");
 	ViewBuilder.Append("                    <tr style=\"height: 1.0cm\">\r\n");
 	ViewBuilder.Append("                        <td style=\"border: solid windowtext 1.0pt;width:150px;text-align:right\" class=\"auto-style1\">\r\n");
-	ViewBuilder.Append("                            <span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">考试得分：</span>\r\n");
+	ViewBuilder.Append("                            <span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">考试得分�?/span>\r\n");
 	ViewBuilder.Append("                        </td>\r\n");
 	ViewBuilder.Append("                        <td style=\"border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; padding: 0cm 5.4pt; border-left-style: none; border-left-color: inherit; border-left-width: medium;\">\r\n");
-	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: left\"><span lang=\"EN-US\" style=\"font-size: 10.5pt\">" + (examresult.score*1.0).ToString().Trim() + "分</span></p>\r\n");
+	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: left\"><span lang=\"EN-US\" style=\"font-size: 10.5pt\">" + (examresult.score*1.0).ToString().Trim() + "�?/span></p>\r\n");
 	ViewBuilder.Append("                        </td>\r\n");
 	ViewBuilder.Append("                    </tr>\r\n");
 	ViewBuilder.Append("                    <tr style=\"height: 1.0cm\">\r\n");
 	ViewBuilder.Append("                        <td style=\"border: solid windowtext 1.0pt;width:150px;text-align:right\" class=\"auto-style1\">\r\n");
-	ViewBuilder.Append("                            <span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">答卷耗时：</span>\r\n");
+	ViewBuilder.Append("                            <span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">答卷耗时�?/span>\r\n");
 	ViewBuilder.Append("                        </td>\r\n");
 	ViewBuilder.Append("                        <td style=\"border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; padding: 0cm 5.4pt; border-left-style: none; border-left-color: inherit; border-left-width: medium;\">\r\n");
 	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: left\"><span lang=\"EN-US\" style=\"font-size: 10.5pt\">" + (examresult.utime/60+1).ToString().Trim() + "分钟</span></p>\r\n");
@@ -179,7 +179,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: center\"><span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">试卷大题</span></p>\r\n");
 	ViewBuilder.Append("                        </td>\r\n");
 	ViewBuilder.Append("                        <td style=\"border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; padding: 0cm 5.4pt; border-left-style: none; border-left-color: inherit; border-left-width: medium;\" class=\"auto-style2\">\r\n");
-	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: center\"><span lang=\"EN-US\" style=\"font-size: 10.5pt;font-weight:bold;\">错题数/总题数</span></p>\r\n");
+	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: center\"><span lang=\"EN-US\" style=\"font-size: 10.5pt;font-weight:bold;\">错题�?总题�?/span></p>\r\n");
 	ViewBuilder.Append("                        </td>\r\n");
 	ViewBuilder.Append("                        <td style=\"border-right: 1.0pt solid windowtext; border-top: 1.0pt solid windowtext; border-bottom: 1.0pt solid windowtext; padding: 0cm 5.4pt; border-left-style: none; border-left-color: inherit; border-left-width: medium;\" class=\"auto-style3\">\r\n");
 	ViewBuilder.Append("                            <p class=\"MsoNormal\" align=\"center\" style=\"text-align: center\"><span style=\"font-size: 10.5pt; font-family: 宋体;font-weight:bold;\">大题总分</span></p>\r\n");
@@ -216,14 +216,14 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            <table width=\"100%\">\r\n");
 	ViewBuilder.Append("                <tbody>\r\n");
 	ViewBuilder.Append("                    <tr>\r\n");
-	ViewBuilder.Append("                        <td style=\"font-size: 16pt; font-family: 宋体;height:100px;text-align:right;padding-right:300px;\" align=\"left\">考生签名：</td>\r\n");
+	ViewBuilder.Append("                        <td style=\"font-size: 16pt; font-family: 宋体;height:100px;text-align:right;padding-right:300px;\" align=\"left\">考生签名�?/td>\r\n");
 	ViewBuilder.Append("                    </tr>\r\n");
 	ViewBuilder.Append("                </tbody>\r\n");
 	ViewBuilder.Append("            </table>\r\n");
 	ViewBuilder.Append("            <table width=\"100%\">\r\n");
 	ViewBuilder.Append("                <tbody>\r\n");
 	ViewBuilder.Append("                    <tr>\r\n");
-	ViewBuilder.Append("                        <td style=\"font-size: 16pt; font-family: 宋体;height:30px;text-align:right;padding-right:150px;\">考试日期：" + FangPage.MVC.FPUtils.GetDate(examresult.endtime,"yyyy年MM月dd日") + "</td>\r\n");
+	ViewBuilder.Append("                        <td style=\"font-size: 16pt; font-family: 宋体;height:30px;text-align:right;padding-right:150px;\">考试日期�? + FangPage.MVC.FPUtils.GetDate(examresult.endtime,"yyyy年MM月dd�?) + "</td>\r\n");
 	ViewBuilder.Append("                    </tr>\r\n");
 	ViewBuilder.Append("                </tbody>\r\n");
 	ViewBuilder.Append("            </table>\r\n");

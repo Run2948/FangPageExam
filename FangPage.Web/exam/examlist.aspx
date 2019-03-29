@@ -1,7 +1,7 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller.examlist" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller.examlist" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FP_Exam" %>
-<%@ Import namespace="FP_Exam.Model" %>
+<%@ Import namespace="FangPage.Exam" %>
+<%@ Import namespace="FangPage.Exam.Model" %>
 
 <%@ Import namespace="FangPage.WMS" %>
 <%@ Import namespace="FangPage.WMS.Model" %>

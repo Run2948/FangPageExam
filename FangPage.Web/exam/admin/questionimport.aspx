@@ -1,12 +1,12 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller.questionimport" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller.questionimport" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FP_Exam" %>
-<%@ Import namespace="FP_Exam.Model" %>
+<%@ Import namespace="FangPage.Exam" %>
+<%@ Import namespace="FangPage.Exam.Model" %>
 
 <script runat="server">
 override protected void OnInitComplete(EventArgs e)
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：V3.8*/
+	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：V3.9*/
 	base.OnInitComplete(e);
 	int loop__id=0;
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");

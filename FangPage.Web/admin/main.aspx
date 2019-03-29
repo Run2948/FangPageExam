@@ -65,7 +65,7 @@ override protected void OnInitComplete(EventArgs e)
 	{
 	loop__id++;
 
-	ViewBuilder.Append("                            <li><a href=\"javascript:void();\" title=\"" + desktop.name.ToString().Trim() + "\" onclick=\"OpenUrl('" + desktop.lefturl.ToString().Trim() + "','" + desktop.righturl.ToString().Trim() + "')\">\r\n");
+	ViewBuilder.Append("                            <li><a href=\"javascript:void(0);\" title=\"" + desktop.name.ToString().Trim() + "\" onclick=\"OpenUrl('','" + desktop.lefturl.ToString().Trim() + "')\">\r\n");
 
 	if (desktop.icon!="")
 	{

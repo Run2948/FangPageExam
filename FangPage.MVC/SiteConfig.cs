@@ -5,6 +5,21 @@ namespace FangPage.MVC
 	// Token: 0x0200000A RID: 10
 	public class SiteConfig
 	{
+        // Token: 0x1700000C RID: 3
+		// (get) Token: 0x06000068 RID: 104 RVA: 0x000050E4 File Offset: 0x000032E4
+		// (set) Token: 0x06000069 RID: 105 RVA: 0x000050FC File Offset: 0x000032FC
+		public string notes
+		{
+			get
+			{
+				return this.m_notes;
+			}
+			set
+			{
+				this.m_notes = value;
+			}
+		}
+
 		// Token: 0x17000005 RID: 5
 		// (get) Token: 0x0600002E RID: 46 RVA: 0x00003534 File Offset: 0x00001734
 		// (set) Token: 0x0600002F RID: 47 RVA: 0x0000354C File Offset: 0x0000174C
@@ -293,6 +308,9 @@ namespace FangPage.MVC
 				this.m_roles = value;
 			}
 		}
+
+		// Token: 0x04000004 RID: 3
+		private string m_notes = string.Empty;
 
 		// Token: 0x04000004 RID: 4
 		private string m_name = "方配站点";

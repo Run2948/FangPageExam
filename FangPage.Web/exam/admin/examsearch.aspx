@@ -1,7 +1,7 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller.examsearch" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller.examsearch" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FP_Exam" %>
-<%@ Import namespace="FP_Exam.Model" %>
+<%@ Import namespace="FangPage.Exam" %>
+<%@ Import namespace="FangPage.Exam.Model" %>
 
 <script runat="server">
 override protected void OnInitComplete(EventArgs e)
