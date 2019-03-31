@@ -858,10 +858,6 @@
       <Project>{4410bdfe-07e0-4440-b585-6cd3c9334c12}</Project>
       <Name>FangPage.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FangPage.Exam\FangPage.Exam.csproj">
-      <Project>{35e21e70-fb01-448c-8d3e-7ff4c12886cc}</Project>
-      <Name>FangPage.Exam</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FangPage.MVC\FangPage.MVC.csproj">
       <Project>{3a383c4e-c364-4ea0-b441-4ff9d6f88e53}</Project>
       <Name>FangPage.MVC</Name>
@@ -873,6 +869,10 @@
     <ProjectReference Include="..\FangPage.WMS\FangPage.WMS.csproj">
       <Project>{f5785018-3008-41a5-a441-3ae724a87bb5}</Project>
       <Name>FangPage.WMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FP_Exam\FP_Exam.csproj">
+      <Project>{afe164df-50dc-4c6c-81d6-7e7d67d8460c}</Project>
+      <Name>FP_Exam</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

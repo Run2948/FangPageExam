@@ -1,7 +1,7 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller.userexam" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller.userexam" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FangPage.Exam" %>
-<%@ Import namespace="FangPage.Exam.Model" %>
+<%@ Import namespace="FP_Exam" %>
+<%@ Import namespace="FP_Exam.Model" %>
 
 <%@ Import namespace="FangPage.WMS.Model" %>
 <script runat="server">
