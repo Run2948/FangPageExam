@@ -1,42 +1,41 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Controller.login" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Web.Controller.login" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FangPage.WMS" %>
+<%@ Import namespace="FangPage.WMS.Web" %>
 <%@ Import namespace="FangPage.WMS.Model" %>
-
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：4.5*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
-	ViewBuilder.Append("<title>\r\n");
-
-	if (sysconfig.admintitle=="")
-	{
-
-	ViewBuilder.Append("    " + siteconfig.name.ToString().Trim() + "\r\n");
-
-	}
-	else
-	{
-
-	ViewBuilder.Append("    " + sysconfig.admintitle.ToString().Trim() + "\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("    登录 V" + wmsver.ToString() + " - Powered By FangPage.COM</title>\r\n");
-	ViewBuilder.Append("<meta name=\"keywords\" content=\"方配网站管理系统(WMS),方配软件技术有限公司,FangPage.Com,方配软件,网站程序,网站源码,网站建设,网建专家,网站模板,ASPX,ASP.NET\">\r\n");
-	ViewBuilder.Append("<meta name=\"description\" content=\"方配软件技术有限公司(www.fangpage.com)是一家从事专注于软件技术开发、软件集成的高新技术企业，我们的理念：专注 、执着、 努力、卓越，倾情为用户提供免费的软件技术和软件产品\">\r\n");
-	ViewBuilder.Append("<meta name=\"generator\" content=\"方配软件(http://www.fangpage.com)\">\r\n");
+	ViewBuilder.Append("<title>" + echo(pagetitle) + " V" + echo(version) + ""+(isfree==1?echo(" - Powered By FangPage.COM"):echo(""))+"</title>\r\n");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
 	ViewBuilder.Append("<meta content=\"IE=edge,chrome=1\" http-equiv=\"X-UA-Compatible\">\r\n");
-	ViewBuilder.Append("<link href=\"images/wms.ico\" type=\"image/x-icon\" rel=\"icon\">\r\n");
-	ViewBuilder.Append("<link href=\"images/wms.ico\" type=\"image/x-icon\" rel=\"shortcut icon\">\r\n");
-	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
-	ViewBuilder.Append("" + plugins("layer") + "\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/favicon.ico\" type=\"image/x-icon\" rel=\"icon\">\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/favicon.ico\" type=\"image/x-icon\" rel=\"shortcut icon\">\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("<link rel=\"stylesheet\" href=\"" + echo(plupath) + "layer/skin/layer.css\" type=\"text/css\" id=\"skinlayercss\">\r\n");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "layer/layer.js\" type=\"text/javascript\"></");
+	ViewBuilder.Append("script>\r\n");
+
+	if (isfree>0)
+	{
+	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
+	ViewBuilder.Append("    var _hmt = _hmt || [];\r\n");
+	ViewBuilder.Append("    (function () {\r\n");
+	ViewBuilder.Append("        var hm = document.createElement(\"script\");\r\n");
+	ViewBuilder.Append("        hm.src = \"//hm.baidu.com/hm.js?35483845f92e384129fb5d03f9d7c3cf\";\r\n");
+	ViewBuilder.Append("        var s = document.getElementsByTagName(\"script\")[0];\r\n");
+	ViewBuilder.Append("        s.parentNode.insertBefore(hm, s);\r\n");
+	ViewBuilder.Append("    })();\r\n");
+	ViewBuilder.Append("</");
+	ViewBuilder.Append("script>\r\n");
+	}//end if
 	ViewBuilder.Append("<style type=\"text/css\">\r\n");
 	ViewBuilder.Append("html {\r\n");
 	ViewBuilder.Append("	height:100%;\r\n");
@@ -76,9 +75,8 @@ override protected void OnInitComplete(EventArgs e)
 
 	if (ispost)
 	{
-
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
-	ViewBuilder.Append("    layer.msg('" + msg.ToString() + "', 0, 1);\r\n");
+	ViewBuilder.Append("    layer.msg('" + echo(msg) + "', 0, 1);\r\n");
 	ViewBuilder.Append("    var bar = 0;\r\n");
 	ViewBuilder.Append("    count();\r\n");
 	ViewBuilder.Append("    function count() {\r\n");
@@ -92,26 +90,24 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("    }\r\n");
 	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
-
-	}
+	}//end if
 	else
 	{
-
 	ViewBuilder.Append("<table width=\"100%\" height=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n");
 	ViewBuilder.Append("  <tr>\r\n");
-	ViewBuilder.Append("    <td align=\"center\" valign=\"bottom\" style=\"+height: 38%; _height: 32%; background: #014397 url(images/login_head.jpg) repeat-x bottom;\"><img src=\"images/login_logo.jpg\" width=\"900\" height=\"120\"></td>\r\n");
+	ViewBuilder.Append("    <td align=\"center\" valign=\"bottom\" style=\"+height: 38%; _height: 32%; background: #014397 url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_head.jpg) repeat-x bottom;\"><img src=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/login_logo.jpg\" width=\"900\" height=\"120\"></td>\r\n");
 	ViewBuilder.Append("  </tr>\r\n");
 	ViewBuilder.Append("  <tr>\r\n");
 	ViewBuilder.Append("    <td height=\"230\" align=\"center\" valign=\"top\">\r\n");
-	ViewBuilder.Append("    <form name=\"loginpost\" id=\"loginpost\" action=\"\" method=\"post\">\r\n");
+	ViewBuilder.Append("    <form name=\"loginpost\" id=\"loginpost\" action=\"login.aspx\" method=\"post\">\r\n");
 	ViewBuilder.Append("        <table width=\"680\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n");
 	ViewBuilder.Append("          <tr>\r\n");
-	ViewBuilder.Append("            <td width=\"370\" valign=\"top\"><img src=\"images/login_pic.jpg\" width=\"370\" height=\"230\"></td>\r\n");
+	ViewBuilder.Append("            <td width=\"370\" valign=\"top\"><img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_pic.jpg\" width=\"370\" height=\"230\"></td>\r\n");
 	ViewBuilder.Append("            <td>\r\n");
 	ViewBuilder.Append("                <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n");
 	ViewBuilder.Append("                <tr>\r\n");
 	ViewBuilder.Append("                  <td width=\"60\" style=\"font-size: 16px; font-weight: bold; color: #0e296a;text-align:center;\"> 用户: </td>\r\n");
-	ViewBuilder.Append("                  <td width=\"220\" align=\"left\" height=\"32\" valign=\"top\" style=\"background: url(images/login_textfiled01.gif) no-repeat;\"><input type=\"text\" name=\"username\" id=\"username\" value=\"\" class=\"login_te\"></td>\r\n");
+	ViewBuilder.Append("                  <td width=\"220\" align=\"left\" height=\"32\" valign=\"top\" style=\"background: url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_textfiled01.gif) no-repeat;\"><input type=\"text\" name=\"username\" id=\"username\" value=\"\" class=\"login_te\"></td>\r\n");
 	ViewBuilder.Append("                </tr>\r\n");
 	ViewBuilder.Append("                <tr>\r\n");
 	ViewBuilder.Append("                  <td height=\"10\"></td>\r\n");
@@ -119,40 +115,49 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                </tr>\r\n");
 	ViewBuilder.Append("                <tr>\r\n");
 	ViewBuilder.Append("                  <td style=\"font-size: 16px; font-weight: bold; color: #0e296a;text-align:center;\"> 密码: </td>\r\n");
-	ViewBuilder.Append("                  <td height=\"32\" align=\"left\" valign=\"top\" style=\"background: url(images/login_textfiled02.gif) no-repeat;\"><input type=\"password\" name=\"password\" id=\"password\" value=\"\" class=\"login_te\"></td>\r\n");
+	ViewBuilder.Append("                  <td height=\"32\" align=\"left\" valign=\"top\" style=\"background: url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_textfiled02.gif) no-repeat;\"><input type=\"password\" name=\"password\" id=\"password\" value=\"\" class=\"login_te\"></td>\r\n");
 	ViewBuilder.Append("                </tr>\r\n");
 	ViewBuilder.Append("                <tr>\r\n");
 	ViewBuilder.Append("                  <td height=\"60\">&nbsp;</td>\r\n");
 	ViewBuilder.Append("                  <td align=\"left\">\r\n");
-	ViewBuilder.Append("                      <input type=\"image\" src=\"images/login_bu01.gif\" width=\"78\" height=\"29\"> \r\n");
+	ViewBuilder.Append("                      <input type=\"image\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_bu01.gif\" width=\"78\" height=\"29\"> \r\n");
 	ViewBuilder.Append("                  </td>\r\n");
 	ViewBuilder.Append("                </tr>\r\n");
 	ViewBuilder.Append("              </table>\r\n");
 	ViewBuilder.Append("            </td>\r\n");
 	ViewBuilder.Append("          </tr>\r\n");
 	ViewBuilder.Append("        </table>\r\n");
-	ViewBuilder.Append("      </form></td>\r\n");
+	ViewBuilder.Append("      </form>\r\n");
+	ViewBuilder.Append("    </td>\r\n");
 	ViewBuilder.Append("  </tr>\r\n");
 	ViewBuilder.Append("  <tr>\r\n");
-	ViewBuilder.Append("    <td align=\"center\" valign=\"top\" style=\"+height: 38%; _height: 32%; background: #0d296a url(images/login_foot.jpg) repeat-x top; color: #ffffff;\">\r\n");
+	ViewBuilder.Append("    <td align=\"center\" valign=\"top\" style=\"+height: 38%; _height: 32%; background: #0d296a url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_foot.jpg) repeat-x top; color: #ffffff;\">\r\n");
 	ViewBuilder.Append("        <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n");
 	ViewBuilder.Append("        <tr>\r\n");
 	ViewBuilder.Append("          <td height=\"120\" align=\"center\" valign=\"top\" style=\"padding: 30px 0 0 0;\">\r\n");
-	ViewBuilder.Append("              <img src=\"images/login_line01.gif\">\r\n");
-	ViewBuilder.Append("              &nbsp;&nbsp;Copyright © 2013-" + verdate.ToString() + " 方配软件(<a href=\"http://www.fangpage.com\" target=\"_blank\">FangPage.Com</a>)&nbsp;&nbsp;V" + wmsver.ToString() + "&nbsp;&nbsp;\r\n");
-	ViewBuilder.Append("              <img src=\"images/login_line02.gif\">\r\n");
+	ViewBuilder.Append("              <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_line01.gif\">\r\n");
+	ViewBuilder.Append("              &nbsp;&nbsp;Copyright © " + echo(verdate) + "-" + echo(datetime,"yyyy") + " <a href=\"" + echo(siteinfo.homepage) + "\" target=\"_blank\">" + echo(siteinfo.copyright) + "</a>&nbsp;版权所有，版本:V" + echo(version) + "\r\n");
+	ViewBuilder.Append("              <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/login_line02.gif\">\r\n");
 	ViewBuilder.Append("          </td>\r\n");
 	ViewBuilder.Append("        </tr>\r\n");
 	ViewBuilder.Append("      </table>\r\n");
 	ViewBuilder.Append("    </td>\r\n");
 	ViewBuilder.Append("  </tr>\r\n");
 	ViewBuilder.Append("</table>\r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

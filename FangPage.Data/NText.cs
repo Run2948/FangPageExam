@@ -2,36 +2,36 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x0200000F RID: 15
+	// Token: 0x02000012 RID: 18
 	public sealed class NText : Attribute
 	{
-		// Token: 0x060000BE RID: 190 RVA: 0x000058A6 File Offset: 0x00003AA6
+		// Token: 0x06000116 RID: 278 RVA: 0x00002249 File Offset: 0x00000449
 		public NText()
 		{
 		}
 
-		// Token: 0x060000BF RID: 191 RVA: 0x000058B5 File Offset: 0x00003AB5
+		// Token: 0x06000117 RID: 279 RVA: 0x0000BADC File Offset: 0x00009CDC
 		public NText(bool isntext)
 		{
-			this._isntext = isntext;
+			this.m_isntext = isntext;
 		}
 
-		// Token: 0x17000012 RID: 18
-		// (get) Token: 0x060000C0 RID: 192 RVA: 0x000058CB File Offset: 0x00003ACB
-		// (set) Token: 0x060000C1 RID: 193 RVA: 0x000058D3 File Offset: 0x00003AD3
+		// Token: 0x17000024 RID: 36
+		// (get) Token: 0x06000118 RID: 280 RVA: 0x0000BAEB File Offset: 0x00009CEB
+		// (set) Token: 0x06000119 RID: 281 RVA: 0x0000BAF3 File Offset: 0x00009CF3
 		public bool IsNText
 		{
 			get
 			{
-				return this._isntext;
+				return this.m_isntext;
 			}
 			set
 			{
-				this._isntext = value;
+				this.m_isntext = value;
 			}
 		}
 
-		// Token: 0x04000017 RID: 23
-		private bool _isntext = true;
+		// Token: 0x04000025 RID: 37
+		private bool m_isntext;
 	}
 }

@@ -1,25 +1,29 @@
 <%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Admin.rolesorts" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
 <%@ Import namespace="FangPage.WMS.Admin" %>
-
 <%@ Import namespace="FangPage.WMS.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：4.5*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
 	ViewBuilder.Append("    <title>角色权限设置</title>\r\n");
-	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
-	ViewBuilder.Append("    <link rel=\"stylesheet\" type=\"text/css\" href=\"../css/admin.css\">\r\n");
-	ViewBuilder.Append("    <link href=\"../css/tab.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
-	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
-	ViewBuilder.Append("" + plugins("ztree") + "\r\n");
-	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"../js/admin.js\"></");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
+	ViewBuilder.Append("    <link rel=\"stylesheet\" type=\"text/css\" href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/admin.css\">\r\n");
+	ViewBuilder.Append("    <link href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/tab.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <link rel=\"stylesheet\" href=\"" + echo(plupath) + "ztree/zTreeStyle.css\" type=\"text/css\">\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(plupath) + "ztree/jquery.ztree.core-3.5.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(plupath) + "ztree/jquery.ztree.excheck-3.5.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/admin.js\"></");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("    <script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("        var setting = {\r\n");
@@ -42,7 +46,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            }\r\n");
 	ViewBuilder.Append("        };\r\n");
 	ViewBuilder.Append("        var zNodes = [\r\n");
-	ViewBuilder.Append("            " + zNodes.ToString() + "\r\n");
+	ViewBuilder.Append("            " + echo(zNodes) + "\r\n");
 	ViewBuilder.Append("        ];\r\n");
 	ViewBuilder.Append("        function GetCheckedAll() {\r\n");
 	ViewBuilder.Append("            var treeObj = $.fn.zTree.getZTreeObj(\"tree\");\r\n");
@@ -70,7 +74,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                GetCheckedAll();\r\n");
 	ViewBuilder.Append("                $(\"#frmpost\").submit();\r\n");
 	ViewBuilder.Append("            });\r\n");
-	ViewBuilder.Append("            PageNav(\"用户角色管理,user/rolemanage.aspx|角色权限设置,user/" + pagename.ToString() + "?rid=" + rid.ToString() + "\");\r\n");
+	ViewBuilder.Append("            PageNav(\"用户角色管理,user/rolemanage.aspx|角色栏目权限设置,user/" + echo(pagename) + "?rid=" + echo(rid) + "\");\r\n");
 	ViewBuilder.Append("        })\r\n");
 	ViewBuilder.Append("    </");
 	ViewBuilder.Append("script>\r\n");
@@ -82,10 +86,10 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            <div class=\"ntab4\">\r\n");
 	ViewBuilder.Append("                <div class=\"tabtitle\">\r\n");
 	ViewBuilder.Append("                    <ul>\r\n");
-	ViewBuilder.Append("                        <li class=\"active\"><a href=\"rolesorts.aspx?rid=" + rid.ToString() + "\">栏目权限</a> </li>\r\n");
-	ViewBuilder.Append("                        <li class=\"normal\"><a href=\"rolemenus.aspx?rid=" + rid.ToString() + "\">菜单权限</a></li>\r\n");
-	ViewBuilder.Append("                        <li class=\"normal\"><a href=\"roledesktop.aspx?rid=" + rid.ToString() + "\">桌面权限</a></li>\r\n");
-	ViewBuilder.Append("                        <li class=\"normal\"><a href=\"rolepermission.aspx?rid=" + rid.ToString() + "\">操作权限</a></li>\r\n");
+	ViewBuilder.Append("                        <li class=\"normal\"><a href=\"rolemenus.aspx?rid=" + echo(rid) + "\">菜单权限</a></li>\r\n");
+	ViewBuilder.Append("                        <li class=\"normal\"><a href=\"roledesktop.aspx?rid=" + echo(rid) + "\">桌面权限</a></li>\r\n");
+	ViewBuilder.Append("                        <li class=\"active\"><a href=\"rolesorts.aspx?rid=" + echo(rid) + "\">栏目权限</a> </li>\r\n");
+	ViewBuilder.Append("                        <li class=\"normal\"><a href=\"rolepermission.aspx?rid=" + echo(rid) + "\">操作权限</a></li>\r\n");
 	ViewBuilder.Append("                    </ul>\r\n");
 	ViewBuilder.Append("                </div>\r\n");
 	ViewBuilder.Append("            </div>\r\n");
@@ -94,7 +98,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            <table class=\"borderkuang\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\r\n");
 	ViewBuilder.Append("                <tbody>\r\n");
 	ViewBuilder.Append("                    <tr>\r\n");
-	ViewBuilder.Append("                        <td class=\"newstitle\" bgcolor=\"#ffffff\">栏目权限设置，角色：【" + roleinfo.name.ToString().Trim() + "】</td>\r\n");
+	ViewBuilder.Append("                        <td class=\"newstitle\" bgcolor=\"#ffffff\">栏目权限设置，角色：【" + echo(roleinfo.name) + "】</td>\r\n");
 	ViewBuilder.Append("                    </tr>\r\n");
 	ViewBuilder.Append("                </tbody>\r\n");
 	ViewBuilder.Append("            </table>\r\n");
@@ -126,7 +130,17 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("    </form>\r\n");
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

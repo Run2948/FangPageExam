@@ -1,52 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000048 RID: 72
+	// Token: 0x02000052 RID: 82
 	public class rolepermission : SuperController
 	{
-		// Token: 0x060000AE RID: 174 RVA: 0x0000DC44 File Offset: 0x0000BE44
-		protected override void View()
+		// Token: 0x060000C5 RID: 197 RVA: 0x0000F694 File Offset: 0x0000D894
+		protected override void Controller()
 		{
 			this.roleinfo = DbHelper.ExecuteModel<RoleInfo>(this.rid);
 			if (this.roleinfo.id == 0)
 			{
 				this.ShowErr("对不起，该角色不存在或已被删除。");
+				return;
 			}
-			else
+			if (this.ispost)
 			{
-				if (this.ispost)
+				this.roleinfo.permission = FPRequest.GetString("chkperm");
+				DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
+				if (this.roleinfo.id == this.roleid)
 				{
-					this.roleinfo.permission = FPRequest.GetString("chkperm");
-					DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
-					if (this.roleinfo.id == this.roleid)
-					{
-						base.ResetUser();
-					}
-					base.Response.Redirect(this.pagename + "?rid=" + this.rid);
+					base.ResetUser();
 				}
-				this.permisionlist = DbHelper.ExecuteList<Permission>(OrderBy.ASC);
-				base.SaveRightURL();
+				FPCache.Remove("FP_ROLELIST");
+				base.Response.Redirect(this.pagename + "?rid=" + this.rid);
 			}
+			this.permisionlist = DbHelper.ExecuteList<Permission>(OrderBy.ASC);
 		}
 
-		// Token: 0x060000AF RID: 175 RVA: 0x0000DD18 File Offset: 0x0000BF18
+		// Token: 0x060000C6 RID: 198 RVA: 0x0000F749 File Offset: 0x0000D949
 		protected bool isPermission(int id)
 		{
-			return FPUtils.InArray(id, this.roleinfo.permission);
+			return FPArray.InArray(id, this.roleinfo.permission) >= 0;
 		}
 
-		// Token: 0x040000AC RID: 172
+		// Token: 0x040000E3 RID: 227
 		protected int rid = FPRequest.GetInt("rid");
 
-		// Token: 0x040000AD RID: 173
+		// Token: 0x040000E4 RID: 228
 		protected RoleInfo roleinfo = new RoleInfo();
 
-		// Token: 0x040000AE RID: 174
+		// Token: 0x040000E5 RID: 229
 		protected List<Permission> permisionlist = new List<Permission>();
 	}
 }

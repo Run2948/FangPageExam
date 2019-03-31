@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02B876CD-4042-4120-AE44-8F8A603D5ACB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FP_Exam.Wap</RootNamespace>
+    <AssemblyName>FP_Exam.Wap</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FangPage.Common">
+      <HintPath>..\FangPage.Common\bin\Debug\FangPage.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="FangPage.Data">
+      <HintPath>..\FangPage.Data\bin\Debug\FangPage.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="FangPage.WMS.Web">
+      <HintPath>..\FangPage.WMS.Web\bin\Debug\FangPage.WMS.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\exam.cs" />
+    <Compile Include="Controller\examanswer.cs" />
+    <Compile Include="Controller\examhistory.cs" />
+    <Compile Include="Controller\examlist.cs" />
+    <Compile Include="Controller\exampost.cs" />
+    <Compile Include="Controller\examview.cs" />
+    <Compile Include="Controller\savetime.cs" />
+    <Compile Include="Controller\test.cs" />
+    <Compile Include="Controller\tiku.cs" />
+    <Compile Include="Controller\tikuview.cs" />
+    <Compile Include="Controller\_examresult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WapController\checkanswer.cs" />
+    <Compile Include="WapController\createexam.cs" />
+    <Compile Include="WapController\examhistory.cs" />
+    <Compile Include="WapController\examlist.cs" />
+    <Compile Include="WapController\loadtopicinfo.cs" />
+    <Compile Include="WapController\makenext.cs" />
+    <Compile Include="WapController\saveusertime.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FangPage.MVC\FangPage.MVC.csproj">
+      <Project>{3a383c4e-c364-4ea0-b441-4ff9d6f88e53}</Project>
+      <Name>FangPage.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS.API\FangPage.WMS.API.csproj">
+      <Project>{4bc1cb1a-9c2a-4405-8556-b6b5b2a3c48d}</Project>
+      <Name>FangPage.WMS.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS\FangPage.WMS.csproj">
+      <Project>{f5785018-3008-41a5-a441-3ae724a87bb5}</Project>
+      <Name>FangPage.WMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FP_Exam\FP_Exam.csproj">
+      <Project>{ecc4665c-d8cd-4637-b0a0-396b0f608848}</Project>
+      <Name>FP_Exam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

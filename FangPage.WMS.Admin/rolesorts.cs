@@ -1,96 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000041 RID: 65
+	// Token: 0x0200004C RID: 76
 	public class rolesorts : SuperController
 	{
-		// Token: 0x0600009F RID: 159 RVA: 0x0000D124 File Offset: 0x0000B324
-		protected override void View()
+		// Token: 0x060000B8 RID: 184 RVA: 0x0000EE74 File Offset: 0x0000D074
+		protected override void Controller()
 		{
 			this.roleinfo = DbHelper.ExecuteModel<RoleInfo>(this.rid);
 			if (this.roleinfo.id == 0)
 			{
 				this.ShowErr("对不起，该角色不存在或已被删除。");
+				return;
 			}
-			else
+			if (this.ispost)
 			{
-				if (this.ispost)
+				string @string = FPRequest.GetString("sorts");
+				string text = "";
+				foreach (string text2 in FPArray.SplitString(@string))
 				{
-					string @string = FPRequest.GetString("sorts");
-					string text = "";
-					string[] array = FPUtils.SplitString(@string);
-					int i = 0;
-					while (i < array.Length)
+					if (text != "")
 					{
-						string text2 = array[i];
-						if (text != "")
-						{
-							text += ",";
-						}
-						if (text2.Length > 1)
-						{
-							if (FPUtils.StrToInt(text2.Substring(1, text2.Length - 1)) != 0)
-							{
-								text += text2.Substring(1, text2.Length - 1);
-							}
-						}
-						IL_E4:
-						i++;
-						continue;
-						goto IL_E4;
+						text += ",";
 					}
-					this.roleinfo.sorts = text;
-					DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
-					if (this.roleinfo.id == this.roleid)
+					if (text2.Length > 1 && FPUtils.StrToInt(text2.Substring(1, text2.Length - 1)) != 0)
 					{
-						base.ResetUser();
-					}
-					base.Response.Redirect(this.pagename + "?rid=" + this.rid);
-				}
-				List<ChannelInfo> channelList = ChannelBll.GetChannelList();
-				foreach (ChannelInfo channelInfo in channelList)
-				{
-					if (this.zNodes != "")
-					{
-						this.zNodes += ",";
-					}
-					object obj = this.zNodes;
-					this.zNodes = string.Concat(new object[]
-					{
-						obj,
-						"{ id: ",
-						channelInfo.id,
-						"0, pId: 0, name: \"",
-						channelInfo.name,
-						"\",open:true, icon: \"",
-						this.webpath,
-						(this.sysconfig.adminpath == "") ? "" : (this.sysconfig.adminpath + "/"),
-						"images/sysmenu1.gif\" }"
-					});
-					string sortTree = this.GetSortTree(channelInfo.id, 0);
-					if (sortTree != "")
-					{
-						this.zNodes = this.zNodes + "," + sortTree;
+						text += text2.Substring(1, text2.Length - 1);
 					}
 				}
-				base.SaveRightURL();
+				this.roleinfo.sorts = text;
+				DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
+				if (this.roleinfo.id == this.roleid)
+				{
+					base.ResetUser();
+				}
+				FPCache.Remove("FP_ROLELIST");
+				base.Response.Redirect(this.pagename + "?rid=" + this.rid);
+			}
+			foreach (ChannelInfo channelInfo in ChannelBll.GetChannelList())
+			{
+				if (this.zNodes != "")
+				{
+					this.zNodes += ",";
+				}
+				this.zNodes = string.Concat(new object[]
+				{
+					this.zNodes,
+					"{ id: ",
+					channelInfo.id,
+					"0, pId: 0, name: \"",
+					channelInfo.name,
+					"\",open:true, icon: \"",
+					this.webpath,
+					this.sitepath,
+					"/statics/images/sysmenu1.gif\" }"
+				});
+				string sortTree = this.GetSortTree(channelInfo.id, 0);
+				if (sortTree != "")
+				{
+					this.zNodes = this.zNodes + "," + sortTree;
+				}
 			}
 		}
 
-		// Token: 0x060000A0 RID: 160 RVA: 0x0000D40C File Offset: 0x0000B60C
+		// Token: 0x060000B9 RID: 185 RVA: 0x0000F098 File Offset: 0x0000D298
 		private string GetSortTree(int channelid, int parentid)
 		{
-			SqlParam[] sqlparams = new SqlParam[]
+			List<SortInfo> list = DbHelper.ExecuteList<SortInfo>(new SqlParam[]
 			{
 				DbHelper.MakeAndWhere("channelid", channelid),
-				DbHelper.MakeAndWhere("parentid", parentid)
-			};
-			List<SortInfo> list = DbHelper.ExecuteList<SortInfo>(sqlparams);
+				DbHelper.MakeAndWhere("parentid", parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			});
 			string text = "";
 			foreach (SortInfo sortInfo in list)
 			{
@@ -99,16 +88,15 @@ namespace FangPage.WMS.Admin
 					text += ",";
 				}
 				string text2 = "";
-				if (base.ischecked(sortInfo.id, this.roleinfo.sorts) || this.roleinfo.id == 1)
+				if (FPArray.Contain(this.roleinfo.sorts, sortInfo.id))
 				{
 					text2 = "checked:true,";
 				}
 				if (sortInfo.subcounts > 0)
 				{
-					object obj = text;
 					text = string.Concat(new object[]
 					{
-						obj,
+						text,
 						"{ id: ",
 						channelid,
 						sortInfo.id,
@@ -121,8 +109,8 @@ namespace FangPage.WMS.Admin
 						text2,
 						"open:true, icon: \"",
 						this.webpath,
-						(this.sysconfig.adminpath == "") ? "" : (this.sysconfig.adminpath + "/"),
-						"images/folders.gif\" }"
+						this.sitepath,
+						"/statics/images/folders.gif\" }"
 					});
 					string sortTree = this.GetSortTree(channelid, sortInfo.id);
 					if (sortTree != "")
@@ -132,10 +120,9 @@ namespace FangPage.WMS.Admin
 				}
 				else
 				{
-					object obj = text;
 					text = string.Concat(new object[]
 					{
-						obj,
+						text,
 						"{ id: ",
 						channelid,
 						sortInfo.id,
@@ -148,21 +135,21 @@ namespace FangPage.WMS.Admin
 						text2,
 						"open:true, icon: \"",
 						this.webpath,
-						(this.sysconfig.adminpath == "") ? "" : (this.sysconfig.adminpath + "/"),
-						"images/folder.gif\" }"
+						this.sitepath,
+						"/statics/images/folder.gif\" }"
 					});
 				}
 			}
 			return text;
 		}
 
-		// Token: 0x040000A0 RID: 160
+		// Token: 0x040000D9 RID: 217
 		protected int rid = FPRequest.GetInt("rid");
 
-		// Token: 0x040000A1 RID: 161
+		// Token: 0x040000DA RID: 218
 		protected RoleInfo roleinfo = new RoleInfo();
 
-		// Token: 0x040000A2 RID: 162
+		// Token: 0x040000DB RID: 219
 		protected string zNodes = "";
 	}
 }

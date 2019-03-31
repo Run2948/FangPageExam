@@ -3,15 +3,15 @@ using FangPage.Data;
 
 namespace FangPage.WMS.Model
 {
-	// Token: 0x02000015 RID: 21
+	// Token: 0x02000009 RID: 9
 	[ModelPrefix("WMS")]
 	public class AttachType
 	{
 		// Token: 0x1700001C RID: 28
-		// (get) Token: 0x06000088 RID: 136 RVA: 0x000053C4 File Offset: 0x000035C4
-		// (set) Token: 0x06000089 RID: 137 RVA: 0x000053DC File Offset: 0x000035DC
-		[PrimaryKey(true)]
+		// (get) Token: 0x06000053 RID: 83 RVA: 0x00004224 File Offset: 0x00002424
+		// (set) Token: 0x06000054 RID: 84 RVA: 0x0000422C File Offset: 0x0000242C
 		[Identity(true)]
+		[PrimaryKey(true)]
 		public int id
 		{
 			get
@@ -25,8 +25,8 @@ namespace FangPage.WMS.Model
 		}
 
 		// Token: 0x1700001D RID: 29
-		// (get) Token: 0x0600008A RID: 138 RVA: 0x000053E8 File Offset: 0x000035E8
-		// (set) Token: 0x0600008B RID: 139 RVA: 0x00005400 File Offset: 0x00003600
+		// (get) Token: 0x06000055 RID: 85 RVA: 0x00004235 File Offset: 0x00002435
+		// (set) Token: 0x06000056 RID: 86 RVA: 0x0000423D File Offset: 0x0000243D
 		public string extension
 		{
 			get
@@ -40,8 +40,8 @@ namespace FangPage.WMS.Model
 		}
 
 		// Token: 0x1700001E RID: 30
-		// (get) Token: 0x0600008C RID: 140 RVA: 0x0000540C File Offset: 0x0000360C
-		// (set) Token: 0x0600008D RID: 141 RVA: 0x00005424 File Offset: 0x00003624
+		// (get) Token: 0x06000057 RID: 87 RVA: 0x00004246 File Offset: 0x00002446
+		// (set) Token: 0x06000058 RID: 88 RVA: 0x0000424E File Offset: 0x0000244E
 		public int maxsize
 		{
 			get
@@ -55,8 +55,8 @@ namespace FangPage.WMS.Model
 		}
 
 		// Token: 0x1700001F RID: 31
-		// (get) Token: 0x0600008E RID: 142 RVA: 0x00005430 File Offset: 0x00003630
-		// (set) Token: 0x0600008F RID: 143 RVA: 0x00005448 File Offset: 0x00003648
+		// (get) Token: 0x06000059 RID: 89 RVA: 0x00004257 File Offset: 0x00002457
+		// (set) Token: 0x0600005A RID: 90 RVA: 0x0000425F File Offset: 0x0000245F
 		public string type
 		{
 			get
@@ -69,16 +69,16 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x0400003B RID: 59
+		// Token: 0x04000046 RID: 70
 		private int m_id;
 
-		// Token: 0x0400003C RID: 60
+		// Token: 0x04000047 RID: 71
 		private string m_extension = string.Empty;
 
-		// Token: 0x0400003D RID: 61
+		// Token: 0x04000048 RID: 72
 		private int m_maxsize;
 
-		// Token: 0x0400003E RID: 62
+		// Token: 0x04000049 RID: 73
 		private string m_type = string.Empty;
 	}
 }

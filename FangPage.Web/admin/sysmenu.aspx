@@ -1,33 +1,35 @@
 <%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Admin.sysmenu" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
 <%@ Import namespace="FangPage.WMS.Admin" %>
-
 <%@ Import namespace="FangPage.WMS.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：4.5*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
 	ViewBuilder.Append("    <title>系统管理菜单</title>\r\n");
-	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
 	ViewBuilder.Append("    <meta content=\"IE=edge,chrome=1\" http-equiv=\"X-UA-Compatible\">\r\n");
-	ViewBuilder.Append("    <link href=\"css/admin.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
-	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
-	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"js/admin.js\"></");
+	ViewBuilder.Append("    <link href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/admin.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(plupath) + "nicescroll/jquery.nicescroll.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/admin.js\"></");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("    <script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("        $(function () {\r\n");
 	ViewBuilder.Append("            LeftNav(\"菜单管理,global/sysmenumanage.aspx\");\r\n");
 	ViewBuilder.Append("        });\r\n");
-	ViewBuilder.Append("</");
+	ViewBuilder.Append("    </");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("</head>\r\n");
-	ViewBuilder.Append("<body style=\"background: url(images/left_main.gif)\" oncontextmenu=\"return false\" ondragstart=\"return false\">\r\n");
+	ViewBuilder.Append("<body style=\"background: url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/left_main.gif);overflow: hidden;\" oncontextmenu=\"return false\" ondragstart=\"return false\">\r\n");
 	ViewBuilder.Append("    <div class=\"left_main\">\r\n");
 	ViewBuilder.Append("        <div id=\"foldmenu2\" class=\"foldmenu\" style=\"float: right;\">\r\n");
 
@@ -35,51 +37,42 @@ override protected void OnInitComplete(EventArgs e)
 	foreach(MenuInfo menu in menulist)
 	{
 	loop__id++;
-
 	ViewBuilder.Append("            <ul \r\n");
 
 	if (loop__id==1)
 	{
-
 	ViewBuilder.Append(" class=\"open\" \r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append(">\r\n");
-	ViewBuilder.Append("                <span class=\"span_open\">" + menu.name.ToString().Trim() + "</span>\r\n");
+	ViewBuilder.Append("                <span class=\"span_open\">" + echo(menu.name) + "</span>\r\n");
 
 	loop__id=0;
 	foreach(MenuInfo childmenu in GetChildMenu(menu.id))
 	{
 	loop__id++;
 
-
 	if (childmenu.lefturl!="")
 	{
-
-	ViewBuilder.Append("                <li><a href=\"" + childmenu.lefturl.ToString().Trim() + "\">" + childmenu.name.ToString().Trim() + "</a></li>\r\n");
-
+	ViewBuilder.Append("                <li><a href=\"" + echo(childmenu.lefturl) + "\">" + echo(childmenu.name) + "</a></li>\r\n");
 	}
 	else
 	{
-
-	ViewBuilder.Append("                <li><a href=\"" + childmenu.righturl.ToString().Trim() + "\" target=\"mainframe\">" + childmenu.name.ToString().Trim() + "</a></li>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	ViewBuilder.Append("                <li><a href=\"" + echo(childmenu.righturl) + "\" target=\"mainframe\">" + echo(childmenu.name) + "</a></li>\r\n");
+	}//end if
+	}//end loop
 	ViewBuilder.Append("            </ul>\r\n");
-
-	}	//end loop
-
+	}//end loop
 	ViewBuilder.Append("        </div>\r\n");
-	ViewBuilder.Append("        <script type=\"text/javascript\">\r\n");
-	ViewBuilder.Append("            window.onload = function () {\r\n");
-	ViewBuilder.Append("                myMenu2 = new FOLDMenu(\"foldmenu2\");\r\n");
-	ViewBuilder.Append("                myMenu2.init();\r\n");
-	ViewBuilder.Append("            };\r\n");
+	ViewBuilder.Append("    </div>\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\">\r\n");
+	ViewBuilder.Append("        window.onload = function () {\r\n");
+	ViewBuilder.Append("            myMenu2 = new FOLDMenu(\"foldmenu2\");\r\n");
+	ViewBuilder.Append("            myMenu2.init();\r\n");
+	ViewBuilder.Append("        };\r\n");
+	ViewBuilder.Append("        $(function () {\r\n");
+	ViewBuilder.Append("            $(window).trigger(\"resize\");\r\n");
+	ViewBuilder.Append("            $(\"body\").niceScroll({ cursorcolor: \"#ccc\", cursorwidth: 5 });\r\n");
+	ViewBuilder.Append("        })\r\n");
 	ViewBuilder.Append("        </");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("        <script type=\"text/javascript\">\r\n");
@@ -122,9 +115,9 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            }\r\n");
 	ViewBuilder.Append("            FOLDMenu.prototype.openMenu = function (submenu) {\r\n");
 	ViewBuilder.Append("                var fullHeight = submenu.getElementsByTagName(\"span\")[0].offsetHeight;\r\n");
-	ViewBuilder.Append("                var allmenu= this.menu.getElementsByTagName(\"ul\");\r\n");
+	ViewBuilder.Append("                var allmenu = this.menu.getElementsByTagName(\"ul\");\r\n");
 	ViewBuilder.Append("                for (var i = 0; i < allmenu.length; i++) {\r\n");
-	ViewBuilder.Append("                   allmenu[i].className='';\r\n");
+	ViewBuilder.Append("                    allmenu[i].className = '';\r\n");
 	ViewBuilder.Append("                }\r\n");
 	ViewBuilder.Append("                var links = submenu.getElementsByTagName(\"a\");\r\n");
 	ViewBuilder.Append("                for (var i = 0; i < links.length; i++) {\r\n");
@@ -172,12 +165,19 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            }\r\n");
 	ViewBuilder.Append("        </");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("    </div>\r\n");
-	ViewBuilder.Append("    <div>\r\n");
-	ViewBuilder.Append("    </div>\r\n");
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

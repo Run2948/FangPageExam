@@ -2,36 +2,36 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x02000014 RID: 20
+	// Token: 0x02000016 RID: 22
 	public sealed class BindField : Attribute
 	{
-		// Token: 0x060000DB RID: 219 RVA: 0x00005DC5 File Offset: 0x00003FC5
+		// Token: 0x0600012F RID: 303 RVA: 0x0000C011 File Offset: 0x0000A211
 		public BindField()
 		{
 		}
 
-		// Token: 0x060000DC RID: 220 RVA: 0x00005DD4 File Offset: 0x00003FD4
+		// Token: 0x06000130 RID: 304 RVA: 0x0000C020 File Offset: 0x0000A220
 		public BindField(bool isbind)
 		{
-			this._isBind = isbind;
+			this.m_isbind = isbind;
 		}
 
-		// Token: 0x1700001F RID: 31
-		// (get) Token: 0x060000DD RID: 221 RVA: 0x00005DEA File Offset: 0x00003FEA
-		// (set) Token: 0x060000DE RID: 222 RVA: 0x00005DF2 File Offset: 0x00003FF2
+		// Token: 0x17000031 RID: 49
+		// (get) Token: 0x06000131 RID: 305 RVA: 0x0000C036 File Offset: 0x0000A236
+		// (set) Token: 0x06000132 RID: 306 RVA: 0x0000C03E File Offset: 0x0000A23E
 		public bool IsBind
 		{
 			get
 			{
-				return this._isBind;
+				return this.m_isbind;
 			}
 			set
 			{
-				this._isBind = value;
+				this.m_isbind = value;
 			}
 		}
 
-		// Token: 0x04000027 RID: 39
-		private bool _isBind = true;
+		// Token: 0x04000035 RID: 53
+		private bool m_isbind = true;
 	}
 }

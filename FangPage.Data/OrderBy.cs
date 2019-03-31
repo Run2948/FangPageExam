@@ -2,12 +2,12 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x02000011 RID: 17
+	// Token: 0x02000013 RID: 19
 	public enum OrderBy
 	{
-		// Token: 0x0400001B RID: 27
+		// Token: 0x04000027 RID: 39
 		DESC,
-		// Token: 0x0400001C RID: 28
+		// Token: 0x04000028 RID: 40
 		ASC
 	}
 }

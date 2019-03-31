@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000050 RID: 80
+	// Token: 0x02000059 RID: 89
 	public class msgtemplatemanage : SuperController
 	{
-		// Token: 0x060000C3 RID: 195 RVA: 0x0000EC08 File Offset: 0x0000CE08
-		protected override void View()
+		// Token: 0x060000D8 RID: 216 RVA: 0x00010C10 File Offset: 0x0000EE10
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
-				string @string = FPRequest.GetString("chkid");
-				DbHelper.ExecuteDelete<MsgTempInfo>(@string);
+				DbHelper.ExecuteDelete<MsgTempInfo>(FPRequest.GetString("chkid"));
 			}
 			if (this.type == 1)
 			{
@@ -34,13 +34,12 @@ namespace FangPage.WMS.Admin
 			{
 				sqlParam
 			});
-			base.SaveRightURL();
 		}
 
-		// Token: 0x040000C1 RID: 193
+		// Token: 0x040000F8 RID: 248
 		protected int type = FPRequest.GetInt("type");
 
-		// Token: 0x040000C2 RID: 194
+		// Token: 0x040000F9 RID: 249
 		protected List<MsgTempInfo> msgtemplatelist = new List<MsgTempInfo>();
 	}
 }

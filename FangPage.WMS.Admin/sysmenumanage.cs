@@ -3,63 +3,52 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200001A RID: 26
+	// Token: 0x02000021 RID: 33
 	public class sysmenumanage : SuperController
 	{
-		// Token: 0x0600003E RID: 62 RVA: 0x00005E4C File Offset: 0x0000404C
-		protected override void View()
+		// Token: 0x0600004E RID: 78 RVA: 0x00006F2C File Offset: 0x0000512C
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
 				if (this.action == "delete")
 				{
-					SqlParam[] sqlparams = new SqlParam[]
+					SqlParam sqlParam = DbHelper.MakeAndWhere("id", WhereType.In, FPRequest.GetString("chkdel"));
+					DbHelper.ExecuteDelete<MenuInfo>(new SqlParam[]
 					{
-						DbHelper.MakeAndWhere("system", WhereType.NotEqual, 1),
-						DbHelper.MakeAndWhere("id", WhereType.In, FPRequest.GetString("chkdel"))
-					};
-					DbHelper.ExecuteDelete<MenuInfo>(sqlparams);
-				}
-				else if (this.action == "desk")
-				{
-					int[] array = FPUtils.SplitInt(FPRequest.GetString("chkdel"));
-					foreach (int id in array)
-					{
-						MenuInfo menuInfo = DbHelper.ExecuteModel<MenuInfo>(id);
-						DbHelper.ExecuteInsert<DesktopInfo>(new DesktopInfo
-						{
-							name = menuInfo.name,
-							lefturl = menuInfo.lefturl,
-							righturl = menuInfo.righturl
-						});
-					}
+						sqlParam
+					});
+					FPCache.Remove("FP_MENULIST");
 				}
 				base.Response.Redirect("sysmenumanage.aspx");
 			}
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", 0);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			this.menulist = DbHelper.ExecuteList<MenuInfo>(orderby, new SqlParam[]
+			SqlParam[] sqlparams = new SqlParam[]
 			{
-				sqlParam
-			});
-			base.SaveRightURL();
+				DbHelper.MakeOrWhere("(platform", "SYSTEM"),
+				DbHelper.MakeOrWhere("platform)", this.sysconfig.platform),
+				DbHelper.MakeAndWhere("parentid", 0),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			};
+			this.menulist = DbHelper.ExecuteList<MenuInfo>(sqlparams);
 		}
 
-		// Token: 0x0600003F RID: 63 RVA: 0x00005FB4 File Offset: 0x000041B4
+		// Token: 0x0600004F RID: 79 RVA: 0x00006FF4 File Offset: 0x000051F4
 		protected List<MenuInfo> GetChildMenu(int parentid)
 		{
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", parentid);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			return DbHelper.ExecuteList<MenuInfo>(orderby, new SqlParam[]
+			return DbHelper.ExecuteList<MenuInfo>(new SqlParam[]
 			{
-				sqlParam
+				DbHelper.MakeOrWhere("(platform", "SYSTEM"),
+				DbHelper.MakeOrWhere("platform)", this.sysconfig.platform),
+				DbHelper.MakeAndWhere("parentid", parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
 			});
 		}
 
-		// Token: 0x04000034 RID: 52
+		// Token: 0x0400004E RID: 78
 		protected List<MenuInfo> menulist = new List<MenuInfo>();
 	}
 }

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{392BC7CB-59DB-44BD-B24E-88E586565E83}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FP_Course</RootNamespace>
+    <AssemblyName>FP_Course</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\chapter_add.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\course_add.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\course_list.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\course_manage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\course_video.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\course_view.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\video_add.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controller\video_manage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Model\ChapterInfo.cs" />
+    <Compile Include="Model\CourseInfo.cs" />
+    <Compile Include="Model\VideoInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WapController\course_search.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WapController\course_sortlist.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FangPage.Common\FangPage.Common.csproj">
+      <Project>{6158473b-9796-4d2e-8393-78e5cbcfe94b}</Project>
+      <Name>FangPage.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.Data\FangPage.Data.csproj">
+      <Project>{4410bdfe-07e0-4440-b585-6cd3c9334c12}</Project>
+      <Name>FangPage.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.MVC\FangPage.MVC.csproj">
+      <Project>{3a383c4e-c364-4ea0-b441-4ff9d6f88e53}</Project>
+      <Name>FangPage.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS.API\FangPage.WMS.API.csproj">
+      <Project>{4bc1cb1a-9c2a-4405-8556-b6b5b2a3c48d}</Project>
+      <Name>FangPage.WMS.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS.Web\FangPage.WMS.Web.csproj">
+      <Project>{7891545a-d376-4489-aa05-1e51d094c049}</Project>
+      <Name>FangPage.WMS.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FangPage.WMS\FangPage.WMS.csproj">
+      <Project>{f5785018-3008-41a5-a441-3ae724a87bb5}</Project>
+      <Name>FangPage.WMS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

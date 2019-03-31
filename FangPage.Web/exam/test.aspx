@@ -1,48 +1,36 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller.test" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller.test" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FangPage.Exam" %>
-<%@ Import namespace="FangPage.Exam.Model" %>
-
+<%@ Import namespace="FP_Exam" %>
+<%@ Import namespace="FP_Exam.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：V3.8*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"zh-CN\" lang=\"zh-CN\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
-	ViewBuilder.Append("<title>\r\n");
-
-	if (testtype==1)
-	{
-
-	ViewBuilder.Append(" 专项智能练习 \r\n");
-
-	}
-	else
-	{
-
-	ViewBuilder.Append(" 快速智能练习 \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" - " + pagetitle.ToString() + "</title>\r\n");
-	ViewBuilder.Append("<link type=\"text/css\" rel=\"stylesheet\" href=\"" + webpath.ToString() + "sites/exam/statics/css/exam.css\">\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery-1.8.2.min.js\"></");
+	ViewBuilder.Append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\r\n");
+	ViewBuilder.Append("<meta name=\"renderer\" content=\"webkit\">\r\n");
+	ViewBuilder.Append("<title>自由练习|" + echo(pagetitle) + "</title>\r\n");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/favicon.ico\" type=\"image/x-icon\" rel=\"icon\">\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/favicon.ico\" type=\"image/x-icon\" rel=\"shortcut icon\">\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/exam.css\" type=\"text/css\" rel=\"stylesheet\">\r\n");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "jquery/jquery-1.8.2.min.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery-ui.min.js\"></");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "jquery-ui/js/jquery-ui-1.9.2.min.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery.form.js\"></");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "jform/jquery.form.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/popup.js\"></");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "popup/popup.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/exam.js\"></");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "nicescroll/jquery.nicescroll.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery.nicescroll.min.js\"></");
+	ViewBuilder.Append("<script src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/test.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("    if (window.Event)\r\n");
 	ViewBuilder.Append("        function nocontextmenu(e) {\r\n");
@@ -99,8 +87,6 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("    }\r\n");
 	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
-
-
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("    function nice() {\r\n");
 	ViewBuilder.Append("        window.niceObj = $(\".rnlt2\").niceScroll({ cursorcolor: \"#6E737B\", cursoropacitymin: 1, cursorwidth: \"6px\", cursorborder: \"none\", cursorborderradius: \"4px\" });\r\n");
@@ -137,10 +123,10 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("<body>\r\n");
 	ViewBuilder.Append("<div class=\"hbx1\">\r\n");
 	ViewBuilder.Append("  <div class=\"hbx2\">\r\n");
-	ViewBuilder.Append("    <div class=\"hbx3\"><img src=\"" + webpath.ToString() + "sites/exam/statics/images/top.jpg\"></div>\r\n");
+	ViewBuilder.Append("    <div class=\"hbx3\"><img src=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/top.jpg\"></div>\r\n");
 	ViewBuilder.Append("    <div class=\"hbx4\">\r\n");
-	ViewBuilder.Append("      <div class=\"fr\"><a href=\"#\" class=\"btnq2\" onclick=\"submitTest();return false;\">我要交卷</a> </div>\r\n");
-	ViewBuilder.Append("      <span class=\"theTime\" id=\"thetime\">" + thetime.ToString() + "</span><span class=\"line1\"></span><span class=\"write\">答题时间：60分钟</span></div>\r\n");
+	ViewBuilder.Append("      <div class=\"fr\"><a href=\"#\" class=\"btnq2\" onclick=\"submit();return false;\">我要交卷</a> </div>\r\n");
+	ViewBuilder.Append("      <span class=\"theTime\" id=\"thetime\">" + echo(thetime) + "</span><span class=\"line1\"></span><span class=\"write\">答题时间：" + echo(examconfig.testtime) + "分钟，姓名：" + echo(user.realname) + "</span></div>\r\n");
 	ViewBuilder.Append("  </div>\r\n");
 	ViewBuilder.Append("</div>\r\n");
 	ViewBuilder.Append("<div class=\"hbx2\">\r\n");
@@ -152,20 +138,9 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("        <li><span class=\"bg3\"></span>未答题</li>\r\n");
 	ViewBuilder.Append("      </ul>\r\n");
 	ViewBuilder.Append("      <ul class=\"rnlt2 fc\" tabindex=\"5000\" style=\"overflow-y: hidden; outline: none;\">\r\n");
-	int en = 0;
-	
-
-	loop__id=0;
-	foreach(ExamQuestion item in questionlist)
-	{
-	loop__id++;
-
-	 en = en+1;
-	
-	ViewBuilder.Append("          <li><a href=\"#" + en.ToString() + "\" id=\"fc_" + en.ToString() + "\" class=\"bg3\">" + en.ToString() + "</a></li>\r\n");
-
-	}	//end loop
-
+	for (int i = 1; i <= questionlist.Count; i++){
+	ViewBuilder.Append("<li><a href=\"#question_1_" + echo((i-1)) + "\" id=\"q_1_" + echo(i) + "\" class=\"bg3\">" + echo(i) + "</a></li>\r\n");
+	}//end for
 	ViewBuilder.Append("      </ul>\r\n");
 	ViewBuilder.Append("      <script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("          $(function () {\r\n");
@@ -175,7 +150,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                  return false;\r\n");
 	ViewBuilder.Append("              });\r\n");
 	ViewBuilder.Append("          });\r\n");
-	ViewBuilder.Append("	</");
+	ViewBuilder.Append("	 </");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("    </div>\r\n");
 	ViewBuilder.Append("    <div class=\"rnavft\"></div>\r\n");
@@ -184,224 +159,126 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("  <div class=\"wp2\">\r\n");
 	ViewBuilder.Append("    <div class=\"wp3\">\r\n");
 	ViewBuilder.Append("      <div class=\"wp4\">\r\n");
-	ViewBuilder.Append("        <h1 class=\"qtTitle\">\r\n");
-
-	if (testtype==1)
-	{
-
-	ViewBuilder.Append(" 专项智能练习 \r\n");
-
-	}
-	else
-	{
-
-	ViewBuilder.Append(" 快速智能练习 \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("</h1>\r\n");
+	ViewBuilder.Append("        <h1 class=\"qtTitle\">自由练习</h1>\r\n");
 	ViewBuilder.Append("        <div class=\"bx1 pd1m mb20\">\r\n");
 	ViewBuilder.Append("          <div>\r\n");
 	ViewBuilder.Append("            <table class=\"tab1\">\r\n");
 	ViewBuilder.Append("              <tbody>\r\n");
 	ViewBuilder.Append("                <tr>\r\n");
-	ViewBuilder.Append("                  <td>练习用户：\r\n");
-
-	if (user.realname!="")
-	{
-
-	ViewBuilder.Append("" + user.realname.ToString().Trim() + "\r\n");
-
-	}
-	else
-	{
-
-	ViewBuilder.Append("" + user.username.ToString().Trim() + "\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("</td>\r\n");
-	ViewBuilder.Append("                  <td>练习总分：100分</td>\r\n");
-	ViewBuilder.Append("                  <td>及格分数：60分</td>\r\n");
-	ViewBuilder.Append("                  <td>答题时间：60分钟</td>\r\n");
-	ViewBuilder.Append("                  <td>练习题数：" + questionlist.Count.ToString().Trim() + "题</td>\r\n");
+	ViewBuilder.Append("                  <td>考生姓名：" + echo(user.realname) + "</td>\r\n");
+	ViewBuilder.Append("                  <td>身份证号：" + echo(user.idcard) + "</td>\r\n");
+	ViewBuilder.Append("                  <td>所在部门：" + echo(user.departname) + "</td>\r\n");
+	ViewBuilder.Append("                  <td>试卷总分：100分</td>\r\n");
+	ViewBuilder.Append("                  <td>总题数：" + echo(questionlist.Count) + "题</td>\r\n");
 	ViewBuilder.Append("                </tr>\r\n");
 	ViewBuilder.Append("              </tbody>\r\n");
 	ViewBuilder.Append("            </table>\r\n");
 	ViewBuilder.Append("          </div>\r\n");
 	ViewBuilder.Append("        </div>\r\n");
 	ViewBuilder.Append("        <form id=\"testProcessForm\" name=\"testProcessForm\" action=\"testpost.aspx\" method=\"post\">\r\n");
-	ViewBuilder.Append("          <input type=\"hidden\" id=\"starttime\" name=\"starttime\" value=\"" + starttime.ToString() + "\">\r\n");
-	ViewBuilder.Append("          <input type=\"hidden\" id=\"qidlist\" name=\"qidlist\" value=\"" + qidlist.ToString() + "\">\r\n");
+	ViewBuilder.Append("          <input type=\"hidden\" id=\"starttime\" name=\"starttime\" value=\"" + echo(starttime) + "\">\r\n");
+	ViewBuilder.Append("          <input type=\"hidden\" id=\"qidlist\" name=\"qidlist\" value=\"" + echo(qidlist) + "\">\r\n");
 	ViewBuilder.Append("          <input type=\"hidden\" id=\"utime\" name=\"utime\" value=\"0\">\r\n");
 	ViewBuilder.Append("          <input type=\"hidden\" id=\"autotime\" value=\"0\">\r\n");
-	ViewBuilder.Append("          <input type=\"hidden\" id=\"examtime\" value=\"60\">\r\n");
+	ViewBuilder.Append("          <input type=\"hidden\" id=\"examtime\" value=\"" + echo(examconfig.testtime) + "\">\r\n");
 	ViewBuilder.Append("          <input type=\"hidden\" id=\"isexam\" value=\"1\">\r\n");
 	ViewBuilder.Append("            <a id=\"1\"></a>\r\n");
 	ViewBuilder.Append("            <div class=\"tit1 pd1\"></div>\r\n");
 	int perscore = 100/limit;
-	
-	ViewBuilder.Append("            <div class=\"tit1 pd1\">\r\n");
-
-	if (testtype==1)
-	{
-
-	ViewBuilder.Append(" 专项智能练习 \r\n");
-
-	}
-	else
-	{
-
-	ViewBuilder.Append(" 快速智能练习 \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("<span class=\"ft3\">(共" + limit.ToString() + "题，每题" + perscore.ToString() + "分，共100分)</span></div>\r\n");
+	ViewBuilder.Append("            <div class=\"tit1 pd1\">自由练习<span class=\"ft3\">(共" + echo(limit) + "题，每题" + echo(perscore) + "分，共100分)</span></div>\r\n");
 	int topicnum = 0;
-	
 
 	loop__id=0;
 	foreach(ExamQuestion item in questionlist)
 	{
 	loop__id++;
-
 	 topicnum = topicnum+1;
-	
 
-	if (item.type==1)
+	if (item.type=="TYPE_RADIO")
 	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("<dl id=\"question_1_" + echo(topicnum) + "\" qid=\"" + echo(item.id) + "\" class=\"st tm_zt_0\">\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
-	ViewBuilder.Append("                " + Option(item.option,item.ascount).ToString() + "\r\n");
+	ViewBuilder.Append("                " + echo(Option(item.option,item.ascount)) + "\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd class=\"dAn fc\">\r\n");
 	ViewBuilder.Append("                <span class=\"ft4 fl\">选择答案：</span>\r\n");
 	ViewBuilder.Append("                 <span class=\"fl w2 bx7\">\r\n");
+	for (int i = 0; i <= 7; i++){
 
-	loop__id=0;
-	foreach(string str in answerarr)
+	if (i<item.ascount)
 	{
-	loop__id++;
-
-
-	if (loop__id<=item.ascount)
-	{
-
-	ViewBuilder.Append("                  <label><input type=\"radio\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\" value=\"" + str.ToString() + "\">" + str.ToString() + "</label>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	ViewBuilder.Append("<label qid=\"" + echo(item.id) + "\"><input type=\"radio\" id=\"answer_1_" + echo(topicnum) + "\" name=\"answer_" + echo(item.id) + "\" value=\"" + echo(answerarr[i]) + "\">" + echo(answerarr[i]) + "</label>\r\n");
+	}//end if
+	}//end for
 	ViewBuilder.Append("                  </span>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
-	}
-	else if (item.type==2)
+	}//end if
+	else if (item.type=="TYPE_MULTIPLE")
 	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("<dl id=\"question_1_" + echo(topicnum) + "\" qid=\"" + echo(item.id) + "\" class=\"st tm_zt_0\">\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
-	ViewBuilder.Append("                " + Option(item.option,item.ascount).ToString() + "\r\n");
+	ViewBuilder.Append("                " + echo(Option(item.option,item.ascount)) + "\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd class=\"dAn fc\">\r\n");
 	ViewBuilder.Append("                <span class=\"ft4 fl\">选择答案：</span>\r\n");
 	ViewBuilder.Append("                 <span class=\"fl w2 bx7\">\r\n");
+	for (int i = 0; i <= 7; i++){
 
-	loop__id=0;
-	foreach(string str in answerarr)
+	if (i<item.ascount)
 	{
-	loop__id++;
-
-
-	if (loop__id<=item.ascount)
-	{
-
-	ViewBuilder.Append("                  <label><input type=\"checkbox\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\" value=\"" + str.ToString() + "\">" + str.ToString() + "</label>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	ViewBuilder.Append("<label qid=\"" + echo(item.id) + "\"><input type=\"checkbox\" id=\"answer_1_" + echo(topicnum) + "\" name=\"answer_" + echo(item.id) + "\" value=\"" + echo(answerarr[i]) + "\">" + echo(answerarr[i]) + "</label>\r\n");
+	}//end if
+	}//end for
 	ViewBuilder.Append("                  </span>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
-	}
-	else if (item.type==3)
+	}//end if
+	else if (item.type=="TYPE_TRUE_FALSE")
 	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("<dl id=\"question_1_" + echo(topicnum) + "\" qid=\"" + echo(item.id) + "\" class=\"st tm_zt_0\">\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd class=\"dAn fc\">\r\n");
 	ViewBuilder.Append("                <span class=\"ft4 fl\">选择答案：</span>\r\n");
 	ViewBuilder.Append("                 <span class=\"fl w2 bx7\">\r\n");
-	ViewBuilder.Append("                  <label><input type=\"radio\" id=\"" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\" value=\"Y\">正确</label>\r\n");
-	ViewBuilder.Append("                  <label><input type=\"radio\" id=\"" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\" value=\"N\">错误</label>\r\n");
+	ViewBuilder.Append("                  <label qid=\"" + echo(item.id) + "\"><input type=\"radio\" id=\"answer_1_" + echo(topicnum) + "\" name=\"answer_" + echo(item.id) + "\" value=\"Y\">正确</label>\r\n");
+	ViewBuilder.Append("                  <label qid=\"" + echo(item.id) + "\"><input type=\"radio\" id=\"answer_1_" + echo(topicnum) + "\" name=\"answer_" + echo(item.id) + "\" value=\"N\">错误</label>\r\n");
 	ViewBuilder.Append("                  </span>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
-	}
-	else if (item.type==4)
+	}//end if
+	else if (item.type=="TYPE_BLANK")
 	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + FmAnswer(item.title,item.id,topicnum).ToString() + "</p>\r\n");
+	ViewBuilder.Append("<dl class=\"st tm_zt_0\">\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(FmAnswer(item.title,item.id,topicnum)) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
-	}
-	else if (item.type==5)
+	}//end if
+	else if (item.type=="TYPE_ANSWER")
 	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_" + item.id.ToString().Trim() + "\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>问答题：</p>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("<dl class=\"st tm_zt_" + echo(item.id) + "\">\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 	ViewBuilder.Append("                <div class=\"ft4\">请在下面填写答案</div>\r\n");
-	ViewBuilder.Append("                <textarea class=\"jdt\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\"></textarea>\r\n");
+	ViewBuilder.Append("                <textarea class=\"jdt\" id=\"answer_1_" + echo(topicnum) + "\" name=\"answer_" + echo(item.id) + "\"></textarea>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
-	}
-	else if (item.type==6)
-	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_{item.id}\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>打字题：</p>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
-	ViewBuilder.Append("              </dt>\r\n");
-	ViewBuilder.Append("              <dd>\r\n");
-	ViewBuilder.Append("                <div class=\"ft4\">请在下面打字</div>\r\n");
-	ViewBuilder.Append("                <textarea class=\"jdt\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\"></textarea>\r\n");
-	ViewBuilder.Append("              </dd>\r\n");
-	ViewBuilder.Append("            </dl>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
-	ViewBuilder.Append("        <br>\r\n");
-	ViewBuilder.Append("        <div class=\"ta_c mb10\"><a href=\"#\" class=\"btnq3\" onclick=\"submitTest();return false;\">我要交卷</a></div>\r\n");
-	ViewBuilder.Append("        <div style=\"clear:both;\"></div>\r\n");
+	}//end if
+	}//end loop
+	ViewBuilder.Append("          <br>\r\n");
+	ViewBuilder.Append("         <div class=\"ta_c mb10\"><a href=\"#\" class=\"btnq3\" onclick=\"submit();return false;\">我要交卷</a></div>\r\n");
+	ViewBuilder.Append("         <div style=\"clear:both;\"></div>\r\n");
 	ViewBuilder.Append("      </form>\r\n");
 	ViewBuilder.Append("    </div>\r\n");
 	ViewBuilder.Append("    </div>\r\n");
@@ -410,7 +287,17 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("</div>\r\n");
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

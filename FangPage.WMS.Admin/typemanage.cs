@@ -4,17 +4,16 @@ using System.Text;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000035 RID: 53
+	// Token: 0x02000042 RID: 66
 	public class typemanage : AdminController
 	{
-		// Token: 0x0600007F RID: 127 RVA: 0x0000B47C File Offset: 0x0000967C
-		protected override void View()
+		// Token: 0x0600009C RID: 156 RVA: 0x0000CEF4 File Offset: 0x0000B0F4
+		protected override void Controller()
 		{
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", 0);
 			if (this.ispost)
 			{
 				if (!this.isperm)
@@ -35,26 +34,27 @@ namespace FangPage.WMS.Admin
 						DbHelper.ExecuteSql(stringBuilder.ToString());
 					}
 				}
+				FPCache.Remove("FP_TYPELIST");
 			}
-			this.typelist = DbHelper.ExecuteList<TypeInfo>(orderby, new SqlParam[]
+			SqlParam[] sqlparams = new SqlParam[]
 			{
-				sqlParam
-			});
-			base.SaveRightURL();
+				DbHelper.MakeAndWhere("parentid", 0),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			};
+			this.typelist = DbHelper.ExecuteList<TypeInfo>(sqlparams);
 		}
 
-		// Token: 0x06000080 RID: 128 RVA: 0x0000B59C File Offset: 0x0000979C
+		// Token: 0x0600009D RID: 157 RVA: 0x0000CFE4 File Offset: 0x0000B1E4
 		protected List<TypeInfo> GetChildType(int parentid)
 		{
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", parentid);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			return DbHelper.ExecuteList<TypeInfo>(orderby, new SqlParam[]
+			return DbHelper.ExecuteList<TypeInfo>(new SqlParam[]
 			{
-				sqlParam
+				DbHelper.MakeAndWhere("parentid", parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
 			});
 		}
 
-		// Token: 0x0400007F RID: 127
+		// Token: 0x040000B7 RID: 183
 		protected List<TypeInfo> typelist = new List<TypeInfo>();
 	}
 }

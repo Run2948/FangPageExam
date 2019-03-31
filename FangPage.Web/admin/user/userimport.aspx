@@ -1,30 +1,30 @@
 <%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Admin.userimport" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
 <%@ Import namespace="FangPage.WMS.Admin" %>
-
 <%@ Import namespace="FangPage.WMS.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：4.5*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
-	ViewBuilder.Append("<title>Excel表批量导入用户</title>\r\n");
-	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
-	ViewBuilder.Append("<link href=\"../css/admin.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
-	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"../js/admin.js\"></");
+	ViewBuilder.Append("<title>批量导入用户</title>\r\n");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/admin.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/admin.js\"></");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("    $(function () {\r\n");
+	ViewBuilder.Append("        PageNav(\"站点用户管理,user/usermanage.aspx|批量导入用户,user/userimport.aspx\");\r\n");
 	ViewBuilder.Append("        $(\"#btncancle\").click(function () {\r\n");
 	ViewBuilder.Append("            PageBack(\"usermanage.aspx\");\r\n");
 	ViewBuilder.Append("        })\r\n");
-	ViewBuilder.Append("        PageNav(\"站点用户管理,user/usermanage.aspx|Excel表批量导入用户,user/userimport.aspx\");\r\n");
 	ViewBuilder.Append("    });\r\n");
 	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
@@ -35,7 +35,7 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("      <table class=\"borderkuang\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\r\n");
 	ViewBuilder.Append("      <tbody>\r\n");
 	ViewBuilder.Append("        <tr>\r\n");
-	ViewBuilder.Append("          <td class=\"newstitle\" bgcolor=\"#ffffff\">Excel表批量导入用户</td>\r\n");
+	ViewBuilder.Append("          <td class=\"newstitle\" bgcolor=\"#ffffff\">批量导入用户</td>\r\n");
 	ViewBuilder.Append("        </tr>\r\n");
 	ViewBuilder.Append("      </tbody>\r\n");
 	ViewBuilder.Append("     </table>\r\n");
@@ -48,8 +48,26 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\">本地Excel用户表文件： </td>\r\n");
 	ViewBuilder.Append("                    <td>\r\n");
-	ViewBuilder.Append("                       <input id=\"uploadfile\" name=\"uploadfile\" type=\"file\">\r\n");
-	ViewBuilder.Append("                       <a href=\"../images/userxls.xls\">下载录入格式表</a>\r\n");
+	ViewBuilder.Append("                       <input id=\"uploadfile\" name=\"uploadfile\" style=\"width: 300px\" type=\"file\">\r\n");
+	ViewBuilder.Append("                       <a href=\"userxls.xls\">下载录入格式表</a>\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\">默认密码： </td>\r\n");
+	ViewBuilder.Append("                    <td>\r\n");
+	ViewBuilder.Append("                       <input type=\"text\" style=\"width: 300px\" id=\"password\" name=\"password\">&nbsp;密码为空时，将默认为123456\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\">创建部门： </td>\r\n");
+	ViewBuilder.Append("                    <td>\r\n");
+	ViewBuilder.Append("                        <input id=\"isdepart\" name=\"isdepart\" value=\"1\" checked=\"checked\" type=\"checkbox\">在没有部门时是否创建用户部门\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\">发送通知： </td>\r\n");
+	ViewBuilder.Append("                    <td>\r\n");
+	ViewBuilder.Append("                        <input id=\"sms\" name=\"sms\" value=\"1\" type=\"checkbox\">短信 &nbsp;&nbsp;&nbsp;&nbsp;<input id=\"email\" name=\"email\" value=\"1\" type=\"checkbox\">邮件\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
@@ -69,7 +87,17 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("</form>\r\n");
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

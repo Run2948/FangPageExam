@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.IO;
+using FangPage.Common;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
@@ -9,14 +12,13 @@ namespace FangPage.WMS.Admin
 	public class dbbackup : SuperController
 	{
 		// Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
-		protected override void View()
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
 				if (this.action == "delete")
 				{
-					string @string = FPRequest.GetString("chkdel");
-					foreach (string str in @string.Split(new char[]
+					foreach (string str in FPRequest.GetString("chkdel").Split(new char[]
 					{
 						','
 					}))
@@ -29,24 +31,27 @@ namespace FangPage.WMS.Admin
 				}
 				else if (this.action == "restore")
 				{
-					string backupfile = dbbackup.backuppath + "\\" + FPRequest.GetString("restore");
-					string text = DbBll.RestoreDatabase(backupfile);
-				}
-				else if (this.action == "backup")
-				{
-					string text = DbBll.BackUpDatabase();
-					if (text == string.Empty)
+					string text = DbBll.RestoreDatabase(dbbackup.backuppath + "\\" + FPRequest.GetString("restore"));
+					if (text != string.Empty)
 					{
 						this.ShowErr(text);
 						return;
 					}
 				}
+				else if (this.action == "backup")
+				{
+					string text2 = DbBll.BackUpDatabase();
+					if (text2 != string.Empty)
+					{
+						this.ShowErr(text2);
+						return;
+					}
+				}
 			}
 			this.dbfilelist = this.GetDbFileList();
-			base.SaveRightURL();
 		}
 
-		// Token: 0x06000002 RID: 2 RVA: 0x0000219C File Offset: 0x0000039C
+		// Token: 0x06000002 RID: 2 RVA: 0x00002158 File Offset: 0x00000358
 		private DataTable CreateDataTable()
 		{
 			return new DataTable
@@ -77,7 +82,7 @@ namespace FangPage.WMS.Admin
 			};
 		}
 
-		// Token: 0x06000003 RID: 3 RVA: 0x0000223C File Offset: 0x0000043C
+		// Token: 0x06000003 RID: 3 RVA: 0x000021F4 File Offset: 0x000003F4
 		public DataTable GetDbFileList()
 		{
 			DataTable dataTable = this.CreateDataTable();
@@ -87,12 +92,12 @@ namespace FangPage.WMS.Admin
 				int num = 1;
 				foreach (FileInfo fileInfo in directoryInfo.GetFiles())
 				{
-					if (fileInfo.Extension == ".config" || fileInfo.Extension == ".zip")
+					if (fileInfo.Extension == ".config" || fileInfo.Extension == ".zip" || fileInfo.Extension == ".bak")
 					{
 						DataRow dataRow = dataTable.NewRow();
 						dataRow["id"] = num;
 						dataRow["filename"] = fileInfo.Name;
-						dataRow["size"] = FPUtils.FormatBytesStr(fileInfo.Length);
+						dataRow["size"] = FPFile.FormatBytesStr(fileInfo.Length);
 						dataRow["createtime"] = fileInfo.CreationTime.ToString();
 						dataRow["fullname"] = "backup/datas/" + fileInfo.Name;
 						dataTable.Rows.Add(dataRow);
@@ -104,7 +109,7 @@ namespace FangPage.WMS.Admin
 		}
 
 		// Token: 0x04000001 RID: 1
-		private static string backuppath = FPUtils.GetMapPath(WebConfig.WebPath + "backup/datas");
+		private static string backuppath = FPFile.GetMapPath(WebConfig.WebPath + "backup/datas");
 
 		// Token: 0x04000002 RID: 2
 		protected DataTable dbfilelist = new DataTable();

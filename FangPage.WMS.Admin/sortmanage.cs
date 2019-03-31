@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000032 RID: 50
+	// Token: 0x0200003F RID: 63
 	public class sortmanage : AdminController
 	{
-		// Token: 0x06000078 RID: 120 RVA: 0x0000AAF4 File Offset: 0x00008CF4
-		protected override void View()
+		// Token: 0x06000095 RID: 149 RVA: 0x0000C69C File Offset: 0x0000A89C
+		protected override void Controller()
 		{
 			this.channellist = ChannelBll.GetChannelList();
 			if (this.channelid == 0 && this.channellist.Count > 0)
@@ -41,10 +43,9 @@ namespace FangPage.WMS.Admin
 				base.Response.Redirect("sortmanage.aspx?channelid=" + this.channelid);
 			}
 			this.sortlist = SortBll.GetSortList(this.channelid, 0);
-			base.SaveRightURL();
 		}
 
-		// Token: 0x06000079 RID: 121 RVA: 0x0000AC4C File Offset: 0x00008E4C
+		// Token: 0x06000096 RID: 150 RVA: 0x0000C7BC File Offset: 0x0000A9BC
 		protected string ShowChildSort(int parentid, string tree)
 		{
 			List<SortInfo> sortList = SortBll.GetSortList(this.channelid, parentid);
@@ -55,34 +56,15 @@ namespace FangPage.WMS.Admin
 				stringBuilder.AppendLine("<tr class=\"tlist\" onmouseover=\"curcolor=this.style.backgroundColor;this.style.backgroundColor='#cbe3f4'\" onmouseout=\"this.style.backgroundColor=curcolor\">");
 				stringBuilder.AppendLine("<td align=\"center\">" + sortInfo.id + "</td>");
 				stringBuilder.AppendLine("<td align=\"left\">" + tree);
-				string text = "";
-				if (sortInfo.hidden == 1)
-				{
-					text = "_hidden";
-				}
 				if (sortInfo.icon == "")
 				{
 					if (sortInfo.subcounts > 0)
 					{
-						sortInfo.icon = string.Concat(new string[]
-						{
-							this.webpath,
-							(this.sysconfig.adminpath == "") ? "" : (this.sysconfig.adminpath + "/"),
-							"images/folders",
-							text,
-							".gif"
-						});
+						sortInfo.icon = this.webpath + this.sitepath + "/statics/images/folders.gif";
 					}
 					else
 					{
-						sortInfo.icon = string.Concat(new string[]
-						{
-							this.webpath,
-							(this.sysconfig.adminpath == "") ? "" : (this.sysconfig.adminpath + "/"),
-							"images/folder",
-							text,
-							".gif"
-						});
+						sortInfo.icon = this.webpath + this.sitepath + "/statics/images/folder.gif";
 					}
 				}
 				stringBuilder.Append("<img src=\"" + sortInfo.icon + "\" width=\"16\" height=\"16\"  />");
@@ -133,13 +115,13 @@ namespace FangPage.WMS.Admin
 			return stringBuilder.ToString();
 		}
 
-		// Token: 0x04000073 RID: 115
+		// Token: 0x040000AB RID: 171
 		protected int channelid = FPRequest.GetInt("channelid");
 
-		// Token: 0x04000074 RID: 116
+		// Token: 0x040000AC RID: 172
 		protected List<ChannelInfo> channellist = new List<ChannelInfo>();
 
-		// Token: 0x04000075 RID: 117
+		// Token: 0x040000AD RID: 173
 		protected List<SortInfo> sortlist = new List<SortInfo>();
 	}
 }

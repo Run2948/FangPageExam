@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Web.Configuration;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Config;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000014 RID: 20
+	// Token: 0x0200001B RID: 27
 	public class sysconfigmanage : SuperController
 	{
-		// Token: 0x0600002D RID: 45 RVA: 0x00004C98 File Offset: 0x00002E98
-		protected override void View()
+		// Token: 0x0600003C RID: 60 RVA: 0x000059C4 File Offset: 0x00003BC4
+		protected override void Controller()
 		{
 			this.sysconfiginfo = SysConfigs.GetConfig();
-			this.sitelist = SiteBll.GetSiteList();
+			this.sitelist = SiteConfigs.GetSysSiteList();
 			Configuration configuration = WebConfigurationManager.OpenWebConfiguration("~");
 			if (configuration.AppSettings.Settings["sitepath"] != null)
 			{
@@ -26,21 +30,57 @@ namespace FangPage.WMS.Admin
 			{
 				this.customerror = 1;
 			}
-			this.adminsiteconfig = SiteConfigs.LoadConfig(FPUtils.GetMapPath(this.webpath + this.sysconfiginfo.adminpath + "/site.config"));
+			if (this.sysconfiginfo.admintitle == "")
+			{
+				this.sysconfiginfo.admintitle = this.siteinfo.sitetitle;
+			}
 			if (this.ispost)
 			{
-				if (!this.isperm)
-				{
-					this.ShowErr("对不起，您没有限权进行修改配置。");
-					return;
-				}
+				this.sysconfiginfo.disableie = "";
 				this.sysconfiginfo = FPRequest.GetModel<SysConfig>(this.sysconfiginfo);
-				if (this.sysconfiginfo.admintitle == "")
+				this.mainsite = FPRequest.GetString("mainsite");
+				if (this.sysconfiginfo.adminpath.ToLower() != this.sitepath.ToLower())
 				{
-					this.sysconfiginfo.admintitle = this.adminsiteconfig.sitetitle;
+					this.sysconfiginfo.adminpath = this.sitepath;
 				}
-				this.sysconfiginfo.passwordkey = WMSUtils.CreateAuthStr(10);
-				WMSCookie.WriteCookie("password", DES.Encode(this.user.password, this.sysconfiginfo.passwordkey));
+				SiteConfig siteInfo = SiteConfigs.GetSiteInfo(this.mainsite);
+				this.sysconfiginfo.platname = siteInfo.sitetitle;
+				this.siteinfo.sitetitle = this.sysconfiginfo.admintitle;
+				this.siteinfo.name = this.sysconfiginfo.admintitle;
+				string @string = FPRequest.GetString("m_platform");
+				if (@string != this.sysconfiginfo.platform)
+				{
+					SqlParam sqlParam = DbHelper.MakeAndWhere("platform", WhereType.Contain, this.sysconfiginfo.platform);
+					foreach (MenuInfo menuInfo in DbHelper.ExecuteList<MenuInfo>(new SqlParam[]
+					{
+						sqlParam
+					}))
+					{
+						DbHelper.ExecuteUpdate<MenuInfo>(new SqlParam[]
+						{
+							DbHelper.MakeUpdate("platform", FPArray.Replace(menuInfo.platform, this.sysconfiginfo.platform, @string)),
+							DbHelper.MakeAndWhere("id", menuInfo.id)
+						});
+					}
+					foreach (DesktopInfo desktopInfo in DbHelper.ExecuteList<DesktopInfo>(new SqlParam[]
+					{
+						sqlParam
+					}))
+					{
+						DbHelper.ExecuteUpdate<DesktopInfo>(new SqlParam[]
+						{
+							DbHelper.MakeUpdate("platform", FPArray.Replace(desktopInfo.platform, this.sysconfiginfo.platform, @string)),
+							DbHelper.MakeAndWhere("id", desktopInfo.id)
+						});
+					}
+					this.sysconfiginfo.platform = @string;
+				}
+				FPSerializer.Save<SiteConfig>(this.siteinfo, FPFile.GetMapPath(this.webpath + this.siteinfo.sitepath + "/site.config"));
+				if (File.Exists(FPFile.GetMapPath(this.webpath + "sites/" + this.siteinfo.sitepath + "/site.config")))
+				{
+					FPSerializer.Save<SiteConfig>(this.siteinfo, FPFile.GetMapPath(this.webpath + "sites/" + this.siteinfo.sitepath + "/site.config"));
+				}
+				FPCache.Remove("FP_SITELIST");
 				SysConfigs.SaveConfig(this.sysconfiginfo);
 				SysConfigs.ResetConfig();
 				if (FPRequest.GetInt("customerror") != this.customerror)
@@ -52,37 +92,33 @@ namespace FangPage.WMS.Admin
 					}
 					else
 					{
-						customErrorsSection.Mode = CustomErrorsMode.RemoteOnly;
+						customErrorsSection.Mode = CustomErrorsMode.On;
 					}
 				}
 				if (configuration.AppSettings.Settings["sitepath"] != null)
 				{
-					configuration.AppSettings.Settings["sitepath"].Value = FPRequest.GetString("mainsite");
+					configuration.AppSettings.Settings["sitepath"].Value = this.mainsite;
 				}
 				else
 				{
-					configuration.AppSettings.Settings.Add("sitepath", FPRequest.GetString("mainsite"));
+					configuration.AppSettings.Settings.Add("sitepath", this.mainsite);
 				}
 				configuration.Save(ConfigurationSaveMode.Modified);
 				WebConfig.ReSet();
 				base.AddMsg("更新配置成功！");
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000020 RID: 32
+		// Token: 0x0400003A RID: 58
 		protected SysConfig sysconfiginfo = new SysConfig();
 
-		// Token: 0x04000021 RID: 33
+		// Token: 0x0400003B RID: 59
 		protected List<SiteConfig> sitelist = new List<SiteConfig>();
 
-		// Token: 0x04000022 RID: 34
-		protected SiteConfig adminsiteconfig = new SiteConfig();
+		// Token: 0x0400003C RID: 60
+		protected int customerror;
 
-		// Token: 0x04000023 RID: 35
-		protected int customerror = 0;
-
-		// Token: 0x04000024 RID: 36
+		// Token: 0x0400003D RID: 61
 		protected string mainsite = "";
 	}
 }

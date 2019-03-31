@@ -1,22 +1,23 @@
 ﻿using System;
 using System.IO;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200001B RID: 27
+	// Token: 0x02000022 RID: 34
 	public class sysupdate : SuperController
 	{
-		// Token: 0x06000041 RID: 65 RVA: 0x0000600C File Offset: 0x0000420C
-		protected override void View()
+		// Token: 0x06000051 RID: 81 RVA: 0x0000706C File Offset: 0x0000526C
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
-				string mapPath = FPUtils.GetMapPath(this.webpath + "cache");
+				string mapPath = FPFile.GetMapPath(this.webpath + "cache/upgrade");
 				string fileName = Path.GetFileName(FPRequest.Files["uploadfile"].FileName);
-				string a = Path.GetExtension(fileName).ToLower();
-				if (a != ".zip")
+				if (Path.GetExtension(fileName).ToLower() != ".zip")
 				{
 					this.ShowErr("对不起，该文件不是系统更新文件类型。");
 					return;
@@ -34,18 +35,16 @@ namespace FangPage.WMS.Admin
 				{
 					Directory.Delete(mapPath + "\\" + Path.GetFileNameWithoutExtension(fileName), true);
 				}
-				FPZip.UnZipFile(mapPath + "\\" + fileName, "");
+				FPZip.UnZip(mapPath + "\\" + fileName, "");
 				File.Delete(mapPath + "\\" + fileName);
-				string mapPath2 = FPUtils.GetMapPath(this.webpath);
-				string sourcePath = mapPath + "\\" + Path.GetFileNameWithoutExtension(fileName);
-				sysupdate.CopyDirectory(sourcePath, mapPath2);
+				string mapPath2 = FPFile.GetMapPath(this.webpath);
+				sysupdate.CopyDirectory(mapPath + "\\" + Path.GetFileNameWithoutExtension(fileName), mapPath2);
 				Directory.Delete(mapPath + "\\" + Path.GetFileNameWithoutExtension(fileName), true);
 				base.Response.Redirect("sysupdate.aspx");
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x06000042 RID: 66 RVA: 0x000061B0 File Offset: 0x000043B0
+		// Token: 0x06000052 RID: 82 RVA: 0x000071CC File Offset: 0x000053CC
 		public static void CopyDirectory(string sourcePath, string targetPath)
 		{
 			DirectoryInfo directoryInfo = new DirectoryInfo(sourcePath);
@@ -55,21 +54,15 @@ namespace FangPage.WMS.Admin
 			}
 			foreach (FileInfo fileInfo in directoryInfo.GetFiles())
 			{
-				if (fileInfo.Extension == ".dll")
-				{
-					fileInfo.CopyTo(FPUtils.GetMapPath(WebConfig.WebPath + "bin/" + fileInfo.Name), true);
-				}
-				else if (fileInfo.Extension == ".sql")
+				if (fileInfo.Extension == ".sql")
 				{
 					if (fileInfo.Name.ToLower().EndsWith("_access.sql") && DbConfigs.DbType == DbType.Access)
 					{
-						string sqlstring = FPFile.ReadFile(fileInfo.FullName);
-						DbHelper.ExecuteSql(sqlstring);
+						DbHelper.ExecuteSql(FPFile.ReadFile(fileInfo.FullName));
 					}
 					else if (fileInfo.Name.ToLower().EndsWith("_sqlserver.sql") && DbConfigs.DbType == DbType.SqlServer)
 					{
-						string sqlstring = FPFile.ReadFile(fileInfo.FullName);
-						DbHelper.ExecuteSql(sqlstring);
+						DbHelper.ExecuteSql(FPFile.ReadFile(fileInfo.FullName));
 					}
 				}
 				else
@@ -82,8 +75,5 @@ namespace FangPage.WMS.Admin
 				sysupdate.CopyDirectory(directoryInfo2.FullName, targetPath + "\\" + directoryInfo2.Name);
 			}
 		}
-
-		// Token: 0x04000035 RID: 53
-		protected string sysversion = "4.7";
 	}
 }

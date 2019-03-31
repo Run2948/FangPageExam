@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000044 RID: 68
+	// Token: 0x0200004E RID: 78
 	public class permissionmanage : AdminController
 	{
-		// Token: 0x060000A6 RID: 166 RVA: 0x0000D978 File Offset: 0x0000BB78
-		protected override void View()
+		// Token: 0x060000BD RID: 189 RVA: 0x0000F3CC File Offset: 0x0000D5CC
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
@@ -25,10 +26,9 @@ namespace FangPage.WMS.Admin
 				}
 			}
 			this.permissionlist = DbHelper.ExecuteList<Permission>(OrderBy.ASC);
-			base.SaveRightURL();
 		}
 
-		// Token: 0x040000A7 RID: 167
+		// Token: 0x040000DE RID: 222
 		protected List<Permission> permissionlist = new List<Permission>();
 	}
 }

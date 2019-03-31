@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000034 RID: 52
+	// Token: 0x02000041 RID: 65
 	public class typedisplay : AdminController
 	{
-		// Token: 0x0600007D RID: 125 RVA: 0x0000B2D8 File Offset: 0x000094D8
-		protected override void View()
+		// Token: 0x0600009A RID: 154 RVA: 0x0000CD74 File Offset: 0x0000AF74
+		protected override void Controller()
 		{
 			if (this.channelid > 0)
 			{
 				this.reurl = this.reurl + "?channelid=" + this.channelid;
 			}
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", this.parentid);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			this.typelist = DbHelper.ExecuteList<TypeInfo>(orderby, new SqlParam[]
+			SqlParam[] sqlparams = new SqlParam[]
 			{
-				sqlParam
-			});
+				DbHelper.MakeAndWhere("parentid", this.parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			};
+			this.typelist = DbHelper.ExecuteList<TypeInfo>(sqlparams);
 			if (this.ispost)
 			{
 				int num = 0;
@@ -32,21 +34,21 @@ namespace FangPage.WMS.Admin
 					num++;
 				}
 				CacheBll.RemoveSortCache();
+				FPCache.Remove("FP_TYPELIST");
 				base.Response.Redirect("typedisplay.aspx?parentid=" + this.parentid);
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x0400007B RID: 123
+		// Token: 0x040000B3 RID: 179
 		protected List<TypeInfo> typelist = new List<TypeInfo>();
 
-		// Token: 0x0400007C RID: 124
+		// Token: 0x040000B4 RID: 180
 		protected int parentid = FPRequest.GetInt("parentid");
 
-		// Token: 0x0400007D RID: 125
+		// Token: 0x040000B5 RID: 181
 		protected int channelid = FPRequest.GetInt("channelid");
 
-		// Token: 0x0400007E RID: 126
+		// Token: 0x040000B6 RID: 182
 		protected string reurl = FPRequest.GetString("reurl", "typemanage.aspx");
 	}
 }

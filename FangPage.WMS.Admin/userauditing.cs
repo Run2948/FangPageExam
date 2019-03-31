@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200004C RID: 76
+	// Token: 0x02000054 RID: 84
 	public class userauditing : SuperController
 	{
-		// Token: 0x060000B8 RID: 184 RVA: 0x0000E440 File Offset: 0x0000C640
-		protected override void View()
+		// Token: 0x060000CB RID: 203 RVA: 0x0000FD88 File Offset: 0x0000DF88
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
@@ -20,12 +21,11 @@ namespace FangPage.WMS.Admin
 				}
 				else if (this.action == "auditing")
 				{
-					SqlParam[] sqlparams = new SqlParam[]
+					DbHelper.ExecuteUpdate<UserInfo>(new SqlParam[]
 					{
-						DbHelper.MakeSet("roleid", 5),
+						DbHelper.MakeUpdate("roleid", 5),
 						DbHelper.MakeAndWhere("id", WhereType.In, FPRequest.GetString("chkdel"))
-					};
-					DbHelper.ExecuteUpdate<UserInfo>(sqlparams);
+					});
 				}
 				base.Response.Redirect("userauditing.aspx");
 			}
@@ -34,13 +34,12 @@ namespace FangPage.WMS.Admin
 			{
 				sqlParam
 			});
-			base.SaveRightURL();
 		}
 
-		// Token: 0x040000BB RID: 187
+		// Token: 0x040000EF RID: 239
 		protected List<UserInfo> userlist = new List<UserInfo>();
 
-		// Token: 0x040000BC RID: 188
+		// Token: 0x040000F0 RID: 240
 		protected Pager pager = FPRequest.GetModel<Pager>();
 	}
 }

@@ -1,33 +1,39 @@
-<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.Exam.Controller.questionview" %>
+<%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FP_Exam.Controller.questionview" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
-<%@ Import namespace="FangPage.Exam" %>
-<%@ Import namespace="FangPage.Exam.Model" %>
-
+<%@ Import namespace="FP_Exam" %>
+<%@ Import namespace="FP_Exam.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：3.7*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"zh-CN\" lang=\"zh-CN\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
-	ViewBuilder.Append("<title>" + pagenav.ToString() + " - " + pagetitle.ToString() + "</title>\r\n");
-	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
-	ViewBuilder.Append("<link type=\"text/css\" rel=\"stylesheet\" href=\"" + webpath.ToString() + "sites/exam/statics/css/exam.css\">\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery-1.8.2.min.js\"></");
+	ViewBuilder.Append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\r\n");
+	ViewBuilder.Append("<meta name=\"renderer\" content=\"webkit\">\r\n");
+	ViewBuilder.Append("<title>" + echo(pagenav) + "|" + echo(pagetitle) + "</title>\r\n");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/favicon.ico\" type=\"image/x-icon\" rel=\"icon\">\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/favicon.ico\" type=\"image/x-icon\" rel=\"shortcut icon\">\r\n");
+	ViewBuilder.Append("<link type=\"text/css\" rel=\"stylesheet\" href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/exam.css\">\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery-1.8.2.min.js\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery-ui.min.js\"></");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery-ui/js/jquery-ui-1.9.2.min.js\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/jquery.form.js\"></");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "jform/jquery.form.js\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/popup.js\"></");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "popup/popup.js\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + webpath.ToString() + "sites/exam/statics/js/exam.js\"></");
+	ViewBuilder.Append("<link rel=\"stylesheet\" href=\"" + echo(plupath) + "layer/skin/layer.css\" type=\"text/css\" id=\"skinlayercss\">\r\n");
+	ViewBuilder.Append("<script src=\"" + echo(plupath) + "layer/layer.js\" type=\"text/javascript\"></");
 	ViewBuilder.Append("script>\r\n");
-	ViewBuilder.Append("" + plugins("layer") + "\r\n");
-
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "nicescroll/jquery.nicescroll.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/exam.js\"></");
+	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("    if (window.Event)\r\n");
 	ViewBuilder.Append("        function nocontextmenu(e) {\r\n");
@@ -84,22 +90,45 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("    }\r\n");
 	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
-
-
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
+	ViewBuilder.Append("    function nice() {\r\n");
+	ViewBuilder.Append("        window.niceObj = $(\".rnlt2\").niceScroll({ cursorcolor: \"#6E737B\", cursoropacitymin: 1, cursorwidth: \"6px\", cursorborder: \"none\", cursorborderradius: \"4px\" });\r\n");
+	ViewBuilder.Append("    }\r\n");
+	ViewBuilder.Append("    function niceback(b) {\r\n");
+	ViewBuilder.Append("        if (!window.ascrail2000) return;\r\n");
+	ViewBuilder.Append("        if (b) {\r\n");
+	ViewBuilder.Append("            window.ascrail2000.css({\r\n");
+	ViewBuilder.Append("                \"position\": \"fixed\",\r\n");
+	ViewBuilder.Append("                \"z-index\": '9999',\r\n");
+	ViewBuilder.Append("                'top': '200px'\r\n");
+	ViewBuilder.Append("            });\r\n");
+	ViewBuilder.Append("        } else {\r\n");
+	ViewBuilder.Append("            window.ascrail2000.css({\r\n");
+	ViewBuilder.Append("                \"position\": \"absolute\",\r\n");
+	ViewBuilder.Append("                \"z-index\": '9999',\r\n");
+	ViewBuilder.Append("                'top': '280px'\r\n");
+	ViewBuilder.Append("            });\r\n");
+	ViewBuilder.Append("        }\r\n");
+	ViewBuilder.Append("        return true;\r\n");
+	ViewBuilder.Append("    }\r\n");
 	ViewBuilder.Append("    $(function () {\r\n");
 	ViewBuilder.Append("        var ipt = $(\"label input\");\r\n");
 	ViewBuilder.Append("        ipt.parent().removeClass(\"sd\");\r\n");
 	ViewBuilder.Append("        ipt.filter(\":checked\").parent().addClass(\"sd\");\r\n");
 	ViewBuilder.Append("        layer.use('extend/layer.ext.js');\r\n");
+	ViewBuilder.Append("        nice();\r\n");
+	ViewBuilder.Append("        window.ascrail2000 = $('#ascrail2000');\r\n");
+	ViewBuilder.Append("        $('.rnav').mouseover(function () {\r\n");
+	ViewBuilder.Append("            niceback($('.hbx1').hasClass(\"fixed\"));\r\n");
+	ViewBuilder.Append("        });\r\n");
 	ViewBuilder.Append("    });\r\n");
 	ViewBuilder.Append("    function AddFav(qid, action) {\r\n");
-	ViewBuilder.Append("        $.post(\"favajax.aspx\", {\r\n");
+	ViewBuilder.Append("        $.post(\"favajax_ctrl.aspx\", {\r\n");
 	ViewBuilder.Append("            qid: qid,\r\n");
 	ViewBuilder.Append("            action: action\r\n");
 	ViewBuilder.Append("        }, function (data) {\r\n");
-	ViewBuilder.Append("            if (data.error > 0) {\r\n");
-	ViewBuilder.Append("                alert(data.message);\r\n");
+	ViewBuilder.Append("            if (data.errcode > 0) {\r\n");
+	ViewBuilder.Append("                alert(data.errmsg);\r\n");
 	ViewBuilder.Append("                return;\r\n");
 	ViewBuilder.Append("            }\r\n");
 	ViewBuilder.Append("            if (data.action == -1) {\r\n");
@@ -114,13 +143,13 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("    }\r\n");
 	ViewBuilder.Append("    function EditNote(qid, num) {\r\n");
 	ViewBuilder.Append("        var note = $('#note_' + qid).html();\r\n");
-	ViewBuilder.Append("        layer.prompt({ type: 3, title: '(" + sortinfo.name.ToString().Trim() + ")第' + num + '题笔记', val: note }, function (val) {\r\n");
-	ViewBuilder.Append("            $.post(\"noteajax.aspx\", {\r\n");
+	ViewBuilder.Append("        layer.prompt({ type: 3, title: '(" + echo(sortinfo.name) + ")第' + num + '题笔记', val: note }, function (val) {\r\n");
+	ViewBuilder.Append("            $.post(\"noteajax_ctrl.aspx\", {\r\n");
 	ViewBuilder.Append("                qid: qid,\r\n");
 	ViewBuilder.Append("                note: val\r\n");
 	ViewBuilder.Append("            }, function (data) {\r\n");
-	ViewBuilder.Append("                if (data.error > 0) {\r\n");
-	ViewBuilder.Append("                    alert(data.message);\r\n");
+	ViewBuilder.Append("                if (data.errcode > 0) {\r\n");
+	ViewBuilder.Append("                    alert(data.errmsg);\r\n");
 	ViewBuilder.Append("                    return;\r\n");
 	ViewBuilder.Append("                }\r\n");
 	ViewBuilder.Append("                $('#note_' + qid).html(val);\r\n");
@@ -129,73 +158,88 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            }, \"json\");\r\n");
 	ViewBuilder.Append("        })\r\n");
 	ViewBuilder.Append("    }\r\n");
+	ViewBuilder.Append("    function UnWrong(qid, action) {\r\n");
+	ViewBuilder.Append("        $.post(\"wrong_ctrl.aspx\", {\r\n");
+	ViewBuilder.Append("            qid: qid,\r\n");
+	ViewBuilder.Append("            action: action\r\n");
+	ViewBuilder.Append("        }, function (data) {\r\n");
+	ViewBuilder.Append("            if (data.errcode > 0) {\r\n");
+	ViewBuilder.Append("                alert(data.errmsg);\r\n");
+	ViewBuilder.Append("                return;\r\n");
+	ViewBuilder.Append("            }\r\n");
+	ViewBuilder.Append("            if (data.action == -1) {\r\n");
+	ViewBuilder.Append("                $(\"#wrong_\" + qid).html(\"<a href=\\\"javascript:UnWrong(\" + qid + \",1);\\\">添加错题</a>\");\r\n");
+	ViewBuilder.Append("                layer.msg('取消错题成功!', 2, -1);\r\n");
+	ViewBuilder.Append("            }\r\n");
+	ViewBuilder.Append("            else if (data.action = 1) {\r\n");
+	ViewBuilder.Append("                $(\"#wrong_\" + qid).html(\"<a href=\\\"javascript:UnWrong(\" + qid + \",-1);\\\">取消错题</a>\");\r\n");
+	ViewBuilder.Append("                layer.msg('添加错题成功!', 2, -1);\r\n");
+	ViewBuilder.Append("            }\r\n");
+	ViewBuilder.Append("        }, \"json\");\r\n");
+	ViewBuilder.Append("    }\r\n");
 	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("</head>\r\n");
 	ViewBuilder.Append("<body>\r\n");
 	ViewBuilder.Append("<div class=\"hbx1\">\r\n");
 	ViewBuilder.Append("  <div class=\"hbx2\">\r\n");
-	ViewBuilder.Append("    <div class=\"hbx3\"><img src=\"" + webpath.ToString() + "sites/exam/statics/images/top.jpg\"></div>\r\n");
+	ViewBuilder.Append("    <div class=\"hbx3\"><img src=\"" + echo(webpath) + "" + echo(sitepath) + "/logo/top.jpg\"></div>\r\n");
 	ViewBuilder.Append("    <div class=\"hbx4\">\r\n");
-	ViewBuilder.Append("      <div class=\"fr\"><a href=\"testview_csk.aspx?channelid=2&sortid=" + sortid.ToString() + "\" class=\"btnq2\">专项练习</a></div>\r\n");
-	ViewBuilder.Append("      <span class=\"write\" style=\"font-size:14px;font-weight:bold\">" + pagenav.ToString() + "</span> \r\n");
+	ViewBuilder.Append("      <div class=\"fr\"></div>\r\n");
+	ViewBuilder.Append("      <span class=\"write\" style=\"font-size:14px;font-weight:bold\">" + echo(pagenav) + "</span> \r\n");
 	ViewBuilder.Append("    </div>\r\n");
 	ViewBuilder.Append("  </div>\r\n");
 	ViewBuilder.Append("</div>\r\n");
 	ViewBuilder.Append("<div class=\"hbx2\">\r\n");
 	ViewBuilder.Append("<div class=\"rnav\">\r\n");
-	ViewBuilder.Append("    <div class=\"rnavhd\">" + sortinfo.name.ToString().Trim() + "</div>\r\n");
+	ViewBuilder.Append("    <div class=\"rnavhd\">答题卡</div>\r\n");
 	ViewBuilder.Append("    <div class=\"rnavct\">\r\n");
-	ViewBuilder.Append("      <div class=\"mb10\"> 答题量：" + examloginfo.answers.ToString().Trim() + "/" + examloginfo.questions.ToString().Trim() + "题<br>\r\n");
-	ViewBuilder.Append("        错题数：" + examloginfo.wrongs.ToString().Trim() + "题<br>\r\n");
-	ViewBuilder.Append("        正确率：" + examloginfo.accuracy.ToString().Trim() + "%</div>\r\n");
+	ViewBuilder.Append("      <div class=\"mb10\"> 答题量：" + echo(examloginfo.answers) + "/" + echo(examloginfo.questions) + "题<br>\r\n");
+	ViewBuilder.Append("        错题数：" + echo(examloginfo.wrongs) + "题<br>\r\n");
+	ViewBuilder.Append("        正确率：" + echo(examloginfo.accuracy) + "%</div>\r\n");
 	ViewBuilder.Append("      <ul class=\"rnlt1 fc\">\r\n");
 	ViewBuilder.Append("        <li><span class=\"bg1\"></span>正确题</li>\r\n");
 	ViewBuilder.Append("        <li><span class=\"bg2\"></span>错误题</li>\r\n");
 	ViewBuilder.Append("        <li><span class=\"bg3\"></span>未答题</li>\r\n");
 	ViewBuilder.Append("        <li><span class=\"bg4\"></span>问答题</li>\r\n");
 	ViewBuilder.Append("      </ul>\r\n");
-	ViewBuilder.Append("      <ul class=\"rnlt2 fc\">\r\n");
+	ViewBuilder.Append("      <ul class=\"rnlt2 fc\" tabindex=\"5000\" style=\"overflow-y: hidden; outline: none;\">\r\n");
 	int en = 0;
-	
 
 	loop__id=0;
 	foreach(ExamQuestion item in questionlist)
 	{
 	loop__id++;
-
 	 en = en+1;
-	
 
-	if (item.type==5)
+	if (item.type=="TYPE_ANSWER")
 	{
-
-	ViewBuilder.Append("          <li><a href=\"#" + en.ToString() + "\" class=\"bg4\">" + en.ToString() + "</a></li>\r\n");
-
+	ViewBuilder.Append("          <li><a href=\"#" + echo(en) + "\" class=\"bg4\">" + echo(en) + "</a></li>\r\n");
 	}
 	else if (item.useranswer=="")
 	{
-
-	ViewBuilder.Append("          <li><a href=\"#" + en.ToString() + "\" class=\"bg3\">" + en.ToString() + "</a></li>\r\n");
-
+	ViewBuilder.Append("          <li><a href=\"#" + echo(en) + "\" class=\"bg3\">" + echo(en) + "</a></li>\r\n");
 	}
 	else if (item.userscore>0)
 	{
-
-	ViewBuilder.Append("          <li><a href=\"#" + en.ToString() + "\" class=\"bg1\">" + en.ToString() + "</a></li>\r\n");
-
+	ViewBuilder.Append("          <li><a href=\"#" + echo(en) + "\" class=\"bg1\">" + echo(en) + "</a></li>\r\n");
 	}
 	else
 	{
-
-	ViewBuilder.Append("          <li><a href=\"#" + en.ToString() + "\" class=\"bg2\">" + en.ToString() + "</a></li>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	ViewBuilder.Append("          <li><a href=\"#" + echo(en) + "\" class=\"bg2\">" + echo(en) + "</a></li>\r\n");
+	}//end if
+	}//end loop
 	ViewBuilder.Append("      </ul>\r\n");
+	ViewBuilder.Append("      <script type=\"text/javascript\">\r\n");
+	ViewBuilder.Append("          $(function () {\r\n");
+	ViewBuilder.Append("              $('.rnlt2 a').click(function () {\r\n");
+	ViewBuilder.Append("                  var top = $($(this).attr('href')).offset().top + 120;\r\n");
+	ViewBuilder.Append("                  $(window).scrollTop(top);\r\n");
+	ViewBuilder.Append("                  return false;\r\n");
+	ViewBuilder.Append("              });\r\n");
+	ViewBuilder.Append("          });\r\n");
+	ViewBuilder.Append("	 </");
+	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("    </div>\r\n");
 	ViewBuilder.Append("    <div class=\"rnavft\"></div>\r\n");
 	ViewBuilder.Append("  </div>\r\n");
@@ -207,196 +251,157 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("            <a id=\"1\"></a>\r\n");
 	ViewBuilder.Append("            <div class=\"tit1 pd1\"></div>\r\n");
 	int perscore = 100;
-	
 	int topicnum = 0;
-	
 
 	loop__id=0;
 	foreach(ExamQuestion item in questionlist)
 	{
 	loop__id++;
-
 	 topicnum = topicnum+1;
-	
 
-	if (item.type==1)
+	if (item.type=="TYPE_RADIO")
 	{
-
 	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + echo((topicnum+1)) + "\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
-	ViewBuilder.Append("                " + Option(item.option,item.ascount,item.optionlist).ToString() + "\r\n");
+	ViewBuilder.Append("                " + echo(Option(item.option,item.ascount)) + "\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd class=\"dAn fc\">\r\n");
 	ViewBuilder.Append("                <span class=\"ft4 fl\">您的答案：</span>\r\n");
 	ViewBuilder.Append("                 <span class=\"fl w2 bx7\">\r\n");
+	for (int i = 0; i <= 7; i++){
 
-	loop__id=0;
-	foreach(string str in answerarr)
+	if (i<=item.ascount-1)
 	{
-	loop__id++;
+	ViewBuilder.Append("                  <label><input type=\"radio\" id=\"_" + echo(topicnum) + "\" \r\n");
 
-
-	if (loop__id<=item.ascount)
+	if (answerarr[i]==item.useranswer)
 	{
-
-	ViewBuilder.Append("                  <label><input type=\"radio\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\" \r\n");
-
-	if (str==item.useranswer)
-	{
-
 	ViewBuilder.Append(" checked=\"checked\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" value=\"" + str.ToString() + "\">" + str.ToString() + "</label>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	}//end if
+	ViewBuilder.Append(" name=\"answer_" + echo(item.id) + "\" value=\"" + echo(answerarr[i]) + "\">" + echo(answerarr[i]) + "</label>\r\n");
+	}//end if
+	}//end for
 	ViewBuilder.Append("                  </span>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 
 	if (examconfig.showanswer==1)
 	{
+	ViewBuilder.Append("                <div class=\"mb10\">正确答案：<span class=\"ft11 ftc1\">" + echo(item.answer) + "</span></div>\r\n");
 
-	ViewBuilder.Append("                <div class=\"mb10\">正确答案：<span class=\"ft11 ftc1\">" + item.answer.ToString().Trim() + "</span></div>\r\n");
+	if (item.explain!="")
+	{
 	ViewBuilder.Append("                <div class=\"mb10\">答案解析：\r\n");
-	ViewBuilder.Append("                  " + item.explain.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                  " + echo(item.explain) + "\r\n");
 	ViewBuilder.Append("                </div>\r\n");
-
-	}	//end if
-
+	}//end if
+	}//end if
 	ViewBuilder.Append("                <div class=\"mb10\">\r\n");
 
 	if (item.isfav==1)
 	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
-
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
 	}
 	else
 	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
+	}//end if
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/note.png\"><a href=\"javascript:EditNote(" + echo(item.id) + "," + echo(topicnum) + ")\">编辑笔记</a>&nbsp;&nbsp;\r\n");
 
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/note.png\"><a href=\"javascript:EditNote(" + item.id.ToString().Trim() + "," + topicnum.ToString() + ")\">编辑笔记</a>\r\n");
+	if (action=="wrong")
+	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/wrong.png\"><a id=\"wrong_" + echo(item.id) + "\" href=\"javascript:UnWrong(" + echo(item.id) + ",-1)\">取消错题</a>\r\n");
+	}//end if
 	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("                <div id=\"shownote_" + item.id.ToString().Trim() + "\" class=\"mb10\" \r\n");
+	ViewBuilder.Append("                <div id=\"shownote_" + echo(item.id) + "\" class=\"mb10\" \r\n");
 
 	if (item.note=="")
 	{
-
 	ViewBuilder.Append(" style=\"display:none\" \r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append(">您的笔记：\r\n");
-	ViewBuilder.Append("                  <span id=\"note_" + item.id.ToString().Trim() + "\">" + item.note.ToString().Trim() + "</span>\r\n");
+	ViewBuilder.Append("                  <span id=\"note_" + echo(item.id) + "\">" + echo(item.note) + "</span>\r\n");
 	ViewBuilder.Append("                </div>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
 	}
-	else if (item.type==2)
+	else if (item.type=="TYPE_MULTIPLE")
 	{
-
 	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + echo((topicnum+1)) + "\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
-	ViewBuilder.Append("                " + Option(item.option,item.ascount,item.optionlist).ToString() + "\r\n");
+	ViewBuilder.Append("                " + echo(Option(item.option,item.ascount)) + "\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd class=\"dAn fc\">\r\n");
 	ViewBuilder.Append("                 <span class=\"ft4 fl\">您的答案：</span>\r\n");
 	ViewBuilder.Append("                 <span class=\"fl w2 bx7\">\r\n");
+	for (int i = 0; i <= 7; i++){
 
-	loop__id=0;
-	foreach(string str in answerarr)
+	if (i<=item.ascount-1)
 	{
-	loop__id++;
+	ViewBuilder.Append("                  <label><input type=\"checkbox\" id=\"_" + echo(topicnum) + "\" \r\n");
 
-
-	if (loop__id<=item.ascount)
+	if (FPArray.Contain(item.useranswer,answerarr[i]))
 	{
-
-	ViewBuilder.Append("                  <label><input type=\"checkbox\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\" \r\n");
-
-	if (ischecked(str,item.useranswer))
-	{
-
 	ViewBuilder.Append(" checked=\"checked\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" value=\"" + str.ToString() + "\">" + str.ToString() + "</label>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	}//end if
+	ViewBuilder.Append(" name=\"answer_" + echo(item.id) + "\" value=\"" + echo(answerarr[i]) + "\">" + echo(answerarr[i]) + "</label>\r\n");
+	}//end if
+	}//end for
 	ViewBuilder.Append("                  </span>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 
 	if (examconfig.showanswer==1)
 	{
+	ViewBuilder.Append("                <div class=\"mb10\">正确答案：<span class=\"ft11 ftc1\">" + echo(item.answer) + "</span></div>\r\n");
 
-	ViewBuilder.Append("                <div class=\"mb10\">正确答案：<span class=\"ft11 ftc1\">" + item.answer.ToString().Trim() + "</span></div>\r\n");
+	if (item.explain!="")
+	{
 	ViewBuilder.Append("                <div class=\"mb10\">答案解析：\r\n");
-	ViewBuilder.Append("                  " + item.explain.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                  " + echo(item.explain) + "\r\n");
 	ViewBuilder.Append("                </div>\r\n");
-
-	}	//end if
-
+	}//end if
+	}//end if
 	ViewBuilder.Append("                <div class=\"mb10\">\r\n");
 
 	if (item.isfav==1)
 	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
-
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
 	}
 	else
 	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
+	}//end if
+	ViewBuilder.Append("                <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/note.png\"><a href=\"javascript:EditNote(" + echo(item.id) + "," + echo(topicnum) + ")\">编辑笔记</a>\r\n");
 
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                <img src=\"" + webpath.ToString() + "sites/exam/statics/images/note.png\"><a href=\"javascript:EditNote(" + item.id.ToString().Trim() + "," + topicnum.ToString() + ")\">编辑笔记</a>\r\n");
+	if (action=="wrong")
+	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/wrong.png\"><a id=\"wrong_" + echo(item.id) + "\" href=\"javascript:UnWrong(" + echo(item.id) + ",-1)\">取消错题</a>\r\n");
+	}//end if
 	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("                <div id=\"shownote_" + item.id.ToString().Trim() + "\" class=\"mb10\" \r\n");
+	ViewBuilder.Append("                <div id=\"shownote_" + echo(item.id) + "\" class=\"mb10\" \r\n");
 
 	if (item.note=="")
 	{
-
 	ViewBuilder.Append(" style=\"display:none\" \r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append(">您的笔记：\r\n");
-	ViewBuilder.Append("                  <span id=\"note_" + item.id.ToString().Trim() + "\">" + item.note.ToString().Trim() + "</span>\r\n");
+	ViewBuilder.Append("                  <span id=\"note_" + echo(item.id) + "\">" + echo(item.note) + "</span>\r\n");
 	ViewBuilder.Append("                </div>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
 	}
-	else if (item.type==3)
+	else if (item.type=="TYPE_TRUE_FALSE")
 	{
-
 	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + echo((topicnum+1)) + "\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd class=\"dAn fc\">\r\n");
 	ViewBuilder.Append("                <span class=\"ft4 fl\">您的答案：</span>\r\n");
@@ -404,267 +409,183 @@ override protected void OnInitComplete(EventArgs e)
 
 	if (item.useranswer=="Y")
 	{
-
-	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + item.id.ToString().Trim() + "\" checked=\"checked\" value=\"Y\" disabled=\"disabled\">正确</label>\r\n");
-
+	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + echo(item.id) + "\" checked=\"checked\" value=\"Y\" disabled=\"disabled\">正确</label>\r\n");
 	}
 	else
 	{
-
-	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + item.id.ToString().Trim() + "\" value=\"Y\" disabled=\"disabled\">正确</label>\r\n");
-
-	}	//end if
-
+	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + echo(item.id) + "\" value=\"Y\" disabled=\"disabled\">正确</label>\r\n");
+	}//end if
 
 	if (item.useranswer=="N")
 	{
-
-	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + item.id.ToString().Trim() + "\" checked=\"checked\" value=\"N\" disabled=\"disabled\">错误</label>\r\n");
-
+	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + echo(item.id) + "\" checked=\"checked\" value=\"N\" disabled=\"disabled\">错误</label>\r\n");
 	}
 	else
 	{
-
-	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + item.id.ToString().Trim() + "\" value=\"N\" disabled=\"disabled\">错误</label>\r\n");
-
-	}	//end if
-
+	ViewBuilder.Append("                     <label><input type=\"radio\" name=\"answer_" + echo(item.id) + "\" value=\"N\" disabled=\"disabled\">错误</label>\r\n");
+	}//end if
 	ViewBuilder.Append("                 </span>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 
 	if (examconfig.showanswer==1)
 	{
-
 	ViewBuilder.Append("                <div class=\"mb10\">正确答案：\r\n");
 	ViewBuilder.Append("                <span class=\"ft11 ftc1\">\r\n");
 
 	if (item.answer=="Y")
 	{
-
 	ViewBuilder.Append("                正确\r\n");
-
 	}
 	else if (item.answer=="N")
 	{
-
 	ViewBuilder.Append("                错误\r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append("                </span></div>\r\n");
+
+	if (item.explain!="")
+	{
 	ViewBuilder.Append("                <div class=\"mb10\">答案解析：\r\n");
-	ViewBuilder.Append("                  " + item.explain.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                  " + echo(item.explain) + "\r\n");
 	ViewBuilder.Append("                </div>\r\n");
-
-	}	//end if
-
+	}//end if
+	}//end if
 	ViewBuilder.Append("                <div class=\"mb10\">\r\n");
 
 	if (item.isfav==1)
 	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
-
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
 	}
 	else
 	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
+	}//end if
+	ViewBuilder.Append("                <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/note.png\"><a href=\"javascript:EditNote(" + echo(item.id) + "," + echo(topicnum) + ")\">编辑笔记</a>\r\n");
 
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                <img src=\"" + webpath.ToString() + "sites/exam/statics/images/note.png\"><a href=\"javascript:EditNote(" + item.id.ToString().Trim() + "," + topicnum.ToString() + ")\">编辑笔记</a>\r\n");
+	if (action=="wrong")
+	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/wrong.png\"><a id=\"wrong_" + echo(item.id) + "\" href=\"javascript:UnWrong(" + echo(item.id) + ",-1)\">取消错题</a>\r\n");
+	}//end if
 	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("                <div id=\"shownote_" + item.id.ToString().Trim() + "\" class=\"mb10\" \r\n");
+	ViewBuilder.Append("                <div id=\"shownote_" + echo(item.id) + "\" class=\"mb10\" \r\n");
 
 	if (item.note=="")
 	{
-
 	ViewBuilder.Append(" style=\"display:none\" \r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append(">您的笔记：\r\n");
-	ViewBuilder.Append("                  <span id=\"note_" + item.id.ToString().Trim() + "\">" + item.note.ToString().Trim() + "</span>\r\n");
+	ViewBuilder.Append("                  <span id=\"note_" + echo(item.id) + "\">" + echo(item.note) + "</span>\r\n");
 	ViewBuilder.Append("                </div>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
 	}
-	else if (item.type==4)
+	else if (item.type=="TYPE_BLANK")
 	{
-
 	ViewBuilder.Append("            <dl class=\"st tm_zt_0\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + FmAnswer(item.title,item.id,item.useranswer).ToString() + "</p>\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + echo((topicnum+1)) + "\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(FmAnswer(item.title,item.id,item.useranswer)) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 
 	if (examconfig.showanswer==1)
 	{
-
 	ViewBuilder.Append("                <div class=\"mb10\">正确答案：\r\n");
 	ViewBuilder.Append("                <span class=\"ft11 ftc1\">\r\n");
-	ViewBuilder.Append("                " + item.answer.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                " + echo(item.answer) + "\r\n");
 	ViewBuilder.Append("                </span></div>\r\n");
+
+	if (item.explain!="")
+	{
 	ViewBuilder.Append("                <div class=\"mb10\">答案解析：\r\n");
-	ViewBuilder.Append("                  " + item.explain.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                  " + echo(item.explain) + "\r\n");
 	ViewBuilder.Append("                </div>\r\n");
-
-	}	//end if
-
+	}//end if
+	}//end if
 	ViewBuilder.Append("                <div class=\"mb10\">\r\n");
 
 	if (item.isfav==1)
 	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
-
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
 	}
 	else
 	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
+	}//end if
+	ViewBuilder.Append("                <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/note.png\"><a href=\"javascript:EditNote(" + echo(item.id) + "," + echo(topicnum) + ")\">编辑笔记</a>\r\n");
 
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                <img src=\"" + webpath.ToString() + "sites/exam/statics/images/note.png\"><a href=\"javascript:EditNote(" + item.id.ToString().Trim() + "," + topicnum.ToString() + ")\">编辑笔记</a>\r\n");
+	if (action=="wrong")
+	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/wrong.png\"><a id=\"wrong_" + echo(item.id) + "\" href=\"javascript:UnWrong(" + echo(item.id) + ",-1)\">取消错题</a>\r\n");
+	}//end if
 	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("                <div id=\"shownote_" + item.id.ToString().Trim() + "\" class=\"mb10\" \r\n");
+	ViewBuilder.Append("                <div id=\"shownote_" + echo(item.id) + "\" class=\"mb10\" \r\n");
 
 	if (item.note=="")
 	{
-
 	ViewBuilder.Append(" style=\"display:none\" \r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append(">您的笔记：\r\n");
-	ViewBuilder.Append("                  <span id=\"note_" + item.id.ToString().Trim() + "\">" + item.note.ToString().Trim() + "</span>\r\n");
+	ViewBuilder.Append("                  <span id=\"note_" + echo(item.id) + "\">" + echo(item.note) + "</span>\r\n");
 	ViewBuilder.Append("                </div>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
 	}
-	else if (item.type==5)
+	else if (item.type=="TYPE_ANSWER")
 	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_" + item.id.ToString().Trim() + "\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
+	ViewBuilder.Append("            <dl class=\"st tm_zt_" + echo(item.id) + "\">\r\n");
+	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + echo((topicnum+1)) + "\">" + echo(topicnum) + "</span>\r\n");
+	ViewBuilder.Append("                <p>" + echo(item.title) + "</p>\r\n");
 	ViewBuilder.Append("              </dt>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 	ViewBuilder.Append("                <div class=\"ft4\">您的答案：</div>\r\n");
-	ViewBuilder.Append("                <textarea class=\"jdt\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\">" + item.useranswer.ToString().Trim() + "</textarea>\r\n");
+	ViewBuilder.Append("                <textarea class=\"jdt\" id=\"_" + echo(topicnum) + "\" name=\"answer_" + echo(item.id) + "\">" + echo(item.useranswer) + "</textarea>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("              <dd>\r\n");
 
 	if (examconfig.showanswer==1)
 	{
-
 	ViewBuilder.Append("                <div class=\"mb10\">正确答案：\r\n");
 	ViewBuilder.Append("                <span class=\"ft11 ftc1\">\r\n");
-	ViewBuilder.Append("                " + item.answer.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                " + echo(item.answer) + "\r\n");
 	ViewBuilder.Append("                </span></div>\r\n");
+
+	if (item.explain!="")
+	{
 	ViewBuilder.Append("                <div class=\"mb10\">答案解析：\r\n");
-	ViewBuilder.Append("                  " + item.explain.ToString().Trim() + "\r\n");
+	ViewBuilder.Append("                  " + echo(item.explain) + "\r\n");
 	ViewBuilder.Append("                </div>\r\n");
-
-	}	//end if
-
+	}//end if
+	}//end if
 	ViewBuilder.Append("                <div class=\"mb10\">\r\n");
 
 	if (item.isfav==1)
 	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
-
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
 	}
 	else
 	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/fav.gif\"><a id=\"fav_" + echo(item.id) + "\" href=\"javascript:AddFav(" + echo(item.id) + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
+	}//end if
+	ViewBuilder.Append("                <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/note.png\"><a href=\"javascript:EditNote(" + echo(item.id) + "," + echo(topicnum) + ")\">编辑笔记</a>\r\n");
 
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                <img src=\"" + webpath.ToString() + "sites/exam/statics/images/note.png\"><a href=\"javascript:EditNote(" + item.id.ToString().Trim() + "," + topicnum.ToString() + ")\">编辑笔记</a>\r\n");
+	if (action=="wrong")
+	{
+	ViewBuilder.Append("                    <img src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/images/wrong.png\"><a id=\"wrong_" + echo(item.id) + "\" href=\"javascript:UnWrong(" + echo(item.id) + ",-1)\">取消错题</a>\r\n");
+	}//end if
 	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("                <div id=\"shownote_" + item.id.ToString().Trim() + "\" class=\"mb10\" \r\n");
+	ViewBuilder.Append("                <div id=\"shownote_" + echo(item.id) + "\" class=\"mb10\" \r\n");
 
 	if (item.note=="")
 	{
-
 	ViewBuilder.Append(" style=\"display:none\" \r\n");
-
-	}	//end if
-
+	}//end if
 	ViewBuilder.Append(">您的笔记：\r\n");
-	ViewBuilder.Append("                  <span id=\"note_" + item.id.ToString().Trim() + "\">{item.note}</span>\r\n");
+	ViewBuilder.Append("                  <span id=\"note_" + echo(item.id) + "\">{item.note}</span>\r\n");
 	ViewBuilder.Append("                </div>\r\n");
 	ViewBuilder.Append("              </dd>\r\n");
 	ViewBuilder.Append("            </dl>\r\n");
-
-	}
-	else if (item.type==6)
-	{
-
-	ViewBuilder.Append("            <dl class=\"st tm_zt_" + item.id.ToString().Trim() + "\">\r\n");
-	ViewBuilder.Append("              <dt class=\"nobold\"><span class=\"num\" id=\"" + (topicnum+1).ToString() + "\">" + topicnum.ToString() + "</span>\r\n");
-	ViewBuilder.Append("                <p>" + item.title.ToString().Trim() + "</p>\r\n");
-	ViewBuilder.Append("              </dt>\r\n");
-	ViewBuilder.Append("              <dd>\r\n");
-	ViewBuilder.Append("                <div class=\"ft4\">您的答案：</div>\r\n");
-	ViewBuilder.Append("                <textarea class=\"jdt\" id=\"_" + topicnum.ToString() + "\" name=\"answer_" + item.id.ToString().Trim() + "\">" + item.useranswer.ToString().Trim() + "</textarea>\r\n");
-	ViewBuilder.Append("              </dd>\r\n");
-	ViewBuilder.Append("              <dd>\r\n");
-
-	if (examconfig.showanswer==1)
-	{
-
-	ViewBuilder.Append("                <div class=\"mb10\">答案解析：\r\n");
-	ViewBuilder.Append("                  " + item.explain.ToString().Trim() + "\r\n");
-	ViewBuilder.Append("                </div>\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                <div class=\"mb10\">\r\n");
-
-	if (item.isfav==1)
-	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",-1)\">取消收藏</a>&nbsp;&nbsp;\r\n");
-
-	}
-	else
-	{
-
-	ViewBuilder.Append("                    <img src=\"" + webpath.ToString() + "sites/exam/statics/images/fav.gif\"><a id=\"fav_" + item.id.ToString().Trim() + "\" href=\"javascript:AddFav(" + item.id.ToString().Trim() + ",1)\">收藏本题</a>&nbsp;&nbsp;\r\n");
-
-	}	//end if
-
-	ViewBuilder.Append("                <img src=\"" + webpath.ToString() + "sites/exam/statics/images/note.png\"><a href=\"javascript:EditNote(" + item.id.ToString().Trim() + "," + topicnum.ToString() + ")\">编辑笔记</a>\r\n");
-	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("                <div id=\"shownote_" + item.id.ToString().Trim() + "\" class=\"mb10\" \r\n");
-
-	if (item.note=="")
-	{
-
-	ViewBuilder.Append(" style=\"display:none\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(">您的笔记：\r\n");
-	ViewBuilder.Append("                  <span id=\"note_" + item.id.ToString().Trim() + "\">" + item.note.ToString().Trim() + "</span>\r\n");
-	ViewBuilder.Append("                </div>\r\n");
-	ViewBuilder.Append("              </dd>\r\n");
-	ViewBuilder.Append("            </dl>\r\n");
-
-	}	//end if
-
-
-	}	//end loop
-
+	}//end if
+	}//end loop
 	ViewBuilder.Append("        <div style=\"clear:both;\"></div>\r\n");
 	ViewBuilder.Append("      </form>\r\n");
 	ViewBuilder.Append("    </div>\r\n");
@@ -674,7 +595,17 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("</div>\r\n");
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

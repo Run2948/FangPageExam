@@ -2,12 +2,12 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x0200000B RID: 11
+	// Token: 0x0200000D RID: 13
 	public enum DbType
 	{
-		// Token: 0x04000013 RID: 19
+		// Token: 0x04000021 RID: 33
 		SqlServer,
-		// Token: 0x04000014 RID: 20
+		// Token: 0x04000022 RID: 34
 		Access
 	}
 }

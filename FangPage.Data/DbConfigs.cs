@@ -3,29 +3,29 @@ using System.Configuration;
 
 namespace FangPage.Data
 {
-	// Token: 0x02000005 RID: 5
+	// Token: 0x02000009 RID: 9
 	public class DbConfigs
 	{
-		// Token: 0x06000019 RID: 25 RVA: 0x000022B7 File Offset: 0x000004B7
+		// Token: 0x0600003F RID: 63 RVA: 0x00002547 File Offset: 0x00000747
 		static DbConfigs()
 		{
 			DbConfigs.ReSet();
 		}
 
-		// Token: 0x0600001A RID: 26 RVA: 0x000022BE File Offset: 0x000004BE
+		// Token: 0x06000040 RID: 64 RVA: 0x0000254E File Offset: 0x0000074E
 		public static void ReSet()
 		{
 			DbConfigs.m_dbconfig = DbConfigs.GetRealDbConfig();
 		}
 
-		// Token: 0x0600001B RID: 27 RVA: 0x000022CA File Offset: 0x000004CA
+		// Token: 0x06000041 RID: 65 RVA: 0x0000255A File Offset: 0x0000075A
 		public static DbConfigInfo GetDbConfig()
 		{
 			return DbConfigs.m_dbconfig;
 		}
 
-		// Token: 0x1700000B RID: 11
-		// (get) Token: 0x0600001C RID: 28 RVA: 0x000022D1 File Offset: 0x000004D1
+		// Token: 0x1700001D RID: 29
+		// (get) Token: 0x06000042 RID: 66 RVA: 0x00002561 File Offset: 0x00000761
 		public static string ConnectionString
 		{
 			get
@@ -34,8 +34,8 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x1700000C RID: 12
-		// (get) Token: 0x0600001D RID: 29 RVA: 0x000022DD File Offset: 0x000004DD
+		// Token: 0x1700001E RID: 30
+		// (get) Token: 0x06000043 RID: 67 RVA: 0x0000256D File Offset: 0x0000076D
 		public static string Prefix
 		{
 			get
@@ -44,8 +44,8 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x1700000D RID: 13
-		// (get) Token: 0x0600001E RID: 30 RVA: 0x000022E9 File Offset: 0x000004E9
+		// Token: 0x1700001F RID: 31
+		// (get) Token: 0x06000044 RID: 68 RVA: 0x00002579 File Offset: 0x00000779
 		public static DbType DbType
 		{
 			get
@@ -54,7 +54,7 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x0600001F RID: 31 RVA: 0x000022F8 File Offset: 0x000004F8
+		// Token: 0x06000045 RID: 69 RVA: 0x00002588 File Offset: 0x00000788
 		public static DbConfigInfo GetRealDbConfig()
 		{
 			DbConfigInfo dbConfigInfo = new DbConfigInfo();
@@ -77,13 +77,13 @@ namespace FangPage.Data
 					DbConfigInfo dbConfigInfo2 = dbConfigInfo;
 					dbConfigInfo2.webpath += "/";
 				}
-				string text = DES.Decode(ConfigurationManager.ConnectionStrings["dbconnstring"].ConnectionString);
-				foreach (string strContent in text.Split(new char[]
+				string[] array = DES.Decode(ConfigurationManager.ConnectionStrings["dbconnstring"].ConnectionString).Split(new char[]
 				{
 					';'
-				}))
+				});
+				for (int i = 0; i < array.Length; i++)
 				{
-					string[] array2 = DbUtils.SplitString(strContent, "=", 2);
+					string[] array2 = DbUtils.SplitString(array[i], "=", 2);
 					if (array2[0].ToLower() == "sqlserver")
 					{
 						dbConfigInfo.dbtype = DbType.SqlServer;
@@ -123,7 +123,7 @@ namespace FangPage.Data
 			return dbConfigInfo;
 		}
 
-		// Token: 0x0400000B RID: 11
+		// Token: 0x0400001C RID: 28
 		private static DbConfigInfo m_dbconfig;
 	}
 }

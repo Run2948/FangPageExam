@@ -2,23 +2,23 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x02000002 RID: 2
+	// Token: 0x02000006 RID: 6
 	public class BindTable : Attribute
 	{
-		// Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
+		// Token: 0x06000026 RID: 38 RVA: 0x00002271 File Offset: 0x00000471
 		public BindTable()
 		{
 		}
 
-		// Token: 0x06000002 RID: 2 RVA: 0x00002063 File Offset: 0x00000263
+		// Token: 0x06000027 RID: 39 RVA: 0x00002284 File Offset: 0x00000484
 		public BindTable(string tablename)
 		{
 			this._tablename = tablename;
 		}
 
-		// Token: 0x17000001 RID: 1
-		// (get) Token: 0x06000003 RID: 3 RVA: 0x0000207D File Offset: 0x0000027D
-		// (set) Token: 0x06000004 RID: 4 RVA: 0x00002085 File Offset: 0x00000285
+		// Token: 0x17000012 RID: 18
+		// (get) Token: 0x06000028 RID: 40 RVA: 0x0000229E File Offset: 0x0000049E
+		// (set) Token: 0x06000029 RID: 41 RVA: 0x000022A6 File Offset: 0x000004A6
 		public string TableName
 		{
 			get
@@ -31,7 +31,7 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x04000001 RID: 1
+		// Token: 0x04000012 RID: 18
 		private string _tablename = "";
 	}
 }

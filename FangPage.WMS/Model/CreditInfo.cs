@@ -3,15 +3,15 @@ using FangPage.Data;
 
 namespace FangPage.WMS.Model
 {
-	// Token: 0x02000017 RID: 23
+	// Token: 0x0200000C RID: 12
 	[ModelPrefix("WMS")]
 	public class CreditInfo
 	{
-		// Token: 0x17000024 RID: 36
-		// (get) Token: 0x0600009A RID: 154 RVA: 0x00005520 File Offset: 0x00003720
-		// (set) Token: 0x0600009B RID: 155 RVA: 0x00005538 File Offset: 0x00003738
-		[PrimaryKey(true)]
+		// Token: 0x1700002E RID: 46
+		// (get) Token: 0x0600007A RID: 122 RVA: 0x000043DC File Offset: 0x000025DC
+		// (set) Token: 0x0600007B RID: 123 RVA: 0x000043E4 File Offset: 0x000025E4
 		[Identity(true)]
+		[PrimaryKey(true)]
 		public int id
 		{
 			get
@@ -24,9 +24,10 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x17000025 RID: 37
-		// (get) Token: 0x0600009C RID: 156 RVA: 0x00005544 File Offset: 0x00003744
-		// (set) Token: 0x0600009D RID: 157 RVA: 0x0000555C File Offset: 0x0000375C
+		// Token: 0x1700002F RID: 47
+		// (get) Token: 0x0600007C RID: 124 RVA: 0x000043ED File Offset: 0x000025ED
+		// (set) Token: 0x0600007D RID: 125 RVA: 0x000043F5 File Offset: 0x000025F5
+		[LeftJoin("WMS_UserInfo", "id")]
 		public int uid
 		{
 			get
@@ -39,24 +40,25 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x17000026 RID: 38
-		// (get) Token: 0x0600009E RID: 158 RVA: 0x00005568 File Offset: 0x00003768
-		[BindField(false)]
-		public UserInfo UserInfo
+		// Token: 0x17000030 RID: 48
+		// (get) Token: 0x0600007E RID: 126 RVA: 0x000043FE File Offset: 0x000025FE
+		// (set) Token: 0x0600007F RID: 127 RVA: 0x00004406 File Offset: 0x00002606
+		[Map("WMS_UserInfo", "realname")]
+		public string realname
 		{
 			get
 			{
-				if (this.m_iuser == null)
-				{
-					this.m_iuser = DbHelper.ExecuteModel<UserInfo>(this.uid);
-				}
-				return this.m_iuser;
+				return this.m_realname;
+			}
+			set
+			{
+				this.m_realname = value;
 			}
 		}
 
-		// Token: 0x17000027 RID: 39
-		// (get) Token: 0x0600009F RID: 159 RVA: 0x000055A4 File Offset: 0x000037A4
-		// (set) Token: 0x060000A0 RID: 160 RVA: 0x000055BC File Offset: 0x000037BC
+		// Token: 0x17000031 RID: 49
+		// (get) Token: 0x06000080 RID: 128 RVA: 0x0000440F File Offset: 0x0000260F
+		// (set) Token: 0x06000081 RID: 129 RVA: 0x00004417 File Offset: 0x00002617
 		public string name
 		{
 			get
@@ -69,9 +71,9 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x17000028 RID: 40
-		// (get) Token: 0x060000A1 RID: 161 RVA: 0x000055C8 File Offset: 0x000037C8
-		// (set) Token: 0x060000A2 RID: 162 RVA: 0x000055E0 File Offset: 0x000037E0
+		// Token: 0x17000032 RID: 50
+		// (get) Token: 0x06000082 RID: 130 RVA: 0x00004420 File Offset: 0x00002620
+		// (set) Token: 0x06000083 RID: 131 RVA: 0x00004428 File Offset: 0x00002628
 		public int type
 		{
 			get
@@ -84,9 +86,9 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x17000029 RID: 41
-		// (get) Token: 0x060000A3 RID: 163 RVA: 0x000055EC File Offset: 0x000037EC
-		// (set) Token: 0x060000A4 RID: 164 RVA: 0x00005604 File Offset: 0x00003804
+		// Token: 0x17000033 RID: 51
+		// (get) Token: 0x06000084 RID: 132 RVA: 0x00004431 File Offset: 0x00002631
+		// (set) Token: 0x06000085 RID: 133 RVA: 0x00004439 File Offset: 0x00002639
 		public int credits
 		{
 			get
@@ -99,9 +101,9 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x1700002A RID: 42
-		// (get) Token: 0x060000A5 RID: 165 RVA: 0x00005610 File Offset: 0x00003810
-		// (set) Token: 0x060000A6 RID: 166 RVA: 0x00005628 File Offset: 0x00003828
+		// Token: 0x17000034 RID: 52
+		// (get) Token: 0x06000086 RID: 134 RVA: 0x00004442 File Offset: 0x00002642
+		// (set) Token: 0x06000087 RID: 135 RVA: 0x0000444A File Offset: 0x0000264A
 		public DateTime postdatetime
 		{
 			get
@@ -114,9 +116,9 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x1700002B RID: 43
-		// (get) Token: 0x060000A7 RID: 167 RVA: 0x00005634 File Offset: 0x00003834
-		// (set) Token: 0x060000A8 RID: 168 RVA: 0x0000564C File Offset: 0x0000384C
+		// Token: 0x17000035 RID: 53
+		// (get) Token: 0x06000088 RID: 136 RVA: 0x00004453 File Offset: 0x00002653
+		// (set) Token: 0x06000089 RID: 137 RVA: 0x0000445B File Offset: 0x0000265B
 		public int doid
 		{
 			get
@@ -129,9 +131,9 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x1700002C RID: 44
-		// (get) Token: 0x060000A9 RID: 169 RVA: 0x00005658 File Offset: 0x00003858
-		// (set) Token: 0x060000AA RID: 170 RVA: 0x00005670 File Offset: 0x00003870
+		// Token: 0x17000036 RID: 54
+		// (get) Token: 0x0600008A RID: 138 RVA: 0x00004464 File Offset: 0x00002664
+		// (set) Token: 0x0600008B RID: 139 RVA: 0x0000446C File Offset: 0x0000266C
 		public string doname
 		{
 			get
@@ -144,31 +146,31 @@ namespace FangPage.WMS.Model
 			}
 		}
 
-		// Token: 0x04000043 RID: 67
+		// Token: 0x04000058 RID: 88
 		private int m_id;
 
-		// Token: 0x04000044 RID: 68
+		// Token: 0x04000059 RID: 89
 		private int m_uid;
 
-		// Token: 0x04000045 RID: 69
-		private UserInfo m_iuser;
+		// Token: 0x0400005A RID: 90
+		private string m_realname = string.Empty;
 
-		// Token: 0x04000046 RID: 70
+		// Token: 0x0400005B RID: 91
 		private string m_name = string.Empty;
 
-		// Token: 0x04000047 RID: 71
+		// Token: 0x0400005C RID: 92
 		private int m_type;
 
-		// Token: 0x04000048 RID: 72
+		// Token: 0x0400005D RID: 93
 		private int m_credits;
 
-		// Token: 0x04000049 RID: 73
+		// Token: 0x0400005E RID: 94
 		private DateTime m_postdatetime = DbUtils.GetDateTime();
 
-		// Token: 0x0400004A RID: 74
+		// Token: 0x0400005F RID: 95
 		private int m_doid;
 
-		// Token: 0x0400004B RID: 75
+		// Token: 0x04000060 RID: 96
 		private string m_doname;
 	}
 }

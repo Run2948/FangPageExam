@@ -1,28 +1,30 @@
 <%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Admin.sysconfigmanage" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
 <%@ Import namespace="FangPage.WMS.Admin" %>
-
 <%@ Import namespace="FangPage.WMS.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：4.5*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
 	ViewBuilder.Append("    <title>系统基础配置</title>\r\n");
-	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
-	ViewBuilder.Append("    <link href=\"../css/admin.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
-	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
-	ViewBuilder.Append("" + plugins("layer") + "\r\n");
-	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"../js/admin.js\"></");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
+	ViewBuilder.Append("    <link href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/admin.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <link rel=\"stylesheet\" href=\"" + echo(plupath) + "layer/skin/layer.css\" type=\"text/css\" id=\"skinlayercss\">\r\n");
+	ViewBuilder.Append("    <script src=\"" + echo(plupath) + "layer/layer.js\" type=\"text/javascript\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("    <script type=\"text/javascript\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/admin.js\"></");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("    <script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("        $(function () {\r\n");
-	ViewBuilder.Append("            PageNav(\"系统基础配置,global/" + pagename.ToString() + "\");\r\n");
+	ViewBuilder.Append("            PageNav(\"系统基础配置,global/" + echo(pagename) + "\");\r\n");
 	ViewBuilder.Append("        })\r\n");
 	ViewBuilder.Append("    </");
 	ViewBuilder.Append("script>\r\n");
@@ -49,126 +51,118 @@ override protected void OnInitComplete(EventArgs e)
 	foreach(SiteConfig sites in sitelist)
 	{
 	loop__id++;
-
-	ViewBuilder.Append("                            <option value=\"" + sites.sitepath.ToString().Trim() + "\" \r\n");
-
-	if (sites.sitepath==mainsite)
-	{
-
-	ViewBuilder.Append(" selected=\"\\\"selected\\\"\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(">" + sites.name.ToString().Trim() + "\r\n");
-	ViewBuilder.Append("                            </option>\r\n");
-
-	}	//end loop
-
+	ViewBuilder.Append("<option value=\"" + echo(sites.sitepath) + "\" "+(sites.sitepath==mainsite?echo("selected"):echo(""))+">" + echo(sites.name) + "</option>\r\n");
+	}//end loop
 	ViewBuilder.Append("                        </select>\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 系统后台标题名称： </td>\r\n");
+	ViewBuilder.Append("                    <td><input name=\"admintitle\" type=\"text\" value=\"" + echo(sysconfiginfo.admintitle) + "\" id=\"admintitle\" style=\"height:21px;width:400px;\"></td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 系统平台标识名称： </td>\r\n");
+	ViewBuilder.Append("                    <td><input name=\"m_platform\" type=\"text\" value=\"" + echo(sysconfiginfo.platform) + "\" id=\"platform\" style=\"height:21px;width:400px;\">&nbsp;以英文、数字和下划线组成，首字不能为数字</td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\"> 登录在线过期时间： </td>\r\n");
-	ViewBuilder.Append("                    <td><input name=\"onlinetimeout\" type=\"text\" value=\"" + sysconfiginfo.onlinetimeout.ToString().Trim() + "\" id=\"onlinetimeout\" style=\"height:21px;width:400px;\">&nbsp;分钟</td>\r\n");
+	ViewBuilder.Append("                    <td><input name=\"onlinetimeout\" type=\"text\" value=\"" + echo(sysconfiginfo.onlinetimeout) + "\" id=\"onlinetimeout\" style=\"height:21px;width:400px;\">&nbsp;分钟</td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\"> 刷新用户在线频率： </td>\r\n");
-	ViewBuilder.Append("                    <td><input name=\"delonlinefrequency\" type=\"text\" value=\"" + sysconfiginfo.onlinefrequency.ToString().Trim() + "\" id=\"onlinefrequency\" style=\"height:21px;width:400px;\">&nbsp;分钟</td>\r\n");
+	ViewBuilder.Append("                    <td><input name=\"delonlinefrequency\" type=\"text\" value=\"" + echo(sysconfiginfo.onlinefrequency) + "\" id=\"onlinefrequency\" style=\"height:21px;width:400px;\">&nbsp;分钟</td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
-	ViewBuilder.Append("                    <td class=\"td_class\"> 计划任务执行频率： </td>\r\n");
-	ViewBuilder.Append("                    <td><input name=\"taskinterval\" type=\"text\" value=\"" + sysconfiginfo.taskinterval.ToString().Trim() + "\" id=\"taskinterval\" style=\"height:21px;width:400px;\">&nbsp;分钟，0不执行，需要重启程序才能生效</td>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 身份验证Cookie域： </td>\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input name=\"cookiedomain\" type=\"text\" value=\"" + echo(sysconfiginfo.cookiedomain) + "\" id=\"cookiedomain\" style=\"width:400px;\">&nbsp;同一主域名下身份共享Cookie\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\"> 使用验证码的页面： </td>\r\n");
-	ViewBuilder.Append("                    <td height=\"25\"><input name=\"verifypage\" type=\"text\" value=\"" + sysconfiginfo.verifypage.ToString().Trim() + "\" id=\"verifypage\" style=\"width:400px;\">&nbsp;多个页面请用英文的\"|\"号隔开\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input name=\"verifypage\" type=\"text\" value=\"" + echo(sysconfiginfo.verifypage) + "\" id=\"verifypage\" style=\"width:400px;\">&nbsp;多个页面请用英文的\"|\"号隔开\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\"> 自定义错误的页面： </td>\r\n");
-	ViewBuilder.Append("                    <td height=\"25\"><input name=\"customerrors\" type=\"text\" value=\"" + sysconfiginfo.customerrors.ToString().Trim() + "\" id=\"customerrors\" style=\"width:400px;\">\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input name=\"customerrors\" type=\"text\" value=\"" + echo(sysconfiginfo.customerrors) + "\" id=\"customerrors\" style=\"width:400px;\">&nbsp;多个页面请用英文的\"|\"号隔开\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
-	ViewBuilder.Append("                    <td class=\"td_class\"> 身份验证Cookie域： </td>\r\n");
-	ViewBuilder.Append("                    <td height=\"25\"><input name=\"cookiedomain\" type=\"text\" value=\"" + sysconfiginfo.cookiedomain.ToString().Trim() + "\" id=\"cookiedomain\" style=\"width:400px;\">\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 系统不支持IE版本： </td>\r\n");
+	ViewBuilder.Append("                    <td>\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie6\" id=\"disableie6\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie6")?echo("checked"):echo(""))+">IE6&nbsp;\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie7\" id=\"disableie7\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie7")?echo("checked"):echo(""))+">IE7&nbsp;\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie8\" id=\"disableie8\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie8")?echo("checked"):echo(""))+">IE8&nbsp;\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie9\" id=\"disableie9\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie9")?echo("checked"):echo(""))+">IE9&nbsp;\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie10\" id=\"disableie10\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie10")?echo("checked"):echo(""))+">IE10&nbsp;\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie11\" id=\"disableie11\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie11")?echo("checked"):echo(""))+">IE11&nbsp;\r\n");
+	ViewBuilder.Append("                        <input name=\"disableie\" type=\"checkbox\" value=\"ie12\" id=\"disableie12\" "+(FPArray.Contain(sysconfiginfo.disableie,"ie12")?echo("checked"):echo(""))+">IE12&nbsp;&nbsp;如果选择不支持的IE版本，系统将提示浏览器下载页面。\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
-	ViewBuilder.Append("                  </tr>\r\n");
-	ViewBuilder.Append("                  <tr>\r\n");
-	ViewBuilder.Append("                    <td class=\"td_class\"> 系统后台目录名称： </td>\r\n");
-	ViewBuilder.Append("                    <td><input name=\"adminpath\" type=\"text\" value=\"" + sysconfiginfo.adminpath.ToString().Trim() + "\" id=\"adminpath\" style=\"height:21px;width:400px;\"></td>\r\n");
-	ViewBuilder.Append("                  </tr>\r\n");
-	ViewBuilder.Append("                  <tr>\r\n");
-	ViewBuilder.Append("                    <td class=\"td_class\"> 系统后台标题名称： </td>\r\n");
-	ViewBuilder.Append("                    <td><input name=\"admintitle\" type=\"text\" value=\"" + sysconfiginfo.admintitle.ToString().Trim() + "\" id=\"admintitle\" style=\"height:21px;width:400px;\"></td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\"> 是否记录操作日志： </td>\r\n");
-	ViewBuilder.Append("                    <td height=\"25\"><input id=\"allowlog\" name=\"allowlog\" type=\"radio\" \r\n");
-
-	if (sysconfiginfo.allowlog==1)
-	{
-
-	ViewBuilder.Append(" checked=\"checked\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" value=\"1\">是<input id=\"allowlog\" name=\"allowlog\" type=\"radio\" \r\n");
-
-	if (sysconfiginfo.allowlog==0)
-	{
-
-	ViewBuilder.Append(" checked=\"checked\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" value=\"0\">否&nbsp;&nbsp;&nbsp;&nbsp;为了提高系统的安全，在站点稳定上线之后请开启。\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input id=\"allowlog1\" name=\"allowlog\" type=\"radio\" "+(sysconfiginfo.allowlog==1?echo("checked"):echo(""))+" value=\"1\">开&nbsp;<input id=\"allowlog0\" name=\"allowlog\" type=\"radio\" "+(sysconfiginfo.allowlog==0?echo("checked"):echo(""))+" value=\"0\">关&nbsp;&nbsp;为了提高系统的安全性，在站点稳定上线之后请开启。\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
-	ViewBuilder.Append("                    <td class=\"td_class\"> 浏览自动编译视图： </td>\r\n");
-	ViewBuilder.Append("                    <td height=\"25\"><input id=\"browsecreatesite\" name=\"browsecreatesite\" type=\"radio\" \r\n");
-
-	if (sysconfiginfo.browsecreatesite==1)
-	{
-
-	ViewBuilder.Append(" checked=\"checked\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" value=\"1\">是<input id=\"browsecreatesite\" name=\"browsecreatesite\" type=\"radio\" \r\n");
-
-	if (sysconfiginfo.browsecreatesite==0)
-	{
-
-	ViewBuilder.Append(" checked=\"checked\" \r\n");
-
-	}	//end if
-
-	ViewBuilder.Append(" value=\"0\">否&nbsp;&nbsp;&nbsp;&nbsp;为了提高系统性能，在站点稳定上线之后请关闭。\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 浏览自动编译模板： </td>\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input id=\"browsecreatesite1\" name=\"browsecreatesite\" type=\"radio\" "+(sysconfiginfo.browsecreatesite==1?echo("checked"):echo(""))+" value=\"1\">开&nbsp;<input id=\"browsecreatesite0\" name=\"browsecreatesite\" type=\"radio\" "+(sysconfiginfo.browsecreatesite==0?echo("checked"):echo(""))+" value=\"0\">关&nbsp;&nbsp;为了提高系统性能，在站点稳定上线之后请关闭。\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
 	ViewBuilder.Append("                    <td class=\"td_class\"> 系统详细错误提示： </td>\r\n");
-	ViewBuilder.Append("                    <td height=\"25\"><input id=\"customerror\" name=\"customerror\" type=\"radio\" \r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input id=\"customerror1\" name=\"customerror\" type=\"radio\" "+(customerror==1?echo("checked"):echo(""))+" value=\"1\">开&nbsp;<input id=\"customerror0\" name=\"customerror\" type=\"radio\" "+(customerror==0?echo("checked"):echo(""))+" value=\"0\">关&nbsp;&nbsp;为了提高系统的安全性，在系统调试完之后请关闭详细错误提示。\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 系统登录维一模式： </td>\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input id=\"loginonce1\" name=\"loginonce\" type=\"radio\" \r\n");
 
-	if (customerror==1)
+	if (sysconfiginfo.loginonce==1)
 	{
-
 	ViewBuilder.Append(" checked=\"checked\" \r\n");
+	}//end if
+	ViewBuilder.Append(" value=\"1\">开&nbsp;<input id=\"loginonce0\" name=\"loginonce\" type=\"radio\" \r\n");
 
-	}	//end if
-
-	ViewBuilder.Append(" value=\"1\">开<input id=\"customerror\" name=\"customerror\" type=\"radio\" \r\n");
-
-	if (customerror==0)
+	if (sysconfiginfo.loginonce==0)
 	{
-
 	ViewBuilder.Append(" checked=\"checked\" \r\n");
+	}//end if
+	ViewBuilder.Append(" value=\"0\">关&nbsp;&nbsp;系统登录维一性，如果系统在别的地方登录则进行提示。\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 系统单点登录验证： </td>\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input id=\"ssocheck1\" name=\"ssocheck\" type=\"radio\" \r\n");
 
-	}	//end if
+	if (sysconfiginfo.ssocheck==1)
+	{
+	ViewBuilder.Append(" checked=\"checked\" \r\n");
+	}//end if
+	ViewBuilder.Append(" value=\"1\">开&nbsp;<input id=\"logincheck1\" name=\"logincheck\" type=\"radio\" \r\n");
 
-	ViewBuilder.Append(" value=\"0\">关&nbsp;&nbsp;&nbsp;&nbsp;为了提高系统的安全，在调试完之后请关闭详细错误提示。\r\n");
+	if (sysconfiginfo.ssocheck==0)
+	{
+	ViewBuilder.Append(" checked=\"checked\" \r\n");
+	}//end if
+	ViewBuilder.Append(" value=\"0\">关&nbsp;&nbsp;如果选择开启单点登录，请点击这里前往<a style=\"color:#ff0000\" href=\"ssoconfigs.aspx\">[单点登录配置]</a>\r\n");
+	ViewBuilder.Append("                    </td>\r\n");
+	ViewBuilder.Append("                  </tr>\r\n");
+	ViewBuilder.Append("                  <tr>\r\n");
+	ViewBuilder.Append("                    <td class=\"td_class\"> 系统跨域请求模式： </td>\r\n");
+	ViewBuilder.Append("                    <td height=\"25\"><input id=\"acctype0\" name=\"acctype\" type=\"radio\" \r\n");
+
+	if (sysconfiginfo.acctype==0)
+	{
+	ViewBuilder.Append(" checked=\"checked\" \r\n");
+	}//end if
+	ViewBuilder.Append(" value=\"0\">经典模式&nbsp;<input id=\"acctype1\" name=\"acctype\" type=\"radio\" \r\n");
+
+	if (sysconfiginfo.acctype==1)
+	{
+	ViewBuilder.Append(" checked=\"checked\" \r\n");
+	}//end if
+	ViewBuilder.Append(" value=\"1\">集成模式&nbsp;&nbsp;在AJAX请求时系统提供的跨域请求模式，IIS7下请改为集成模式。\r\n");
 	ViewBuilder.Append("                    </td>\r\n");
 	ViewBuilder.Append("                  </tr>\r\n");
 	ViewBuilder.Append("                  <tr>\r\n");
@@ -182,22 +176,49 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("    </div>\r\n");
 	ViewBuilder.Append("</form>\r\n");
 
-
 	if (ispost)
 	{
 
-	ViewBuilder.Append("   <script type=\"text/javascript\">\r\n");
-	ViewBuilder.Append("       layer.msg('" + msg.ToString() + "', 2, 1);\r\n");
-	ViewBuilder.Append("    </");
+	if (ispost)
+	{
+	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
+	ViewBuilder.Append("    layer.msg('" + echo(msg) + "', 0, 1);\r\n");
+	ViewBuilder.Append("    var bar = 0;\r\n");
+	ViewBuilder.Append("    count();\r\n");
+	ViewBuilder.Append("    function count() {\r\n");
+	ViewBuilder.Append("        bar = bar + 4;\r\n");
+	ViewBuilder.Append("        if (bar < 80) {\r\n");
+	ViewBuilder.Append("            setTimeout(\"count()\", 100);\r\n");
+	ViewBuilder.Append("        }\r\n");
+	ViewBuilder.Append("        else {\r\n");
+
+	if (backurl!="")
+	{
+	ViewBuilder.Append("            window.location.href = \"" + echo(backurl) + "\";\r\n");
+	}
+	else
+	{
+	ViewBuilder.Append("            window.location.href = \"" + echo(pageurl) + "\";\r\n");
+	}//end if
+	ViewBuilder.Append("        }\r\n");
+	ViewBuilder.Append("    }\r\n");
+	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
-
-	}	//end if
-
-
-
+	}//end if
+	}//end if
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

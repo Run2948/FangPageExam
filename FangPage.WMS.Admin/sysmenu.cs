@@ -1,41 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000037 RID: 55
+	// Token: 0x02000044 RID: 68
 	public class sysmenu : AdminController
 	{
-		// Token: 0x06000085 RID: 133 RVA: 0x0000BBF4 File Offset: 0x00009DF4
-		protected override void View()
+		// Token: 0x060000A2 RID: 162 RVA: 0x0000D755 File Offset: 0x0000B955
+		protected override void Controller()
 		{
 			if (this.parentid > 0)
 			{
 				this.menulist = this.GetChildMenu(this.parentid);
 			}
-			base.SaveLeftURL(this.fullname);
 		}
 
-		// Token: 0x06000086 RID: 134 RVA: 0x0000BC34 File Offset: 0x00009E34
+		// Token: 0x060000A3 RID: 163 RVA: 0x0000D772 File Offset: 0x0000B972
 		protected List<MenuInfo> GetChildMenu(int parentid)
 		{
-			List<SqlParam> list = new List<SqlParam>();
-			list.Add(DbHelper.MakeAndWhere("parentid", parentid));
-			if (this.roleid != 1)
+			if (this.roleid == 1)
 			{
-				list.Add(DbHelper.MakeAndWhere("id", WhereType.In, this.role.menus));
+				return MenuBll.GetMenuList(parentid);
 			}
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			return DbHelper.ExecuteList<MenuInfo>(orderby, list.ToArray());
+			return MenuBll.GetMenuList(parentid, this.role.menus);
 		}
 
-		// Token: 0x04000084 RID: 132
+		// Token: 0x040000BE RID: 190
 		protected int parentid = FPRequest.GetInt("parentid");
 
-		// Token: 0x04000085 RID: 133
+		// Token: 0x040000BF RID: 191
 		protected List<MenuInfo> menulist = new List<MenuInfo>();
 	}
 }

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000017 RID: 23
+	// Token: 0x0200001E RID: 30
 	public class syslogmanage : SuperController
 	{
-		// Token: 0x06000037 RID: 55 RVA: 0x00005A50 File Offset: 0x00003C50
-		protected override void View()
+		// Token: 0x06000047 RID: 71 RVA: 0x00006AE4 File Offset: 0x00004CE4
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
@@ -25,13 +26,12 @@ namespace FangPage.WMS.Admin
 				}
 			}
 			this.sysloglist = DbHelper.ExecuteList<SysLogInfo>(this.pager);
-			base.SaveRightURL();
 		}
 
-		// Token: 0x0400002C RID: 44
+		// Token: 0x04000045 RID: 69
 		protected List<SysLogInfo> sysloglist = new List<SysLogInfo>();
 
-		// Token: 0x0400002D RID: 45
+		// Token: 0x04000046 RID: 70
 		protected Pager pager = FPRequest.GetModel<Pager>();
 	}
 }

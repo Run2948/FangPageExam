@@ -2,40 +2,52 @@
 using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200003C RID: 60
+	// Token: 0x02000047 RID: 71
 	public class departmentdisplay : SuperController
 	{
-		// Token: 0x06000093 RID: 147 RVA: 0x0000C774 File Offset: 0x0000A974
-		protected override void View()
+		// Token: 0x060000AA RID: 170 RVA: 0x0000DF30 File Offset: 0x0000C130
+		protected override void Controller()
 		{
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", this.parentid);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			this.departmentlist = DbHelper.ExecuteList<Department>(orderby, new SqlParam[]
+			SqlParam[] sqlparams = new SqlParam[]
 			{
-				sqlParam
-			});
+				DbHelper.MakeAndWhere("parentid", this.parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			};
+			this.departmentlist = DbHelper.ExecuteList<Department>(sqlparams);
 			if (this.ispost)
 			{
+				Department departInfo = DepartmentBll.GetDepartInfo(this.parentid);
 				int num = 0;
 				foreach (Department department in this.departmentlist)
 				{
-					this.departmentlist[num].display = FPRequest.GetInt("display_" + department.id);
+					this.departmentlist[num].display = departInfo.display + FPRequest.GetInt("display_" + department.id);
 					DbHelper.ExecuteUpdate<Department>(this.departmentlist[num]);
 					num++;
 				}
-				base.Response.Redirect(this.cururl + "?parentid=" + this.parentid);
+				FPCache.Remove("FP_DEPARTLIST");
+				base.Response.Redirect(string.Concat(new object[]
+				{
+					"departmentdisplay.aspx?parentid=",
+					this.parentid,
+					"&departname=",
+					this.departname
+				}));
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000094 RID: 148
+		// Token: 0x040000C8 RID: 200
 		public List<Department> departmentlist = new List<Department>();
 
-		// Token: 0x04000095 RID: 149
+		// Token: 0x040000C9 RID: 201
 		public int parentid = FPRequest.GetInt("parentid");
+
+		// Token: 0x040000CA RID: 202
+		protected string departname = FPRequest.GetString("departname");
 	}
 }

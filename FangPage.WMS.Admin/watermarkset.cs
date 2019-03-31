@@ -1,14 +1,15 @@
 ﻿using System;
 using FangPage.MVC;
-using FangPage.WMS.Model;
+using FangPage.WMS.Config;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200001F RID: 31
+	// Token: 0x02000025 RID: 37
 	public class watermarkset : SuperController
 	{
-		// Token: 0x0600004A RID: 74 RVA: 0x0000681C File Offset: 0x00004A1C
-		protected override void View()
+		// Token: 0x06000058 RID: 88 RVA: 0x000075DC File Offset: 0x000057DC
+		protected override void Controller()
 		{
 			this.sysconfiginfo = SysConfigs.GetConfig();
 			if (this.ispost)
@@ -22,10 +23,9 @@ namespace FangPage.WMS.Admin
 				SysConfigs.SaveConfig(this.sysconfiginfo);
 				SysConfigs.ResetConfig();
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x0400003A RID: 58
+		// Token: 0x04000052 RID: 82
 		protected SysConfig sysconfiginfo = new SysConfig();
 	}
 }

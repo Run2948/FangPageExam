@@ -1,48 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200003F RID: 63
+	// Token: 0x0200004A RID: 74
 	public class rolemenus : SuperController
 	{
-		// Token: 0x0600009A RID: 154 RVA: 0x0000CCD8 File Offset: 0x0000AED8
-		protected override void View()
+		// Token: 0x060000B2 RID: 178 RVA: 0x0000E9B0 File Offset: 0x0000CBB0
+		protected override void Controller()
 		{
-			this.roleinfo = DbHelper.ExecuteModel<RoleInfo>(this.rid);
+			this.roleinfo = RoleBll.GetRoleInfo(this.rid);
 			if (this.roleinfo.id == 0)
 			{
 				this.ShowErr("对不起，该角色不存在或已被删除。");
+				return;
 			}
-			else
+			if (this.ispost)
 			{
-				if (this.ispost)
+				this.roleinfo.menus = FPRequest.GetString("menus");
+				DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
+				if (this.roleinfo.id == this.roleid)
 				{
-					this.roleinfo.menus = FPRequest.GetString("menus");
-					DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
-					if (this.roleinfo.id == this.roleid)
-					{
-						base.ResetUser();
-					}
-					base.Response.Redirect(this.pagename + "?rid=" + this.rid);
+					base.ResetUser();
 				}
-				this.zNodes = this.GetMenuTree(0);
-				base.SaveRightURL();
+				FPCache.Remove("FP_ROLELIST");
+				base.Response.Redirect(this.pagename + "?rid=" + this.rid);
 			}
+			this.zNodes = this.GetMenuTree(0);
 		}
 
-		// Token: 0x0600009B RID: 155 RVA: 0x0000CDB0 File Offset: 0x0000AFB0
+		// Token: 0x060000B3 RID: 179 RVA: 0x0000EA68 File Offset: 0x0000CC68
 		private string GetMenuTree(int parentid)
 		{
-			SqlParam[] sqlparams = new SqlParam[]
+			List<MenuInfo> list = DbHelper.ExecuteList<MenuInfo>(new SqlParam[]
 			{
-				DbHelper.MakeAndWhere("parentid", parentid)
-			};
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			List<MenuInfo> list = DbHelper.ExecuteList<MenuInfo>(orderby, sqlparams);
+				DbHelper.MakeAndWhere("parentid", parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			});
 			string text = "";
 			foreach (MenuInfo menuInfo in list)
 			{
@@ -51,14 +51,13 @@ namespace FangPage.WMS.Admin
 					text += ",";
 				}
 				string text2 = "";
-				if (base.ischecked(menuInfo.id, this.roleinfo.menus) || (this.roleinfo.id == 1 && menuInfo.system == 1))
+				if (FPArray.Contain(this.roleinfo.menus, menuInfo.id) || (this.roleinfo.id == 1 && menuInfo.system == 1))
 				{
 					text2 = "checked:true,";
 				}
-				object obj = text;
 				text = string.Concat(new object[]
 				{
-					obj,
+					text,
 					"{ id: ",
 					menuInfo.id,
 					", pId: ",
@@ -69,8 +68,8 @@ namespace FangPage.WMS.Admin
 					text2,
 					"open:true, icon: \"",
 					this.webpath,
-					(this.sysconfig.adminpath == "") ? "" : (this.sysconfig.adminpath + "/"),
-					"images/sysmenu2.gif\" }"
+					this.sitepath,
+					"/statics/images/sysmenu2.gif\" }"
 				});
 				string menuTree = this.GetMenuTree(menuInfo.id);
 				if (menuTree != "")
@@ -81,13 +80,13 @@ namespace FangPage.WMS.Admin
 			return text;
 		}
 
-		// Token: 0x0400009A RID: 154
+		// Token: 0x040000D3 RID: 211
 		protected int rid = FPRequest.GetInt("rid");
 
-		// Token: 0x0400009B RID: 155
+		// Token: 0x040000D4 RID: 212
 		protected RoleInfo roleinfo = new RoleInfo();
 
-		// Token: 0x0400009C RID: 156
+		// Token: 0x040000D5 RID: 213
 		protected string zNodes = "";
 	}
 }

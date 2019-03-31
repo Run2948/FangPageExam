@@ -1,83 +1,65 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Web;
+using FangPage.Common;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
+using FangPage.WMS.Config;
 using FangPage.WMS.Model;
 
 namespace FangPage.WMS
 {
-	// Token: 0x0200000C RID: 12
+	// Token: 0x02000004 RID: 4
 	public class UpLoad
 	{
-		// Token: 0x06000032 RID: 50 RVA: 0x00003738 File Offset: 0x00001938
-		public string FileSaveAs(HttpPostedFile postedFile, string filetype, UserInfo user)
+		// Token: 0x0600000B RID: 11 RVA: 0x00002F0E File Offset: 0x0000110E
+		public string FileSaveAs(HttpPostedFile postedFile)
 		{
-			return this.FileSaveAs(postedFile, filetype, user, false, false, 0, 0);
+			return this.FileSaveAs(postedFile, 0, 0, 0, 0);
 		}
 
-		// Token: 0x06000033 RID: 51 RVA: 0x00003758 File Offset: 0x00001958
-		public string FileSaveAs(HttpPostedFile postedFile, string filetype, UserInfo user, bool isthumbnail, bool iswatermark, int imgmaxwidth, int imgmaxheight)
+		// Token: 0x0600000C RID: 12 RVA: 0x00002F1C File Offset: 0x0000111C
+		public string FileSaveAs(HttpPostedFile postedFile, int isthumbnail, int iswatermark, int imgmaxwidth, int imgmaxheight)
 		{
 			string result;
 			try
 			{
-				string fileExt = UpLoad.GetFileExt(postedFile.FileName);
+				string text = this.GetFileExt(postedFile.FileName).ToLower();
 				string fileName = Path.GetFileName(postedFile.FileName);
-				string text = this.GetNewFileName() + "." + fileExt;
 				int contentLength = postedFile.ContentLength;
-				string[] array = FPUtils.SplitString(AttachBll.GetAttachTypeArray(filetype), "\r\n");
-				string[] array2 = new string[array.Length];
-				int[] array3 = new int[array.Length];
-				string text2 = "";
-				for (int i = 0; i < array.Length; i++)
+				string text2 = this.GetNewFileName() + "." + text;
+				string upLoadPath = this.GetUpLoadPath();
+				AttachType attachType = AttachBll.GetAttachType(text);
+				Hashtable hashtable = new Hashtable();
+				if (attachType.id <= 0)
 				{
-					string[] array4 = FPUtils.SplitString(array[i], ",", 2);
-					array2[i] = array4[0];
-					array3[i] = FPUtils.StrToInt(array4[1], 0);
-					if (text2 != "")
-					{
-						text2 += "、";
-					}
-					text2 += array4[0];
+					hashtable["error"] = "系统不允许上传该类型文件！";
+					hashtable["name"] = fileName;
+					hashtable["filename"] = upLoadPath + text2;
+					hashtable["filesize"] = contentLength.ToString();
+					hashtable["filetype"] = attachType.extension;
+					hashtable["desc"] = attachType.type;
+					result = FPJson.ToJson(hashtable);
 				}
-				int inArrayID = FPUtils.GetInArrayID(fileExt, array2, true);
-				if (inArrayID < 0)
+				else if (postedFile.ContentLength > attachType.maxsize * 1024)
 				{
-					SysBll.InsertLog(user.id, user.username, "上传文件", "上传文件：" + fileName + ",类型不合法", false);
-					result = string.Concat(new string[]
-					{
-						"{\"error\": \"只允许上传【",
-						text2,
-						"】类型的文件！\", \"filename\": \"\", \"filesize\": \"",
-						contentLength.ToString(),
-						"\", \"originalname\": \"",
-						fileName,
-						"\"}"
-					});
-				}
-				else if (postedFile.ContentLength > array3[inArrayID] * 1024)
-				{
-					SysBll.InsertLog(user.id, user.username, "上传文件", "上传文件：" + fileName + ",文件大小超过范围", false);
-					result = string.Concat(new object[]
-					{
-						"{\"error\": \"该类型文件上传不得超过【",
-						array3[inArrayID],
-						"KB】\", \"filename\": \"\", \"filesize\": \"",
-						contentLength.ToString(),
-						"\", \"originalname\": \"",
-						fileName,
-						"\"}"
-					});
+					hashtable["error"] = "该类型附件上传不得超过【" + FPFile.FormatBytesStr((long)(attachType.maxsize * 1024)) + "】";
+					hashtable["name"] = fileName;
+					hashtable["filename"] = upLoadPath + text2;
+					hashtable["filesize"] = contentLength.ToString();
+					hashtable["filetype"] = text;
+					hashtable["desc"] = attachType.type;
+					result = FPJson.ToJson(hashtable);
 				}
 				else
 				{
-					string upLoadPath = this.GetUpLoadPath();
-					string mapPath = FPUtils.GetMapPath(upLoadPath);
+					string mapPath = FPFile.GetMapPath(upLoadPath);
 					if (!Directory.Exists(mapPath))
 					{
 						Directory.CreateDirectory(mapPath);
 					}
-					postedFile.SaveAs(mapPath + text);
+					postedFile.SaveAs(mapPath + text2);
 					if (imgmaxwidth <= 0)
 					{
 						imgmaxwidth = this.sysconfig.attachimgmaxwidth;
@@ -86,42 +68,43 @@ namespace FangPage.WMS
 					{
 						imgmaxheight = this.sysconfig.attachimgmaxheight;
 					}
-					if (this.IsImage(fileExt) && (imgmaxwidth > 0 || imgmaxheight > 0))
+					if (this.IsImage(text) && (imgmaxwidth > 0 || imgmaxheight > 0))
 					{
-						FPThumb.MakeThumbnailImage(mapPath + text, mapPath + text, imgmaxwidth, imgmaxheight);
+						FPThumb.MakeThumbnailImage(mapPath + text2, mapPath + text2, imgmaxwidth, imgmaxheight);
 					}
-					string strPath = upLoadPath + Path.GetFileNameWithoutExtension(text) + "_small." + fileExt;
-					if (this.IsImage(fileExt) && isthumbnail && this.sysconfig.thumbnailwidth > 0 && this.sysconfig.thumbnailheight > 0)
+					string virPath = upLoadPath + Path.GetFileNameWithoutExtension(text2) + "_small." + text;
+					if (this.IsImage(text) && isthumbnail == 1 && this.sysconfig.thumbnailwidth > 0 && this.sysconfig.thumbnailheight > 0)
 					{
-						FPThumb.MakeThumbnailImage(mapPath + text, FPUtils.GetMapPath(strPath), this.sysconfig.thumbnailwidth, this.sysconfig.thumbnailheight);
+						FPThumb.MakeThumbnailImage(mapPath + text2, FPFile.GetMapPath(virPath), this.sysconfig.thumbnailwidth, this.sysconfig.thumbnailheight);
 					}
-					if (this.IsWaterMark(fileExt) && iswatermark)
+					if ((this.IsWaterMark(text) && iswatermark == 1) || (this.IsWaterMark(text) && iswatermark == 0 && this.sysconfig.allowwatermark == 1))
 					{
-						WaterMark.AddImageSignPic(mapPath + text, mapPath + text, FPUtils.GetMapPath(WebConfig.WebPath + this.sysconfig.watermarkpic), this.sysconfig.watermarkstatus, this.sysconfig.attachimgquality, this.sysconfig.watermarkopacity);
+						WaterMark.AddImageSignPic(mapPath + text2, mapPath + text2, FPFile.GetMapPath(WebConfig.WebPath + this.sysconfig.watermarkpic), this.sysconfig.watermarkstatus, this.sysconfig.attachimgquality, this.sysconfig.watermarkopacity);
 					}
-					SysBll.InsertLog(user.id, user.username, "上传文件", "上传文件：" + fileName, true);
-					result = string.Concat(new string[]
-					{
-						"{\"error\": \"\", \"filename\": \"",
-						upLoadPath,
-						text,
-						"\", \"filesize\": \"",
-						contentLength.ToString(),
-						"\", \"originalname\": \"",
-						fileName,
-						"\"}"
-					});
+					hashtable["error"] = "";
+					hashtable["name"] = fileName;
+					hashtable["filename"] = upLoadPath + text2;
+					hashtable["filesize"] = contentLength.ToString();
+					hashtable["filetype"] = attachType.extension;
+					hashtable["desc"] = attachType.type;
+					result = FPJson.ToJson(hashtable);
 				}
 			}
 			catch (Exception ex)
 			{
-				SysBll.InsertLog(user.id, user.username, "上传文件", "错误：" + ex.Message, false);
-				result = "{\"error\": \"上传过程中发生意外错误！\", \"filename\": \"\", \"filesize\": \"0\", \"originalname\": \"\"}";
+				Hashtable hashtable2 = new Hashtable();
+				hashtable2["error"] = ex.Message;
+				hashtable2["name"] = "";
+				hashtable2["filename"] = "";
+				hashtable2["filesize"] = "0";
+				hashtable2["filetype"] = "";
+				hashtable2["desc"] = "";
+				result = FPJson.ToJson(hashtable2);
 			}
 			return result;
 		}
 
-		// Token: 0x06000034 RID: 52 RVA: 0x00003BC8 File Offset: 0x00001DC8
+		// Token: 0x0600000D RID: 13 RVA: 0x00003300 File Offset: 0x00001500
 		private string GetUpLoadPath()
 		{
 			return string.Concat(new string[]
@@ -135,44 +118,39 @@ namespace FangPage.WMS
 			});
 		}
 
-		// Token: 0x06000035 RID: 53 RVA: 0x00003C34 File Offset: 0x00001E34
+		// Token: 0x0600000E RID: 14 RVA: 0x00003364 File Offset: 0x00001564
 		private string GetNewFileName()
 		{
-			return DateTime.Now.ToString("yyyyMMddHHmmssffff");
+			return DateTime.Now.ToString("yyyyMMddHHmmss") + FPRandom.CreateCodeNum(4);
 		}
 
-		// Token: 0x06000036 RID: 54 RVA: 0x00003C58 File Offset: 0x00001E58
+		// Token: 0x0600000F RID: 15 RVA: 0x0000338E File Offset: 0x0000158E
 		private bool IsImage(string _fileExt)
 		{
-			return FPUtils.InArray(_fileExt.ToLower(), "bmp,jpg,gif,png");
+			return FPArray.InArray(_fileExt.ToLower(), "bmp,jpg,gif,png") >= 0;
 		}
 
-		// Token: 0x06000037 RID: 55 RVA: 0x00003C7C File Offset: 0x00001E7C
+		// Token: 0x06000010 RID: 16 RVA: 0x000033A6 File Offset: 0x000015A6
 		private bool IsWaterMark(string _fileExt)
 		{
-			return SysConfigs.GetConfig().allowwatermark > 0 && FPUtils.InArray(_fileExt.ToLower(), "bmp,jpg,png");
+			return SysConfigs.GetConfig().allowwatermark > 0 && FPArray.InArray(_fileExt.ToLower(), "bmp,jpg,png") >= 0;
 		}
 
-		// Token: 0x06000038 RID: 56 RVA: 0x00003CB8 File Offset: 0x00001EB8
-		public static string GetFileExt(string _filepath)
+		// Token: 0x06000011 RID: 17 RVA: 0x000033CD File Offset: 0x000015CD
+		private string GetFileExt(string _filepath)
 		{
-			string result;
 			if (string.IsNullOrEmpty(_filepath))
 			{
-				result = "";
+				return "";
 			}
-			else if (_filepath.LastIndexOf(".") > 0)
+			if (_filepath.LastIndexOf(".") > 0)
 			{
-				result = _filepath.Substring(_filepath.LastIndexOf(".") + 1);
+				return _filepath.Substring(_filepath.LastIndexOf(".") + 1);
 			}
-			else
-			{
-				result = "";
-			}
-			return result;
+			return "";
 		}
 
-		// Token: 0x0400001C RID: 28
+		// Token: 0x0400001F RID: 31
 		private SysConfig sysconfig = SysConfigs.GetConfig();
 	}
 }

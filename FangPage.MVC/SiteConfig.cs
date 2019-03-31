@@ -2,27 +2,12 @@
 
 namespace FangPage.MVC
 {
-	// Token: 0x0200000A RID: 10
+	// Token: 0x0200000B RID: 11
 	public class SiteConfig
 	{
-        // Token: 0x1700000C RID: 3
-		// (get) Token: 0x06000068 RID: 104 RVA: 0x000050E4 File Offset: 0x000032E4
-		// (set) Token: 0x06000069 RID: 105 RVA: 0x000050FC File Offset: 0x000032FC
-		public string notes
-		{
-			get
-			{
-				return this.m_notes;
-			}
-			set
-			{
-				this.m_notes = value;
-			}
-		}
-
-		// Token: 0x17000005 RID: 5
-		// (get) Token: 0x0600002E RID: 46 RVA: 0x00003534 File Offset: 0x00001734
-		// (set) Token: 0x0600002F RID: 47 RVA: 0x0000354C File Offset: 0x0000174C
+		// Token: 0x17000007 RID: 7
+		// (get) Token: 0x06000053 RID: 83 RVA: 0x00003591 File Offset: 0x00001791
+		// (set) Token: 0x06000054 RID: 84 RVA: 0x00003599 File Offset: 0x00001799
 		public string name
 		{
 			get
@@ -35,9 +20,58 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000006 RID: 6
-		// (get) Token: 0x06000030 RID: 48 RVA: 0x00003558 File Offset: 0x00001758
-		// (set) Token: 0x06000031 RID: 49 RVA: 0x00003570 File Offset: 0x00001770
+		// Token: 0x17000008 RID: 8
+		// (get) Token: 0x06000055 RID: 85 RVA: 0x000035A2 File Offset: 0x000017A2
+		// (set) Token: 0x06000056 RID: 86 RVA: 0x000035AA File Offset: 0x000017AA
+		public string guid
+		{
+			get
+			{
+				return this.m_guid;
+			}
+			set
+			{
+				this.m_guid = value;
+			}
+		}
+
+		// Token: 0x17000009 RID: 9
+		// (get) Token: 0x06000057 RID: 87 RVA: 0x000035B4 File Offset: 0x000017B4
+		// (set) Token: 0x06000058 RID: 88 RVA: 0x00003601 File Offset: 0x00001801
+		public string markup
+		{
+			get
+			{
+				if (this.m_markup == "" && this.sitepath != "")
+				{
+					this.m_markup = "sites_" + this.sitepath;
+				}
+				return this.m_markup;
+			}
+			set
+			{
+				this.m_markup = value;
+			}
+		}
+
+		// Token: 0x1700000A RID: 10
+		// (get) Token: 0x06000059 RID: 89 RVA: 0x0000360A File Offset: 0x0000180A
+		// (set) Token: 0x0600005A RID: 90 RVA: 0x00003612 File Offset: 0x00001812
+		public string platform
+		{
+			get
+			{
+				return this.m_platform;
+			}
+			set
+			{
+				this.m_platform = value;
+			}
+		}
+
+		// Token: 0x1700000B RID: 11
+		// (get) Token: 0x0600005B RID: 91 RVA: 0x0000361B File Offset: 0x0000181B
+		// (set) Token: 0x0600005C RID: 92 RVA: 0x00003623 File Offset: 0x00001823
 		public string sitepath
 		{
 			get
@@ -50,39 +84,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000007 RID: 7
-		// (get) Token: 0x06000032 RID: 50 RVA: 0x0000357C File Offset: 0x0000177C
-		// (set) Token: 0x06000033 RID: 51 RVA: 0x00003594 File Offset: 0x00001794
-		public string inherits
-		{
-			get
-			{
-				return this.m_inherits;
-			}
-			set
-			{
-				this.m_inherits = value;
-			}
-		}
-
-		// Token: 0x17000008 RID: 8
-		// (get) Token: 0x06000034 RID: 52 RVA: 0x000035A0 File Offset: 0x000017A0
-		// (set) Token: 0x06000035 RID: 53 RVA: 0x000035B8 File Offset: 0x000017B8
-		public string import
-		{
-			get
-			{
-				return this.m_import;
-			}
-			set
-			{
-				this.m_import = value;
-			}
-		}
-
-		// Token: 0x17000009 RID: 9
-		// (get) Token: 0x06000036 RID: 54 RVA: 0x000035C4 File Offset: 0x000017C4
-		// (set) Token: 0x06000037 RID: 55 RVA: 0x000035DC File Offset: 0x000017DC
+		// Token: 0x1700000C RID: 12
+		// (get) Token: 0x0600005D RID: 93 RVA: 0x0000362C File Offset: 0x0000182C
+		// (set) Token: 0x0600005E RID: 94 RVA: 0x00003634 File Offset: 0x00001834
 		public string author
 		{
 			get
@@ -95,9 +99,39 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x1700000A RID: 10
-		// (get) Token: 0x06000038 RID: 56 RVA: 0x000035E8 File Offset: 0x000017E8
-		// (set) Token: 0x06000039 RID: 57 RVA: 0x00003600 File Offset: 0x00001800
+		// Token: 0x1700000D RID: 13
+		// (get) Token: 0x0600005F RID: 95 RVA: 0x0000363D File Offset: 0x0000183D
+		// (set) Token: 0x06000060 RID: 96 RVA: 0x00003645 File Offset: 0x00001845
+		public string import
+		{
+			get
+			{
+				return this.m_import;
+			}
+			set
+			{
+				this.m_import = value;
+			}
+		}
+
+		// Token: 0x1700000E RID: 14
+		// (get) Token: 0x06000061 RID: 97 RVA: 0x0000364E File Offset: 0x0000184E
+		// (set) Token: 0x06000062 RID: 98 RVA: 0x00003656 File Offset: 0x00001856
+		public string dll
+		{
+			get
+			{
+				return this.m_dll;
+			}
+			set
+			{
+				this.m_dll = value;
+			}
+		}
+
+		// Token: 0x1700000F RID: 15
+		// (get) Token: 0x06000063 RID: 99 RVA: 0x0000365F File Offset: 0x0000185F
+		// (set) Token: 0x06000064 RID: 100 RVA: 0x00003667 File Offset: 0x00001867
 		public int urltype
 		{
 			get
@@ -110,9 +144,24 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x1700000B RID: 11
-		// (get) Token: 0x0600003A RID: 58 RVA: 0x0000360C File Offset: 0x0000180C
-		// (set) Token: 0x0600003B RID: 59 RVA: 0x00003624 File Offset: 0x00001824
+		// Token: 0x17000010 RID: 16
+		// (get) Token: 0x06000065 RID: 101 RVA: 0x00003670 File Offset: 0x00001870
+		// (set) Token: 0x06000066 RID: 102 RVA: 0x00003678 File Offset: 0x00001878
+		public string notes
+		{
+			get
+			{
+				return this.m_notes;
+			}
+			set
+			{
+				this.m_notes = value;
+			}
+		}
+
+		// Token: 0x17000011 RID: 17
+		// (get) Token: 0x06000067 RID: 103 RVA: 0x00003681 File Offset: 0x00001881
+		// (set) Token: 0x06000068 RID: 104 RVA: 0x00003689 File Offset: 0x00001889
 		public string version
 		{
 			get
@@ -125,9 +174,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x1700000C RID: 12
-		// (get) Token: 0x0600003C RID: 60 RVA: 0x00003630 File Offset: 0x00001830
-		// (set) Token: 0x0600003D RID: 61 RVA: 0x0000366D File Offset: 0x0000186D
+		// Token: 0x17000012 RID: 18
+		// (get) Token: 0x06000069 RID: 105 RVA: 0x00003692 File Offset: 0x00001892
+		// (set) Token: 0x0600006A RID: 106 RVA: 0x000036B8 File Offset: 0x000018B8
 		public string sitetitle
 		{
 			get
@@ -144,9 +193,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x1700000D RID: 13
-		// (get) Token: 0x0600003E RID: 62 RVA: 0x00003678 File Offset: 0x00001878
-		// (set) Token: 0x0600003F RID: 63 RVA: 0x00003690 File Offset: 0x00001890
+		// Token: 0x17000013 RID: 19
+		// (get) Token: 0x0600006B RID: 107 RVA: 0x000036C1 File Offset: 0x000018C1
+		// (set) Token: 0x0600006C RID: 108 RVA: 0x000036C9 File Offset: 0x000018C9
 		public string keywords
 		{
 			get
@@ -159,9 +208,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x1700000E RID: 14
-		// (get) Token: 0x06000040 RID: 64 RVA: 0x0000369C File Offset: 0x0000189C
-		// (set) Token: 0x06000041 RID: 65 RVA: 0x000036B4 File Offset: 0x000018B4
+		// Token: 0x17000014 RID: 20
+		// (get) Token: 0x0600006D RID: 109 RVA: 0x000036D2 File Offset: 0x000018D2
+		// (set) Token: 0x0600006E RID: 110 RVA: 0x000036DA File Offset: 0x000018DA
 		public string description
 		{
 			get
@@ -174,9 +223,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x1700000F RID: 15
-		// (get) Token: 0x06000042 RID: 66 RVA: 0x000036C0 File Offset: 0x000018C0
-		// (set) Token: 0x06000043 RID: 67 RVA: 0x000036D8 File Offset: 0x000018D8
+		// Token: 0x17000015 RID: 21
+		// (get) Token: 0x0600006F RID: 111 RVA: 0x000036E3 File Offset: 0x000018E3
+		// (set) Token: 0x06000070 RID: 112 RVA: 0x000036EB File Offset: 0x000018EB
 		public string otherhead
 		{
 			get
@@ -189,9 +238,84 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000010 RID: 16
-		// (get) Token: 0x06000044 RID: 68 RVA: 0x000036E4 File Offset: 0x000018E4
-		// (set) Token: 0x06000045 RID: 69 RVA: 0x000036FC File Offset: 0x000018FC
+		// Token: 0x17000016 RID: 22
+		// (get) Token: 0x06000071 RID: 113 RVA: 0x000036F4 File Offset: 0x000018F4
+		// (set) Token: 0x06000072 RID: 114 RVA: 0x000036FC File Offset: 0x000018FC
+		public string copyright
+		{
+			get
+			{
+				return this.m_copyright;
+			}
+			set
+			{
+				this.m_copyright = value;
+			}
+		}
+
+		// Token: 0x17000017 RID: 23
+		// (get) Token: 0x06000073 RID: 115 RVA: 0x00003705 File Offset: 0x00001905
+		// (set) Token: 0x06000074 RID: 116 RVA: 0x0000370D File Offset: 0x0000190D
+		public string homepage
+		{
+			get
+			{
+				return this.m_homepage;
+			}
+			set
+			{
+				this.m_homepage = value;
+			}
+		}
+
+		// Token: 0x17000018 RID: 24
+		// (get) Token: 0x06000075 RID: 117 RVA: 0x00003716 File Offset: 0x00001916
+		// (set) Token: 0x06000076 RID: 118 RVA: 0x0000371E File Offset: 0x0000191E
+		public string adminurl
+		{
+			get
+			{
+				return this.m_adminurl;
+			}
+			set
+			{
+				this.m_adminurl = value;
+			}
+		}
+
+		// Token: 0x17000019 RID: 25
+		// (get) Token: 0x06000077 RID: 119 RVA: 0x00003727 File Offset: 0x00001927
+		// (set) Token: 0x06000078 RID: 120 RVA: 0x0000372F File Offset: 0x0000192F
+		public string indexurl
+		{
+			get
+			{
+				return this.m_indexurl;
+			}
+			set
+			{
+				this.m_indexurl = value;
+			}
+		}
+
+		// Token: 0x1700001A RID: 26
+		// (get) Token: 0x06000079 RID: 121 RVA: 0x00003738 File Offset: 0x00001938
+		// (set) Token: 0x0600007A RID: 122 RVA: 0x00003740 File Offset: 0x00001940
+		public string icon
+		{
+			get
+			{
+				return this.m_icon;
+			}
+			set
+			{
+				this.m_icon = value;
+			}
+		}
+
+		// Token: 0x1700001B RID: 27
+		// (get) Token: 0x0600007B RID: 123 RVA: 0x00003749 File Offset: 0x00001949
+		// (set) Token: 0x0600007C RID: 124 RVA: 0x00003751 File Offset: 0x00001951
 		public int autocreate
 		{
 			get
@@ -204,9 +328,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000011 RID: 17
-		// (get) Token: 0x06000046 RID: 70 RVA: 0x00003708 File Offset: 0x00001908
-		// (set) Token: 0x06000047 RID: 71 RVA: 0x00003720 File Offset: 0x00001920
+		// Token: 0x1700001C RID: 28
+		// (get) Token: 0x0600007D RID: 125 RVA: 0x0000375A File Offset: 0x0000195A
+		// (set) Token: 0x0600007E RID: 126 RVA: 0x00003762 File Offset: 0x00001962
 		public int closed
 		{
 			get
@@ -219,9 +343,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000012 RID: 18
-		// (get) Token: 0x06000048 RID: 72 RVA: 0x0000372C File Offset: 0x0000192C
-		// (set) Token: 0x06000049 RID: 73 RVA: 0x00003744 File Offset: 0x00001944
+		// Token: 0x1700001D RID: 29
+		// (get) Token: 0x0600007F RID: 127 RVA: 0x0000376B File Offset: 0x0000196B
+		// (set) Token: 0x06000080 RID: 128 RVA: 0x00003773 File Offset: 0x00001973
 		public string closedreason
 		{
 			get
@@ -234,9 +358,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000013 RID: 19
-		// (get) Token: 0x0600004A RID: 74 RVA: 0x00003750 File Offset: 0x00001950
-		// (set) Token: 0x0600004B RID: 75 RVA: 0x00003768 File Offset: 0x00001968
+		// Token: 0x1700001E RID: 30
+		// (get) Token: 0x06000081 RID: 129 RVA: 0x0000377C File Offset: 0x0000197C
+		// (set) Token: 0x06000082 RID: 130 RVA: 0x00003784 File Offset: 0x00001984
 		public string ipdenyaccess
 		{
 			get
@@ -249,9 +373,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000014 RID: 20
-		// (get) Token: 0x0600004C RID: 76 RVA: 0x00003774 File Offset: 0x00001974
-		// (set) Token: 0x0600004D RID: 77 RVA: 0x0000378C File Offset: 0x0000198C
+		// Token: 0x1700001F RID: 31
+		// (get) Token: 0x06000083 RID: 131 RVA: 0x0000378D File Offset: 0x0000198D
+		// (set) Token: 0x06000084 RID: 132 RVA: 0x00003795 File Offset: 0x00001995
 		public string ipaccess
 		{
 			get
@@ -264,9 +388,9 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000015 RID: 21
-		// (get) Token: 0x0600004E RID: 78 RVA: 0x00003798 File Offset: 0x00001998
-		// (set) Token: 0x0600004F RID: 79 RVA: 0x000037B0 File Offset: 0x000019B0
+		// Token: 0x17000020 RID: 32
+		// (get) Token: 0x06000085 RID: 133 RVA: 0x0000379E File Offset: 0x0000199E
+		// (set) Token: 0x06000086 RID: 134 RVA: 0x000037A6 File Offset: 0x000019A6
 		public string createdate
 		{
 			get
@@ -279,24 +403,39 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x17000016 RID: 22
-		// (get) Token: 0x06000050 RID: 80 RVA: 0x000037BC File Offset: 0x000019BC
-		// (set) Token: 0x06000051 RID: 81 RVA: 0x000037D4 File Offset: 0x000019D4
-		public int iscompile
+		// Token: 0x17000021 RID: 33
+		// (get) Token: 0x06000087 RID: 135 RVA: 0x000037AF File Offset: 0x000019AF
+		// (set) Token: 0x06000088 RID: 136 RVA: 0x000037B7 File Offset: 0x000019B7
+		public string updatedate
 		{
 			get
 			{
-				return this.m_iscompile;
+				return this.m_updatedate;
 			}
 			set
 			{
-				this.m_iscompile = value;
+				this.m_updatedate = value;
 			}
 		}
 
-		// Token: 0x17000017 RID: 23
-		// (get) Token: 0x06000052 RID: 82 RVA: 0x000037E0 File Offset: 0x000019E0
-		// (set) Token: 0x06000053 RID: 83 RVA: 0x000037F8 File Offset: 0x000019F8
+		// Token: 0x17000022 RID: 34
+		// (get) Token: 0x06000089 RID: 137 RVA: 0x000037C0 File Offset: 0x000019C0
+		// (set) Token: 0x0600008A RID: 138 RVA: 0x000037C8 File Offset: 0x000019C8
+		public string size
+		{
+			get
+			{
+				return this.m_size;
+			}
+			set
+			{
+				this.m_size = value;
+			}
+		}
+
+		// Token: 0x17000023 RID: 35
+		// (get) Token: 0x0600008B RID: 139 RVA: 0x000037D1 File Offset: 0x000019D1
+		// (set) Token: 0x0600008C RID: 140 RVA: 0x000037D9 File Offset: 0x000019D9
 		public string roles
 		{
 			get
@@ -309,64 +448,91 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x04000004 RID: 3
-		private string m_notes = string.Empty;
-
-		// Token: 0x04000004 RID: 4
-		private string m_name = "方配站点";
-
-		// Token: 0x04000005 RID: 5
-		private string m_sitepath = "";
-
-		// Token: 0x04000006 RID: 6
-		private string m_inherits = "";
-
 		// Token: 0x04000007 RID: 7
-		private string m_import = "";
+		private string m_name = "";
 
 		// Token: 0x04000008 RID: 8
-		private string m_author = "方配";
+		private string m_guid = string.Empty;
 
 		// Token: 0x04000009 RID: 9
-		private int m_urltype = 2;
+		private string m_markup = string.Empty;
 
 		// Token: 0x0400000A RID: 10
-		private string m_version = "";
+		private string m_platform = string.Empty;
 
 		// Token: 0x0400000B RID: 11
-		private string m_sitetitle = "";
+		private string m_sitepath = "";
 
 		// Token: 0x0400000C RID: 12
-		private string m_keywords = "";
+		private string m_author = "方配";
 
 		// Token: 0x0400000D RID: 13
-		private string m_description = "";
+		private string m_import = "";
 
 		// Token: 0x0400000E RID: 14
-		private string m_otherhead = "";
+		private string m_dll = "";
 
 		// Token: 0x0400000F RID: 15
-		private int m_autocreate = 1;
+		private int m_urltype = 1;
 
 		// Token: 0x04000010 RID: 16
-		private int m_closed = 0;
+		private string m_notes = "";
 
 		// Token: 0x04000011 RID: 17
-		private string m_closedreason = "站点正在升级，请稍后再访问！";
+		private string m_version = "1.0.0";
 
 		// Token: 0x04000012 RID: 18
-		private string m_ipdenyaccess = "";
+		private string m_sitetitle = "";
 
 		// Token: 0x04000013 RID: 19
-		private string m_ipaccess = "";
+		private string m_keywords = "";
 
 		// Token: 0x04000014 RID: 20
-		private string m_createdate = DateTime.Now.ToString("yyyy-MM-dd");
+		private string m_description = "";
 
 		// Token: 0x04000015 RID: 21
-		private int m_iscompile = 0;
+		private string m_otherhead = "";
 
 		// Token: 0x04000016 RID: 22
+		private string m_copyright = "";
+
+		// Token: 0x04000017 RID: 23
+		private string m_homepage = "";
+
+		// Token: 0x04000018 RID: 24
+		private string m_adminurl = "";
+
+		// Token: 0x04000019 RID: 25
+		private string m_indexurl = "";
+
+		// Token: 0x0400001A RID: 26
+		private string m_icon = "";
+
+		// Token: 0x0400001B RID: 27
+		private int m_autocreate = 1;
+
+		// Token: 0x0400001C RID: 28
+		private int m_closed;
+
+		// Token: 0x0400001D RID: 29
+		private string m_closedreason = "站点正在升级，请稍后再访问！";
+
+		// Token: 0x0400001E RID: 30
+		private string m_ipdenyaccess = "";
+
+		// Token: 0x0400001F RID: 31
+		private string m_ipaccess = "";
+
+		// Token: 0x04000020 RID: 32
+		private string m_createdate = string.Empty;
+
+		// Token: 0x04000021 RID: 33
+		private string m_updatedate = string.Empty;
+
+		// Token: 0x04000022 RID: 34
+		private string m_size = string.Empty;
+
+		// Token: 0x04000023 RID: 35
 		private string m_roles = "";
 	}
 }

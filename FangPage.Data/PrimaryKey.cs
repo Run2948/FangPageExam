@@ -2,36 +2,36 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x02000013 RID: 19
+	// Token: 0x02000015 RID: 21
 	public sealed class PrimaryKey : Attribute
 	{
-		// Token: 0x060000D7 RID: 215 RVA: 0x00005D8F File Offset: 0x00003F8F
+		// Token: 0x0600012B RID: 299 RVA: 0x00002249 File Offset: 0x00000449
 		public PrimaryKey()
 		{
 		}
 
-		// Token: 0x060000D8 RID: 216 RVA: 0x00005D9E File Offset: 0x00003F9E
+		// Token: 0x0600012C RID: 300 RVA: 0x0000BFF1 File Offset: 0x0000A1F1
 		public PrimaryKey(bool isPrimaryKey)
 		{
-			this._isPrimaryKey = isPrimaryKey;
+			this.m_isprimarykey = isPrimaryKey;
 		}
 
-		// Token: 0x1700001E RID: 30
-		// (get) Token: 0x060000D9 RID: 217 RVA: 0x00005DB4 File Offset: 0x00003FB4
-		// (set) Token: 0x060000DA RID: 218 RVA: 0x00005DBC File Offset: 0x00003FBC
+		// Token: 0x17000030 RID: 48
+		// (get) Token: 0x0600012D RID: 301 RVA: 0x0000C000 File Offset: 0x0000A200
+		// (set) Token: 0x0600012E RID: 302 RVA: 0x0000C008 File Offset: 0x0000A208
 		public bool IsPrimaryKey
 		{
 			get
 			{
-				return this._isPrimaryKey;
+				return this.m_isprimarykey;
 			}
 			set
 			{
-				this._isPrimaryKey = value;
+				this.m_isprimarykey = value;
 			}
 		}
 
-		// Token: 0x04000026 RID: 38
-		private bool _isPrimaryKey = true;
+		// Token: 0x04000034 RID: 52
+		private bool m_isprimarykey;
 	}
 }

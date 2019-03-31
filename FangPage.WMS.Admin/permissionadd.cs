@@ -2,14 +2,15 @@
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000043 RID: 67
+	// Token: 0x0200004D RID: 77
 	public class permissionadd : SuperController
 	{
-		// Token: 0x060000A4 RID: 164 RVA: 0x0000D880 File Offset: 0x0000BA80
-		protected override void View()
+		// Token: 0x060000BB RID: 187 RVA: 0x0000F300 File Offset: 0x0000D500
+		protected override void Controller()
 		{
 			if (this.id > 0)
 			{
@@ -32,13 +33,12 @@ namespace FangPage.WMS.Admin
 				}
 				base.Response.Redirect("permissionmanage.aspx");
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x040000A5 RID: 165
+		// Token: 0x040000DC RID: 220
 		protected int id = FPRequest.GetInt("id");
 
-		// Token: 0x040000A6 RID: 166
+		// Token: 0x040000DD RID: 221
 		protected Permission permissioninfo = new Permission();
 	}
 }

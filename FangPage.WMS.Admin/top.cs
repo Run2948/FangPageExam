@@ -1,62 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using FangPage.Data;
-using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000038 RID: 56
+	// Token: 0x02000045 RID: 69
 	public class top : AdminController
 	{
-		// Token: 0x06000088 RID: 136 RVA: 0x0000BCCC File Offset: 0x00009ECC
-		protected override void View()
+		// Token: 0x060000A5 RID: 165 RVA: 0x0000D7B8 File Offset: 0x0000B9B8
+		protected override void Controller()
 		{
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", 0);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			this.menulist = DbHelper.ExecuteList<MenuInfo>(orderby, new SqlParam[]
+			if (this.roleid == 1)
 			{
-				sqlParam
-			});
-			if (this.Session["FP_ADMIN_TOPMENU"] != null)
-			{
-				this.topmenuid = FPUtils.StrToInt(this.Session["FP_ADMIN_TOPMENU"].ToString(), 0);
+				this.menulist = MenuBll.GetMenuList(0);
+				return;
 			}
-			if (this.topmenuid == 0)
-			{
-				if (this.roleid == 1)
-				{
-					this.topmenuid = 1;
-				}
-				else if (this.role.menus != "")
-				{
-					this.topmenuid = FPUtils.SplitInt(this.role.menus)[0];
-				}
-			}
+			this.menulist = MenuBll.GetMenuList(0, this.role.menus);
 		}
 
-		// Token: 0x06000089 RID: 137 RVA: 0x0000BDB0 File Offset: 0x00009FB0
-		protected string FmUrl(MenuInfo menuinfo)
-		{
-			string text = menuinfo.lefturl;
-			if (text.IndexOf("?") > 0)
-			{
-				text = text + "&topmenuid=" + menuinfo.id;
-			}
-			else
-			{
-				text = text + "?topmenuid=" + menuinfo.id;
-			}
-			return text;
-		}
-
-		// Token: 0x04000086 RID: 134
+		// Token: 0x040000C0 RID: 192
 		protected List<MenuInfo> menulist = new List<MenuInfo>();
 
-		// Token: 0x04000087 RID: 135
-		protected string version = "4.7";
-
-		// Token: 0x04000088 RID: 136
-		protected int topmenuid = 1;
+		// Token: 0x040000C1 RID: 193
+		protected new string version = "7.4.1";
 	}
 }

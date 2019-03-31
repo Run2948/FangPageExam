@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Data;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
 	// Token: 0x02000003 RID: 3
 	public class dbreset : SuperController
 	{
-		// Token: 0x06000006 RID: 6 RVA: 0x000023A8 File Offset: 0x000005A8
-		protected override void View()
+		// Token: 0x06000006 RID: 6 RVA: 0x0000233C File Offset: 0x0000053C
+		protected override void Controller()
 		{
-			this.link = "dbreset.aspx";
+			this.backurl = "dbreset.aspx";
 			if (this.ispost)
 			{
-				if (DbConfigs.DbType == FangPage.Data.DbType.Access)
-				{
-					this.ShowErr("对不起，本操作不支持Access数据库版本，请安装SqlServer版本。");
-					return;
-				}
-				if (this.action == "table")
+				if (this.action == "table" && DbConfigs.DbType == FangPage.Data.DbType.SqlServer)
 				{
 					string @string = FPRequest.GetString("tablename");
 					if (string.IsNullOrEmpty(@string))
@@ -28,123 +25,123 @@ namespace FangPage.WMS.Admin
 						return;
 					}
 					string text = "";
-					string[] array = FPUtils.SplitString(FPFile.ReadFile(FPUtils.GetMapPath("sqlreset.sql")), "GO\r\n", 8);
-					string text2 = "";
-					foreach (string text3 in FPUtils.SplitString(@string))
+					foreach (string text2 in FPArray.SplitString(@string))
 					{
 						if (text != "")
 						{
 							text += "GO\r\n";
 						}
-						text = text + "TRUNCATE TABLE " + text3;
-						if (text3.EndsWith("WMS_UserInfo"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[0];
-						}
-						else if (text3.EndsWith("WMS_UserGrade"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[1];
-						}
-						else if (text3.EndsWith("WMS_RoleInfo"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[2];
-						}
-						else if (text3.EndsWith("WMS_Permission"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[3];
-						}
-						else if (text3.EndsWith("WMS_MenuInfo"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[4];
-						}
-						else if (text3.EndsWith("WMS_DesktopInfo"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[5];
-						}
-						else if (text3.EndsWith("WMS_ChannelInfo"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[6];
-						}
-						else if (text3.EndsWith("WMS_AttachType"))
-						{
-							if (text2 != "")
-							{
-								text2 += "GO\r\n";
-							}
-							text2 += array[7];
-						}
-					}
-					if (text2 != "")
-					{
-						if (text != "")
-						{
-							text += "GO\r\n";
-						}
-						text += text2;
-					}
-					DbHelper.ExecuteSql(text);
-				}
-				else if (this.action == "system")
-				{
-					this.dbtablelist = DbHelper.GetDbTableList();
-					string text = "";
-					foreach (object obj in this.dbtablelist.Rows)
-					{
-						DataRow dataRow = (DataRow)obj;
-						if (dataRow["TABLE_NAME"].ToString().StartsWith(DbConfigs.Prefix))
+						text = text + "TRUNCATE TABLE " + text2;
+						if (text2.EndsWith("WMS_Department"))
 						{
 							if (text != "")
 							{
-								text += "|";
+								text += "GO\r\n";
 							}
-							text = text + "TRUNCATE TABLE " + dataRow["TABLE_NAME"].ToString();
+							text += string.Format("UPDATE [{0}WMS_UserInfo] SET [departid]=0,[departname]=''", DbConfigs.Prefix);
 						}
 					}
-					DbHelper.ExecuteSql(text);
-					text = FPFile.ReadFile(FPUtils.GetMapPath("sqlreset.sql")).Replace("|", "");
-					DbHelper.ExecuteSql(text);
-					this.link = this.adminpath + "logout.aspx";
+					string text3 = DbHelper.ExecuteSql(text);
+					if (text3 != "")
+					{
+						this.ShowErr(text3);
+						return;
+					}
+				}
+				else if (this.action == "table" && DbConfigs.DbType == FangPage.Data.DbType.Access)
+				{
+					string string2 = FPRequest.GetString("tablename");
+					if (string.IsNullOrEmpty(string2))
+					{
+						this.ShowErr("没有选择要重置的表。");
+						return;
+					}
+					string text4 = "";
+					foreach (string text5 in FPArray.SplitString(string2))
+					{
+						if (text4 != "")
+						{
+							text4 += "GO\r\n";
+						}
+						text4 = text4 + "DELETE FROM [" + text5 + "]";
+						if (text5.EndsWith("WMS_Department"))
+						{
+							if (text4 != "")
+							{
+								text4 += "GO\r\n";
+							}
+							text4 += string.Format("UPDATE [{0}WMS_UserInfo] SET [departid]=0,[departname]=''", DbConfigs.Prefix);
+						}
+					}
+					string text6 = DbHelper.ExecuteSql(text4);
+					if (text6 != "")
+					{
+						this.ShowErr(text6);
+						return;
+					}
+				}
+				else if (this.action == "system" && DbConfigs.DbType == FangPage.Data.DbType.SqlServer)
+				{
+					string string3 = FPRequest.GetString("tables");
+					if (string.IsNullOrEmpty(string3))
+					{
+						this.ShowErr("没有输入要重置的表。");
+						return;
+					}
+					string text7 = "";
+					foreach (string str in FPArray.SplitString(string3))
+					{
+						if (text7 != "")
+						{
+							text7 += "|";
+						}
+						text7 = text7 + "TRUNCATE TABLE " + str;
+					}
+					string text8 = DbHelper.ExecuteSql(text7);
+					if (text8 != "")
+					{
+						this.ShowErr(text8);
+						return;
+					}
+				}
+				else if (this.action == "system" && DbConfigs.DbType == FangPage.Data.DbType.Access)
+				{
+					string string4 = FPRequest.GetString("tables");
+					if (string.IsNullOrEmpty(string4))
+					{
+						this.ShowErr("没有输入要重置的表。");
+						return;
+					}
+					string text9 = "";
+					foreach (string str2 in FPArray.SplitString(string4))
+					{
+						if (text9 != "")
+						{
+							text9 += "|";
+						}
+						text9 = text9 + "DELETE FROM [" + str2 + "]";
+					}
+					string text10 = DbHelper.ExecuteSql(text9);
+					if (text10 != "")
+					{
+						this.ShowErr(text10);
+						return;
+					}
 				}
 			}
 			this.dbtablelist = DbHelper.GetDbTableList();
-			base.SaveRightURL();
 		}
 
-		// Token: 0x06000007 RID: 7 RVA: 0x0000289C File Offset: 0x00000A9C
+		// Token: 0x06000007 RID: 7 RVA: 0x000026C0 File Offset: 0x000008C0
 		protected bool IsWMSTable(string tablename)
 		{
-			return tablename.StartsWith(DbConfigs.Prefix);
+			return tablename.StartsWith(DbConfigs.Prefix) && FPArray.InArray(tablename, this.system_table) == -1;
 		}
 
 		// Token: 0x04000003 RID: 3
 		protected DataTable dbtablelist = new DataTable();
+
+		// Token: 0x04000004 RID: 4
+		protected string system_table = string.Format("{0}WMS_UserInfo,{0}WMS_UserGrade,{0}WMS_TaskInfo,{0}WMS_RoleInfo,{0}WMS_Permission,{0}WMS_MsgTempInfo,{0}WMS_MenuInfo,{0}WMS_DesktopInfo,{0}WMS_CreditInfo,{0}WMS_CorpInfo,{0}WMS_AttachType,{0}WMS_ChannelInfo", DbConfigs.Prefix);
 	}
 }

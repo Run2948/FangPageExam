@@ -4,16 +4,17 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
+using FangPage.Common;
 
 namespace FangPage.MVC
 {
-	// Token: 0x0200000F RID: 15
+	// Token: 0x02000010 RID: 16
 	public class FPThumb
 	{
-		// Token: 0x060000A7 RID: 167 RVA: 0x00009788 File Offset: 0x00007988
+		// Token: 0x06000109 RID: 265 RVA: 0x0000B914 File Offset: 0x00009B14
 		public bool SetImage(string FileName)
 		{
-			this.srcFileName = FPUtils.GetMapPath(FileName);
+			this.srcFileName = FPFile.GetMapPath(FileName);
 			try
 			{
 				this.srcImage = Image.FromFile(this.srcFileName);
@@ -25,13 +26,13 @@ namespace FangPage.MVC
 			return true;
 		}
 
-		// Token: 0x060000A8 RID: 168 RVA: 0x000097D4 File Offset: 0x000079D4
+		// Token: 0x0600010A RID: 266 RVA: 0x0000B958 File Offset: 0x00009B58
 		public bool ThumbnailCallback()
 		{
 			return false;
 		}
 
-		// Token: 0x060000A9 RID: 169 RVA: 0x000097E8 File Offset: 0x000079E8
+		// Token: 0x0600010B RID: 267 RVA: 0x0000B95C File Offset: 0x00009B5C
 		public static string GetThumbnail(string imgpath, int maxsize)
 		{
 			int num = maxsize;
@@ -39,101 +40,90 @@ namespace FangPage.MVC
 			{
 				num = 600;
 			}
-			string mapPath = FPUtils.GetMapPath(WebConfig.WebPath);
-			string text = mapPath + imgpath;
-			string result;
+			string text = FPFile.GetMapPath(WebConfig.WebPath) + imgpath;
 			if (!File.Exists(text))
 			{
-				result = "";
+				return "";
 			}
-			else
+			string text2 = Path.GetFileName(imgpath);
+			string text3 = Path.GetExtension(imgpath).ToLower();
+			if (text3 == ".jpg" || text3 == ".bmp" || text3 == ".png")
 			{
-				string text2 = Path.GetFileName(imgpath);
-				string text3 = Path.GetExtension(imgpath).ToLower();
-				if (text3 == ".jpg" || text3 == ".bmp" || text3 == ".png")
+				text2 = Path.GetFileNameWithoutExtension(imgpath);
+				string text4 = string.Format("{0}cache/thumbnail/{1}_{2}{3}", new object[]
 				{
-					text2 = Path.GetFileNameWithoutExtension(imgpath);
-					string text4 = string.Format("{0}cache/thumbnail/{1}_{2}{3}", new object[]
+					WebConfig.WebPath,
+					text2,
+					num,
+					text3
+				});
+				string mapPath = FPFile.GetMapPath(text4);
+				if (!File.Exists(mapPath))
+				{
+					string mapPath2 = FPFile.GetMapPath(WebConfig.WebPath + "cache/thumbnail/");
+					if (!Directory.Exists(mapPath2))
 					{
-						WebConfig.WebPath,
-						text2,
-						num,
-						text3
-					});
-					string mapPath2 = FPUtils.GetMapPath(text4);
-					if (!File.Exists(mapPath2))
-					{
-						string mapPath3 = FPUtils.GetMapPath(WebConfig.WebPath + "cache/thumbnail/");
-						if (!Directory.Exists(mapPath3))
+						try
 						{
-							try
-							{
-								Directory.CreateDirectory(mapPath3);
-							}
-							catch
-							{
-								throw new Exception("请检查程序目录下cache文件夹的用户权限！");
-							}
+							Directory.CreateDirectory(mapPath2);
 						}
-						FPThumb.CreateThumbnail(mapPath2, text, num);
+						catch
+						{
+							throw new Exception("请检查程序目录下cache文件夹的用户权限！");
+						}
 					}
-					result = text4;
+					FPThumb.CreateThumbnail(mapPath, text, num);
 				}
-				else if (text3 == ".gif")
-				{
-					result = imgpath;
-				}
-				else
-				{
-					result = "";
-				}
+				return text4;
 			}
-			return result;
+			if (text3 == ".gif")
+			{
+				return imgpath;
+			}
+			return "";
 		}
 
-		// Token: 0x060000AA RID: 170 RVA: 0x0000995C File Offset: 0x00007B5C
+		// Token: 0x0600010C RID: 268 RVA: 0x0000BA7C File Offset: 0x00009C7C
 		public static void CreateThumbnail(string attPhyCachePath, string attPhyPath, int theMaxsize)
 		{
-			if (File.Exists(attPhyPath))
+			if (!File.Exists(attPhyPath))
 			{
-				try
-				{
-					FPThumb.MakeThumbnailImage(attPhyPath, attPhyCachePath, theMaxsize, theMaxsize);
-				}
-				catch
-				{
-				}
+				return;
+			}
+			try
+			{
+				FPThumb.MakeThumbnailImage(attPhyPath, attPhyCachePath, theMaxsize, theMaxsize);
+			}
+			catch
+			{
 			}
 		}
 
-		// Token: 0x060000AB RID: 171 RVA: 0x0000999C File Offset: 0x00007B9C
+		// Token: 0x0600010D RID: 269 RVA: 0x0000BAB4 File Offset: 0x00009CB4
 		public Image GetImage(int Width, int Height)
 		{
 			Image.GetThumbnailImageAbort callback = new Image.GetThumbnailImageAbort(this.ThumbnailCallback);
 			return this.srcImage.GetThumbnailImage(Width, Height, callback, IntPtr.Zero);
 		}
 
-		// Token: 0x060000AC RID: 172 RVA: 0x000099D0 File Offset: 0x00007BD0
+		// Token: 0x0600010E RID: 270 RVA: 0x0000BAE4 File Offset: 0x00009CE4
 		public void SaveThumbnailImage(int Width, int Height)
 		{
-			string text = Path.GetExtension(this.srcFileName).ToLower();
-			if (text != null)
+			string a = Path.GetExtension(this.srcFileName).ToLower();
+			if (a == ".png")
 			{
-				if (text == ".png")
-				{
-					this.SaveImage(Width, Height, ImageFormat.Png);
-					return;
-				}
-				if (text == ".gif")
-				{
-					this.SaveImage(Width, Height, ImageFormat.Gif);
-					return;
-				}
+				this.SaveImage(Width, Height, ImageFormat.Png);
+				return;
 			}
-			this.SaveImage(Width, Height, ImageFormat.Jpeg);
+			if (!(a == ".gif"))
+			{
+				this.SaveImage(Width, Height, ImageFormat.Jpeg);
+				return;
+			}
+			this.SaveImage(Width, Height, ImageFormat.Gif);
 		}
 
-		// Token: 0x060000AD RID: 173 RVA: 0x00009A40 File Offset: 0x00007C40
+		// Token: 0x0600010F RID: 271 RVA: 0x0000BB48 File Offset: 0x00009D48
 		public void SaveImage(int Width, int Height, ImageFormat imgformat)
 		{
 			if ((imgformat != ImageFormat.Gif && this.srcImage.Width > Width) || this.srcImage.Height > Height)
@@ -146,7 +136,7 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x060000AE RID: 174 RVA: 0x00009AC4 File Offset: 0x00007CC4
+		// Token: 0x06000110 RID: 272 RVA: 0x0000BBB8 File Offset: 0x00009DB8
 		private static void SaveImage(Image image, string savePath, ImageCodecInfo ici)
 		{
 			EncoderParameters encoderParameters = new EncoderParameters(1);
@@ -155,11 +145,10 @@ namespace FangPage.MVC
 			encoderParameters.Dispose();
 		}
 
-		// Token: 0x060000AF RID: 175 RVA: 0x00009B00 File Offset: 0x00007D00
+		// Token: 0x06000111 RID: 273 RVA: 0x0000BBF0 File Offset: 0x00009DF0
 		private static ImageCodecInfo GetCodecInfo(string mimeType)
 		{
-			ImageCodecInfo[] imageEncoders = ImageCodecInfo.GetImageEncoders();
-			foreach (ImageCodecInfo imageCodecInfo in imageEncoders)
+			foreach (ImageCodecInfo imageCodecInfo in ImageCodecInfo.GetImageEncoders())
 			{
 				if (imageCodecInfo.MimeType == mimeType)
 				{
@@ -169,7 +158,7 @@ namespace FangPage.MVC
 			return null;
 		}
 
-		// Token: 0x060000B0 RID: 176 RVA: 0x00009B58 File Offset: 0x00007D58
+		// Token: 0x06000112 RID: 274 RVA: 0x0000BC28 File Offset: 0x00009E28
 		private static Size ResizeImage(int width, int height, int maxWidth, int maxHeight)
 		{
 			if (maxWidth <= 0)
@@ -210,41 +199,34 @@ namespace FangPage.MVC
 			return new Size(width2, height2);
 		}
 
-		// Token: 0x060000B1 RID: 177 RVA: 0x00009C50 File Offset: 0x00007E50
+		// Token: 0x06000113 RID: 275 RVA: 0x0000BCF4 File Offset: 0x00009EF4
 		public static ImageFormat GetFormat(string name)
 		{
-			string text = name.Substring(name.LastIndexOf(".") + 1);
-			string text2 = text.ToLower();
-			if (text2 != null)
+			string a = name.Substring(name.LastIndexOf(".") + 1).ToLower();
+			if (a == "jpg" || a == "jpeg")
 			{
-				if (text2 == "jpg" || text2 == "jpeg")
-				{
-					return ImageFormat.Jpeg;
-				}
-				if (text2 == "bmp")
-				{
-					return ImageFormat.Bmp;
-				}
-				if (text2 == "png")
-				{
-					return ImageFormat.Png;
-				}
-				if (text2 == "gif")
-				{
-					return ImageFormat.Gif;
-				}
+				return ImageFormat.Jpeg;
 			}
-			return ImageFormat.Jpeg;
+			if (a == "bmp")
+			{
+				return ImageFormat.Bmp;
+			}
+			if (a == "png")
+			{
+				return ImageFormat.Png;
+			}
+			if (!(a == "gif"))
+			{
+				return ImageFormat.Jpeg;
+			}
+			return ImageFormat.Gif;
 		}
 
-		// Token: 0x060000B2 RID: 178 RVA: 0x00009CE8 File Offset: 0x00007EE8
+		// Token: 0x06000114 RID: 276 RVA: 0x0000BD7C File Offset: 0x00009F7C
 		public static void MakeSquareImage(Image image, string newFileName, int newSize)
 		{
 			int width = image.Width;
 			int height = image.Height;
-			if (width > height)
-			{
-			}
 			Bitmap bitmap = new Bitmap(newSize, newSize);
 			try
 			{
@@ -270,25 +252,26 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x060000B3 RID: 179 RVA: 0x00009DF0 File Offset: 0x00007FF0
+		// Token: 0x06000115 RID: 277 RVA: 0x0000BE54 File Offset: 0x0000A054
 		public static void MakeSquareImage(string fileName, string newFileName, int newSize)
 		{
 			FPThumb.MakeSquareImage(Image.FromFile(fileName), newFileName, newSize);
 		}
 
-		// Token: 0x060000B4 RID: 180 RVA: 0x00009E04 File Offset: 0x00008004
+		// Token: 0x06000116 RID: 278 RVA: 0x0000BE64 File Offset: 0x0000A064
 		public static void MakeRemoteSquareImage(string url, string newFileName, int newSize)
 		{
 			Stream remoteImage = FPThumb.GetRemoteImage(url);
-			if (remoteImage != null)
+			if (remoteImage == null)
 			{
-				Image image = Image.FromStream(remoteImage);
-				remoteImage.Close();
-				FPThumb.MakeSquareImage(image, newFileName, newSize);
+				return;
 			}
+			Image image = Image.FromStream(remoteImage);
+			remoteImage.Close();
+			FPThumb.MakeSquareImage(image, newFileName, newSize);
 		}
 
-		// Token: 0x060000B5 RID: 181 RVA: 0x00009E40 File Offset: 0x00008040
+		// Token: 0x06000117 RID: 279 RVA: 0x0000BE94 File Offset: 0x0000A094
 		public static void MakeThumbnailImage(Image original, string newFileName, int maxWidth, int maxHeight)
 		{
 			Size newSize = FPThumb.ResizeImage(original.Width, original.Height, maxWidth, maxHeight);
@@ -305,15 +288,13 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x060000B6 RID: 182 RVA: 0x00009EB8 File Offset: 0x000080B8
+		// Token: 0x06000118 RID: 280 RVA: 0x0000BEFC File Offset: 0x0000A0FC
 		public static void MakeThumbnailImage(string fileName, string newFileName, int maxWidth, int maxHeight)
 		{
-			byte[] buffer = File.ReadAllBytes(fileName);
-			Image original = Image.FromStream(new MemoryStream(buffer));
-			FPThumb.MakeThumbnailImage(original, newFileName, maxWidth, maxHeight);
+			FPThumb.MakeThumbnailImage(Image.FromStream(new MemoryStream(File.ReadAllBytes(fileName))), newFileName, maxWidth, maxHeight);
 		}
 
-		// Token: 0x060000B7 RID: 183 RVA: 0x00009EE4 File Offset: 0x000080E4
+		// Token: 0x06000119 RID: 281 RVA: 0x0000BF18 File Offset: 0x0000A118
 		public static void MakeThumbnailImage(string fileName, string newFileName, int width, int height, string mode)
 		{
 			Image image = Image.FromFile(fileName);
@@ -323,41 +304,38 @@ namespace FangPage.MVC
 			int y = 0;
 			int num3 = image.Width;
 			int num4 = image.Height;
-			if (mode != null)
+			if (!(mode == "HW"))
 			{
-				if (!(mode == "HW"))
+				if (!(mode == "W"))
 				{
-					if (!(mode == "W"))
+					if (!(mode == "H"))
 					{
-						if (!(mode == "H"))
+						if (mode == "Cut")
 						{
-							if (mode == "Cut")
+							if ((double)image.Width / (double)image.Height > (double)num / (double)num2)
 							{
-								if ((double)image.Width / (double)image.Height > (double)num / (double)num2)
-								{
-									num4 = image.Height;
-									num3 = image.Height * num / num2;
-									y = 0;
-									x = (image.Width - num3) / 2;
-								}
-								else
-								{
-									num3 = image.Width;
-									num4 = image.Width * height / num;
-									x = 0;
-									y = (image.Height - num4) / 2;
-								}
+								num4 = image.Height;
+								num3 = image.Height * num / num2;
+								y = 0;
+								x = (image.Width - num3) / 2;
 							}
-						}
-						else
-						{
-							num = image.Width * height / image.Height;
+							else
+							{
+								num3 = image.Width;
+								num4 = image.Width * height / num;
+								x = 0;
+								y = (image.Height - num4) / 2;
+							}
 						}
 					}
 					else
 					{
-						num2 = image.Height * width / image.Width;
+						num = image.Width * height / image.Height;
 					}
+				}
+				else
+				{
+					num2 = image.Height * width / image.Width;
 				}
 			}
 			Bitmap bitmap = new Bitmap(num, num2);
@@ -382,11 +360,10 @@ namespace FangPage.MVC
 			}
 		}
 
-		// Token: 0x060000B8 RID: 184 RVA: 0x0000A0B4 File Offset: 0x000082B4
+		// Token: 0x0600011A RID: 282 RVA: 0x0000C0A8 File Offset: 0x0000A2A8
 		public static bool MakeThumbnailImage(string fileName, string newFileName, int maxWidth, int maxHeight, int cropWidth, int cropHeight, int X, int Y)
 		{
-			byte[] buffer = File.ReadAllBytes(fileName);
-			Image image = Image.FromStream(new MemoryStream(buffer));
+			Image image = Image.FromStream(new MemoryStream(File.ReadAllBytes(fileName)));
 			Bitmap bitmap = new Bitmap(cropWidth, cropHeight);
 			bool result;
 			try
@@ -398,8 +375,7 @@ namespace FangPage.MVC
 					graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 					graphics.Clear(Color.Transparent);
 					graphics.DrawImage(image, new Rectangle(0, 0, cropWidth, cropHeight), X, Y, cropWidth, cropHeight, GraphicsUnit.Pixel);
-					Image image2 = new Bitmap(bitmap, maxWidth, maxHeight);
-					FPThumb.SaveImage(image2, newFileName, FPThumb.GetCodecInfo("image/" + FPThumb.GetFormat(newFileName).ToString().ToLower()));
+					FPThumb.SaveImage(new Bitmap(bitmap, maxWidth, maxHeight), newFileName, FPThumb.GetCodecInfo("image/" + FPThumb.GetFormat(newFileName).ToString().ToLower()));
 					result = true;
 				}
 			}
@@ -415,19 +391,20 @@ namespace FangPage.MVC
 			return result;
 		}
 
-		// Token: 0x060000B9 RID: 185 RVA: 0x0000A1B4 File Offset: 0x000083B4
+		// Token: 0x0600011B RID: 283 RVA: 0x0000C184 File Offset: 0x0000A384
 		public static void MakeRemoteThumbnailImage(string url, string newFileName, int maxWidth, int maxHeight)
 		{
 			Stream remoteImage = FPThumb.GetRemoteImage(url);
-			if (remoteImage != null)
+			if (remoteImage == null)
 			{
-				Image original = Image.FromStream(remoteImage);
-				remoteImage.Close();
-				FPThumb.MakeThumbnailImage(original, newFileName, maxWidth, maxHeight);
+				return;
 			}
+			Image original = Image.FromStream(remoteImage);
+			remoteImage.Close();
+			FPThumb.MakeThumbnailImage(original, newFileName, maxWidth, maxHeight);
 		}
 
-		// Token: 0x060000BA RID: 186 RVA: 0x0000A1F0 File Offset: 0x000083F0
+		// Token: 0x0600011C RID: 284 RVA: 0x0000C1B4 File Offset: 0x0000A3B4
 		private static Stream GetRemoteImage(string url)
 		{
 			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -437,8 +414,7 @@ namespace FangPage.MVC
 			Stream result;
 			try
 			{
-				HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-				result = httpWebResponse.GetResponseStream();
+				result = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
 			}
 			catch
 			{
@@ -447,10 +423,10 @@ namespace FangPage.MVC
 			return result;
 		}
 
-		// Token: 0x04000039 RID: 57
+		// Token: 0x04000053 RID: 83
 		private Image srcImage;
 
-		// Token: 0x0400003A RID: 58
+		// Token: 0x04000054 RID: 84
 		private string srcFileName;
 	}
 }

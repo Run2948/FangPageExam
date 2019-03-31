@@ -1,28 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Config;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200002E RID: 46
+	// Token: 0x0200003B RID: 59
 	public class appsortmanage : SuperController
 	{
-		// Token: 0x06000070 RID: 112 RVA: 0x0000A4AC File Offset: 0x000086AC
-		protected override void View()
+		// Token: 0x0600008D RID: 141 RVA: 0x0000C040 File Offset: 0x0000A240
+		protected override void Controller()
 		{
-			if (this.id > 0)
+			if (this.app_path != "")
 			{
-				this.appinfo = DbHelper.ExecuteModel<AppInfo>(this.id);
+				this.appinfo = AppConfigs.GetMapAppConfig(this.app_path);
 			}
-			SqlParam sqlParam = DbHelper.MakeAndWhere("appid", this.id);
+			if (this.appinfo.guid == "")
+			{
+				this.ShowErr("对不起，该应用已被删除或不存在。");
+				return;
+			}
+			SqlParam sqlParam = DbHelper.MakeAndWhere("guid", this.appinfo.guid);
 			if (this.ispost)
 			{
-				if (this.action == "appupdate")
+				if (this.action == "add")
 				{
-					SortAppInfo sortAppInfo = DbHelper.ExecuteModel<SortAppInfo>(this.sortappid);
-					sortAppInfo = FPRequest.GetModel<SortAppInfo>(sortAppInfo, "sort_");
+					SortAppInfo model = FPRequest.GetModel<SortAppInfo>(new SortAppInfo(), "add_");
+					model.guid = this.appinfo.guid;
+					model.type = "app";
+					model.installpath = this.appinfo.installpath;
+					if (model.name == "")
+					{
+						this.ShowErr("栏目应用名称不能为空。");
+						return;
+					}
+					DbHelper.ExecuteInsert<SortAppInfo>(model);
+				}
+				else if (this.action == "update")
+				{
+					SortAppInfo sortAppInfo = DbHelper.ExecuteModel<SortAppInfo>(this.id);
+					sortAppInfo = FPRequest.GetModel<SortAppInfo>(sortAppInfo, "update_");
 					if (sortAppInfo.name == "")
 					{
 						this.ShowErr("栏目应用名称不能为空。");
@@ -30,21 +51,9 @@ namespace FangPage.WMS.Admin
 					}
 					DbHelper.ExecuteUpdate<SortAppInfo>(sortAppInfo);
 				}
-				else if (this.action == "appadd")
+				else if (this.action == "delete")
 				{
-					SortAppInfo sortAppInfo = FPRequest.GetModel<SortAppInfo>(new SortAppInfo(), "sortadd_");
-					sortAppInfo.appid = this.id;
-					sortAppInfo.installpath = this.appinfo.installpath;
-					if (sortAppInfo.name == "")
-					{
-						this.ShowErr("栏目应用名称不能为空。");
-						return;
-					}
-					DbHelper.ExecuteInsert<SortAppInfo>(sortAppInfo);
-				}
-				else if (this.action == "appdelete")
-				{
-					DbHelper.ExecuteDelete<SortAppInfo>(FPRequest.GetInt("appid"));
+					DbHelper.ExecuteDelete<SortAppInfo>(FPRequest.GetInt("sortappid"));
 				}
 				this.sortapplist = DbHelper.ExecuteList<SortAppInfo>(OrderBy.ASC, new SqlParam[]
 				{
@@ -55,43 +64,40 @@ namespace FangPage.WMS.Admin
 				{
 					if (text != "")
 					{
-						text += "|";
+						text += "§";
 					}
-					string text2 = text;
 					text = string.Concat(new string[]
 					{
-						text2,
+						text,
 						sortAppInfo2.name,
-						",",
+						"|",
 						sortAppInfo2.markup,
-						",",
-						sortAppInfo2.indexpage,
-						",",
-						sortAppInfo2.viewpage
+						"|",
+						sortAppInfo2.indexpage
 					});
 				}
 				this.appinfo.sortapps = text;
-				FPSerializer.Save<AppInfo>(this.appinfo, FPUtils.GetMapPath(this.webpath + this.appinfo.installpath + "/app.config"));
-				CacheBll.RemoveSortCache();
-				base.Response.Redirect("appsortmanage.aspx?id=" + this.id);
+				FPSerializer.Save<AppConfig>(this.appinfo, FPFile.GetMapPath(this.webpath + "app/" + this.appinfo.installpath + "/app.config"));
+				FPCache.Remove("FP_APPLIST");
+				FPCache.Remove("FP_SORTAPPLIST");
+				base.Response.Redirect("appsortmanage.aspx?apppath=" + this.app_path);
 			}
 			this.sortapplist = DbHelper.ExecuteList<SortAppInfo>(OrderBy.ASC, new SqlParam[]
 			{
 				sqlParam
 			});
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000068 RID: 104
-		protected int id = FPRequest.GetInt("id");
+		// Token: 0x040000A0 RID: 160
+		protected string app_path = FPRequest.GetString("apppath");
 
-		// Token: 0x04000069 RID: 105
-		protected int sortappid = FPRequest.GetInt("sortappid");
-
-		// Token: 0x0400006A RID: 106
+		// Token: 0x040000A1 RID: 161
 		protected List<SortAppInfo> sortapplist = new List<SortAppInfo>();
 
-		// Token: 0x0400006B RID: 107
-		protected AppInfo appinfo = new AppInfo();
+		// Token: 0x040000A2 RID: 162
+		protected int id = FPRequest.GetInt("id");
+
+		// Token: 0x040000A3 RID: 163
+		protected AppConfig appinfo = new AppConfig();
 	}
 }

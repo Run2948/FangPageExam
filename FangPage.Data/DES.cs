@@ -5,16 +5,16 @@ using System.Text;
 
 namespace FangPage.Data
 {
-	// Token: 0x0200000D RID: 13
+	// Token: 0x02000010 RID: 16
 	public class DES
 	{
-		// Token: 0x060000B4 RID: 180 RVA: 0x000056F0 File Offset: 0x000038F0
+		// Token: 0x0600010C RID: 268 RVA: 0x0000B95E File Offset: 0x00009B5E
 		public static string Encode(string encryptString)
 		{
 			return DES.Encode(encryptString, "FANGPAGE");
 		}
 
-		// Token: 0x060000B5 RID: 181 RVA: 0x00005700 File Offset: 0x00003900
+		// Token: 0x0600010D RID: 269 RVA: 0x0000B96C File Offset: 0x00009B6C
 		public static string Encode(string encryptString, string encryptKey)
 		{
 			if (encryptKey.Length > 8)
@@ -33,13 +33,13 @@ namespace FangPage.Data
 			return Convert.ToBase64String(memoryStream.ToArray());
 		}
 
-		// Token: 0x060000B6 RID: 182 RVA: 0x0000578E File Offset: 0x0000398E
+		// Token: 0x0600010E RID: 270 RVA: 0x0000B9F0 File Offset: 0x00009BF0
 		public static string Decode(string decryptString)
 		{
 			return DES.Decode(decryptString, "FANGPAGE");
 		}
 
-		// Token: 0x060000B7 RID: 183 RVA: 0x0000579C File Offset: 0x0000399C
+		// Token: 0x0600010F RID: 271 RVA: 0x0000BA00 File Offset: 0x00009C00
 		public static string Decode(string decryptString, string decryptKey)
 		{
 			string result;
@@ -67,7 +67,7 @@ namespace FangPage.Data
 			return result;
 		}
 
-		// Token: 0x04000015 RID: 21
+		// Token: 0x04000023 RID: 35
 		private static byte[] Keys = new byte[]
 		{
 			18,

@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000026 RID: 38
+	// Token: 0x02000033 RID: 51
 	public class channeladd : SuperController
 	{
-		// Token: 0x0600005A RID: 90 RVA: 0x0000820C File Offset: 0x0000640C
-		protected override void View()
+		// Token: 0x06000077 RID: 119 RVA: 0x00009BAC File Offset: 0x00007DAC
+		protected override void Controller()
 		{
 			if (this.id > 0)
 			{
@@ -21,7 +25,8 @@ namespace FangPage.WMS.Admin
 			}
 			if (this.ispost)
 			{
-				this.link = "channelmanage.aspx";
+				this.backurl = "channelmanage.aspx";
+				this.channelinfo.sortapps = "";
 				this.channelinfo = FPRequest.GetModel<ChannelInfo>(this.channelinfo);
 				if (this.channelinfo.id > 0)
 				{
@@ -42,21 +47,24 @@ namespace FangPage.WMS.Admin
 						}) + 1;
 						menuInfo.lefturl = "sorttree.aspx?channelid=" + this.channelinfo.id;
 						menuInfo.id = DbHelper.ExecuteInsert<MenuInfo>(menuInfo);
-						RoleInfo roleInfo = RoleBll.GetRoleInfo(1);
-						RoleInfo roleInfo2 = roleInfo;
-						roleInfo2.menus += ((roleInfo.menus == "") ? menuInfo.id.ToString() : ("," + menuInfo.id));
-						DbHelper.ExecuteUpdate<RoleInfo>(roleInfo);
+						RoleInfo mapRoleInfo = RoleBll.GetMapRoleInfo(1);
+						RoleInfo roleInfo = mapRoleInfo;
+						roleInfo.menus += ((mapRoleInfo.menus == "") ? menuInfo.id.ToString() : ("," + menuInfo.id));
+						DbHelper.ExecuteUpdate<RoleInfo>(mapRoleInfo);
 					}
 					base.AddMsg("添加频道成功!");
 				}
 			}
-			base.SaveRightURL();
+			this.sortapplist = DbHelper.ExecuteList<SortAppInfo>(OrderBy.ASC);
 		}
 
-		// Token: 0x0400004B RID: 75
+		// Token: 0x04000081 RID: 129
 		protected int id = FPRequest.GetInt("id");
 
-		// Token: 0x0400004C RID: 76
+		// Token: 0x04000082 RID: 130
 		protected ChannelInfo channelinfo = new ChannelInfo();
+
+		// Token: 0x04000083 RID: 131
+		protected List<SortAppInfo> sortapplist = new List<SortAppInfo>();
 	}
 }

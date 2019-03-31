@@ -1,20 +1,22 @@
 ﻿using System;
 using System.IO;
+using FangPage.Common;
 using FangPage.Data;
 using FangPage.MVC;
-using FangPage.WMS.Model;
+using FangPage.WMS.Config;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000011 RID: 17
+	// Token: 0x02000018 RID: 24
 	public class plugininstall : SuperController
 	{
-		// Token: 0x06000025 RID: 37 RVA: 0x00004088 File Offset: 0x00002288
-		protected override void View()
+		// Token: 0x06000035 RID: 53 RVA: 0x00004AA8 File Offset: 0x00002CA8
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
-				string mapPath = FPUtils.GetMapPath(this.webpath + "cache");
+				string mapPath = FPFile.GetMapPath(this.webpath + "cache");
 				if (this.step == "step1")
 				{
 					this.filename = Path.GetFileName(FPRequest.Files["uploadfile"].FileName);
@@ -37,18 +39,40 @@ namespace FangPage.WMS.Admin
 					{
 						Directory.Delete(mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename), true);
 					}
-					FPZip.UnZipFile(mapPath + "\\" + this.filename, "");
+					FPZip.UnZip(mapPath + "\\" + this.filename, "");
 					File.Delete(mapPath + "\\" + this.filename);
 					if (!File.Exists(mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename) + "\\plugin.config"))
 					{
 						Directory.Delete(mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename), true);
-						this.ShowErr("插件安装配置文件不存在。");
+						this.ShowErr("对不起，安装失败，该插件安装配置文件不存在。");
 						return;
 					}
 					this.plugininfo = FPSerializer.Load<PluginConfig>(mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename) + "\\plugin.config");
 					if (this.plugininfo.guid == "")
 					{
-						this.ShowErr("对不起，该插件安装标识码不能为空。");
+						this.ShowErr("对不起，安装失败，该插件安装标识码不能为空。");
+						return;
+					}
+					PluginConfig pluConfig = PluginConfigs.GetPluConfig(this.plugininfo.guid);
+					if (pluConfig.installpath != "")
+					{
+						this.isinstall = 1;
+					}
+					if (this.isinstall == 1)
+					{
+						Version v = FPUtils.StrToVersion(this.plugininfo.version);
+						Version v2 = FPUtils.StrToVersion(pluConfig.version);
+						if (v < v2)
+						{
+							this.ShowErr("对不起，您安装的插件版本比已安装的版本还低，没必要安装。");
+							return;
+						}
+						if (v == v2)
+						{
+							this.ShowErr("对不起，该插件在系统中已安装，没必要重复安装。");
+							return;
+						}
+						this.plugininfo.installpath = pluConfig.installpath;
 						return;
 					}
 				}
@@ -57,69 +81,57 @@ namespace FangPage.WMS.Admin
 					string @string = FPRequest.GetString("installpath");
 					if (@string == "")
 					{
-						this.ShowErr("安装目录不能为空。");
+						this.ShowErr("对不起，安装目录不能为空。");
+						return;
+					}
+					if (this.isinstall != 1 && Directory.Exists(FPFile.GetMapPath(this.plupath + @string)))
+					{
+						this.ShowErr("对不起，该安装目录[" + @string + "]已被其他应用使用，请另选其他目录。");
 						return;
 					}
 					this.filename = FPRequest.GetString("filename");
 					this.plugininfo = FPSerializer.Load<PluginConfig>(mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename) + "\\plugin.config");
 					this.plugininfo.installpath = @string;
-					string mapPath2 = FPUtils.GetMapPath(this.webpath + "plugins/" + this.plugininfo.installpath);
-					string sourcePath = mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename);
-					plugininstall.CopyDirectory(sourcePath, mapPath2);
-					Directory.Delete(mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename), true);
+					string mapPath2 = FPFile.GetMapPath(this.plupath + this.plugininfo.installpath);
+					string text = mapPath + "\\" + Path.GetFileNameWithoutExtension(this.filename);
+					if (this.isinstall == 1)
+					{
+						FPFile.ClearDir(mapPath2);
+					}
+					FPFile.CopyDir(text, mapPath2);
+					if (Directory.Exists(text))
+					{
+						Directory.Delete(text, true);
+					}
+					if (Directory.Exists(mapPath2 + "\\bin"))
+					{
+						FPFile.CopyDir(mapPath2 + "\\bin", FPFile.GetMapPath(this.webpath + "/bin"));
+						Directory.Delete(mapPath2 + "\\bin", true);
+					}
+					if (DbConfigs.DbType == DbType.Access && File.Exists(mapPath2 + "\\datas\\access_install.sql"))
+					{
+						DbHelper.ExecuteSql(FPFile.ReadFile(mapPath2 + "\\datas\\access_install.sql"));
+					}
+					else if (DbConfigs.DbType == DbType.SqlServer && File.Exists(mapPath2 + "\\datas\\sqlserver_install.sql"))
+					{
+						DbHelper.ExecuteSql(FPFile.ReadFile(mapPath2 + "\\datas\\sqlserver_install.sql"));
+					}
+					FPCache.Remove("FP_PLUGINLIST");
 					base.Response.Redirect("pluginmanage.aspx");
 				}
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x06000026 RID: 38 RVA: 0x000043E8 File Offset: 0x000025E8
-		public static void CopyDirectory(string sourcePath, string targetPath)
-		{
-			DirectoryInfo directoryInfo = new DirectoryInfo(sourcePath);
-			if (!Directory.Exists(targetPath))
-			{
-				Directory.CreateDirectory(targetPath);
-			}
-			foreach (FileInfo fileInfo in directoryInfo.GetFiles())
-			{
-				if (fileInfo.Extension == ".dll")
-				{
-					fileInfo.CopyTo(FPUtils.GetMapPath(WebConfig.WebPath + "bin/" + fileInfo.Name), true);
-					fileInfo.CopyTo(targetPath + "\\" + fileInfo.Name, true);
-				}
-				else if (fileInfo.Extension == ".sql")
-				{
-					fileInfo.CopyTo(targetPath + "\\" + fileInfo.Name, true);
-					if (fileInfo.Name.ToLower().EndsWith("access.sql") && DbConfigs.DbType == DbType.Access)
-					{
-						string sqlstring = FPFile.ReadFile(fileInfo.FullName);
-						DbHelper.ExecuteSql(sqlstring);
-					}
-					else if (fileInfo.Name.ToLower().EndsWith("sqlserver.sql") && DbConfigs.DbType == DbType.SqlServer)
-					{
-						string sqlstring = FPFile.ReadFile(fileInfo.FullName);
-						DbHelper.ExecuteSql(sqlstring);
-					}
-				}
-				else
-				{
-					fileInfo.CopyTo(targetPath + "\\" + fileInfo.Name, true);
-				}
-			}
-			foreach (DirectoryInfo directoryInfo2 in directoryInfo.GetDirectories())
-			{
-				plugininstall.CopyDirectory(directoryInfo2.FullName, targetPath + "\\" + directoryInfo2.Name);
-			}
-		}
-
-		// Token: 0x0400001A RID: 26
+		// Token: 0x04000033 RID: 51
 		protected string step = FPRequest.GetString("step").ToLower();
 
-		// Token: 0x0400001B RID: 27
+		// Token: 0x04000034 RID: 52
 		protected PluginConfig plugininfo = new PluginConfig();
 
-		// Token: 0x0400001C RID: 28
+		// Token: 0x04000035 RID: 53
 		protected string filename = "";
+
+		// Token: 0x04000036 RID: 54
+		protected int isinstall = FPRequest.GetInt("isinstall");
 	}
 }

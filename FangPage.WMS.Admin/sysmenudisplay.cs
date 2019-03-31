@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000019 RID: 25
+	// Token: 0x02000020 RID: 32
 	public class sysmenudisplay : SuperController
 	{
-		// Token: 0x0600003C RID: 60 RVA: 0x00005D0C File Offset: 0x00003F0C
-		protected override void View()
+		// Token: 0x0600004C RID: 76 RVA: 0x00006DD8 File Offset: 0x00004FD8
+		protected override void Controller()
 		{
-			SqlParam sqlParam = DbHelper.MakeAndWhere("parentid", this.parentid);
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			this.menulist = DbHelper.ExecuteList<MenuInfo>(orderby, new SqlParam[]
+			SqlParam[] sqlparams = new SqlParam[]
 			{
-				sqlParam
-			});
+				DbHelper.MakeOrWhere("(platform", "SYSTEM"),
+				DbHelper.MakeOrWhere("platform)", this.sysconfig.platform),
+				DbHelper.MakeAndWhere("parentid", this.parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
+			};
+			this.menulist = DbHelper.ExecuteList<MenuInfo>(sqlparams);
 			if (this.ispost)
 			{
 				int num = 0;
@@ -27,15 +30,15 @@ namespace FangPage.WMS.Admin
 					DbHelper.ExecuteUpdate<MenuInfo>(this.menulist[num]);
 					num++;
 				}
+				FPCache.Remove("FP_MENULIST");
 				base.Response.Redirect(this.pagename + "?parentid=" + this.parentid);
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000032 RID: 50
+		// Token: 0x0400004C RID: 76
 		public List<MenuInfo> menulist = new List<MenuInfo>();
 
-		// Token: 0x04000033 RID: 51
+		// Token: 0x0400004D RID: 77
 		public int parentid = FPRequest.GetInt("parentid");
 	}
 }

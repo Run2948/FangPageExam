@@ -2,36 +2,36 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x0200000E RID: 14
+	// Token: 0x02000011 RID: 17
 	public sealed class Identity : Attribute
 	{
-		// Token: 0x060000BA RID: 186 RVA: 0x00005870 File Offset: 0x00003A70
+		// Token: 0x06000112 RID: 274 RVA: 0x00002249 File Offset: 0x00000449
 		public Identity()
 		{
 		}
 
-		// Token: 0x060000BB RID: 187 RVA: 0x0000587F File Offset: 0x00003A7F
+		// Token: 0x06000113 RID: 275 RVA: 0x0000BABC File Offset: 0x00009CBC
 		public Identity(bool isIdentity)
 		{
 			this.IsIdentity = isIdentity;
 		}
 
-		// Token: 0x17000011 RID: 17
-		// (get) Token: 0x060000BC RID: 188 RVA: 0x00005895 File Offset: 0x00003A95
-		// (set) Token: 0x060000BD RID: 189 RVA: 0x0000589D File Offset: 0x00003A9D
+		// Token: 0x17000023 RID: 35
+		// (get) Token: 0x06000114 RID: 276 RVA: 0x0000BACB File Offset: 0x00009CCB
+		// (set) Token: 0x06000115 RID: 277 RVA: 0x0000BAD3 File Offset: 0x00009CD3
 		public bool IsIdentity
 		{
 			get
 			{
-				return this._isIdentity;
+				return this.m_isidentity;
 			}
 			set
 			{
-				this._isIdentity = value;
+				this.m_isidentity = value;
 			}
 		}
 
-		// Token: 0x04000016 RID: 22
-		private bool _isIdentity = true;
+		// Token: 0x04000024 RID: 36
+		private bool m_isidentity;
 	}
 }

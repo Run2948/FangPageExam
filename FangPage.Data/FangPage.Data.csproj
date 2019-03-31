@@ -6,14 +6,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4410BDFE-07E0-4440-B585-6CD3C9334C12}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FangPage.Data</RootNamespace>
     <AssemblyName>FangPage.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,29 +21,30 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessProvider.cs" />
+    <Compile Include="AttrInfo.cs" />
     <Compile Include="BindField.cs" />
     <Compile Include="BindTable.cs" />
     <Compile Include="DbConfigInfo.cs" />
@@ -54,17 +55,25 @@
     <Compile Include="DES.cs" />
     <Compile Include="IDbProvider.cs" />
     <Compile Include="Identity.cs" />
+    <Compile Include="LeftJoin.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="ModelPrefix.cs" />
     <Compile Include="NText.cs" />
     <Compile Include="OrderBy.cs" />
-    <Compile Include="OrderByParam.cs" />
     <Compile Include="Pager.cs" />
     <Compile Include="PrimaryKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlParam.cs" />
     <Compile Include="SqlServerProvider.cs" />
     <Compile Include="SqlType.cs" />
+    <Compile Include="TempField.cs" />
     <Compile Include="WhereType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FangPage.Common\FangPage.Common.csproj">
+      <Project>{6158473b-9796-4d2e-8393-78e5cbcfe94b}</Project>
+      <Name>FangPage.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

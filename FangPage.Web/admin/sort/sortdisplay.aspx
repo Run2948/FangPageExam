@@ -1,31 +1,31 @@
 <%@ Page language="c#" AutoEventWireup="false" EnableViewState="false" Inherits="FangPage.WMS.Admin.sortdisplay" %>
+<%@ Import namespace="System.Collections.Generic" %>
+<%@ Import namespace="FangPage.Common" %>
 <%@ Import namespace="FangPage.MVC" %>
 <%@ Import namespace="FangPage.WMS.Admin" %>
-
 <%@ Import namespace="FangPage.WMS.Model" %>
 <script runat="server">
-override protected void OnInitComplete(EventArgs e)
+protected override void View()
 {
-	/*方配软件技术有限公司，官方网站：http://www.fangpage.com，站点版本：4.5*/
-	base.OnInitComplete(e);
-	int loop__id=0;
+	base.View();
 	ViewBuilder.Append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n");
 	ViewBuilder.Append("<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
 	ViewBuilder.Append("<head>\r\n");
 	ViewBuilder.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n");
-	ViewBuilder.Append("<title>站点栏目排序</title>\r\n");
-	ViewBuilder.Append("	" + meta.ToString() + "\r\n");
-	ViewBuilder.Append("<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/admin.css\">\r\n");
-	ViewBuilder.Append("<link href=\"../css/datagrid.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
-	ViewBuilder.Append("" + plugins("jquery") + "\r\n");
-	ViewBuilder.Append("<script type=\"text/javascript\" src=\"../js/admin.js\"></");
+	ViewBuilder.Append("<title>系统栏目排序</title>\r\n");
+	ViewBuilder.Append("	" + echo(meta) + "\r\n");
+	ViewBuilder.Append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/admin.css\">\r\n");
+	ViewBuilder.Append("<link href=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/css/datagrid.css\" rel=\"stylesheet\" type=\"text/css\">\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(plupath) + "jquery/jquery.js\"></");
+	ViewBuilder.Append("script>\r\n");
+	ViewBuilder.Append("<script type=\"text/javascript\" src=\"" + echo(webpath) + "" + echo(sitepath) + "/statics/js/admin.js\"></");
 	ViewBuilder.Append("script>\r\n");
 	ViewBuilder.Append("<script type=\"text/javascript\">\r\n");
 	ViewBuilder.Append("    $(function () {\r\n");
+	ViewBuilder.Append("        PageNav(\"系统栏目管理," + echo(rawpath) + "sortmanage.aspx?channelid=" + echo(channelid) + "|栏目排序," + echo(rawpath) + "" + echo(pagename) + "?channelid=" + echo(channelid) + "&parentid=" + echo(parentid) + "\");\r\n");
 	ViewBuilder.Append("        $(\"#submitsave\").click(function () {\r\n");
 	ViewBuilder.Append("            $(\"#formpost\").submit();\r\n");
 	ViewBuilder.Append("        })\r\n");
-	ViewBuilder.Append("        PageNav(\"站点栏目管理," + rawpath.ToString() + "sortmanage.aspx?channelid=" + channelid.ToString() + "|站点栏目排序," + rawpath.ToString() + "" + pagename.ToString() + "?channelid=" + channelid.ToString() + "&parentid=" + parentid.ToString() + "\");\r\n");
 	ViewBuilder.Append("    })\r\n");
 	ViewBuilder.Append("</");
 	ViewBuilder.Append("script>\r\n");
@@ -37,9 +37,9 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("      <td><div class=\"newslist\">\r\n");
 	ViewBuilder.Append("          <div class=\"newsicon\">\r\n");
 	ViewBuilder.Append("            <ul>\r\n");
-	ViewBuilder.Append("              <li style=\"background: url(../images/save.gif) 2px 6px no-repeat\"> <a id=\"submitsave\" href=\"#\">保存</a></li>\r\n");
-	ViewBuilder.Append("              <li style=\"background: url(../images/refresh.gif) 2px 6px no-repeat\"><a href=\"sortdisplay.aspx?channelid=" + channelid.ToString() + "&parentid=" + parentid.ToString() + "\">刷新</a> </li>\r\n");
-	ViewBuilder.Append("              <li style=\"background: url(../images/return.gif) 2px 6px no-repeat\"><a href=\"sortmanage.aspx?channelid=" + channelid.ToString() + "\">返回</a> </li>\r\n");
+	ViewBuilder.Append("              <li style=\"background: url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/save.gif) 2px 6px no-repeat\"> <a id=\"submitsave\" href=\"#\">保存</a></li>\r\n");
+	ViewBuilder.Append("              <li style=\"background: url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/refresh.gif) 2px 6px no-repeat\"><a href=\"sortdisplay.aspx?channelid=" + echo(channelid) + "&parentid=" + echo(parentid) + "\">刷新</a> </li>\r\n");
+	ViewBuilder.Append("              <li style=\"background: url(" + echo(webpath) + "" + echo(sitepath) + "/statics/images/return.gif) 2px 6px no-repeat\"><a href=\"sortmanage.aspx?channelid=" + echo(channelid) + "\">返回</a> </li>\r\n");
 	ViewBuilder.Append("            </ul>\r\n");
 	ViewBuilder.Append("          </div>\r\n");
 	ViewBuilder.Append("        </div></td>\r\n");
@@ -57,14 +57,11 @@ override protected void OnInitComplete(EventArgs e)
 	foreach(SortInfo sort in sortlist)
 	{
 	loop__id++;
-
 	ViewBuilder.Append("            <tr class=\"tlist\" onmouseover=\"curcolor=this.style.backgroundColor;this.style.backgroundColor='#cbe3f4'\" onmouseout=\"this.style.backgroundColor=curcolor\">\r\n");
-	ViewBuilder.Append("              <td>" + sort.name.ToString().Trim() + "</td>\r\n");
-	ViewBuilder.Append("              <td><input type=\"text\" style=\"width:200px;\" name=\"display_" + sort.id.ToString().Trim() + "\" id=\"display_" + sort.id.ToString().Trim() + "\" value=\"" + loop__id.ToString() + "\"></td>\r\n");
+	ViewBuilder.Append("              <td>" + echo(sort.name) + "</td>\r\n");
+	ViewBuilder.Append("              <td><input type=\"text\" style=\"width:200px;\" name=\"display_" + echo(sort.id) + "\" id=\"display_" + echo(sort.id) + "\" value=\"" + loop__id.ToString() + "\"></td>\r\n");
 	ViewBuilder.Append("            </tr>\r\n");
-
-	}	//end loop
-
+	}//end loop
 	ViewBuilder.Append("          </tbody>\r\n");
 	ViewBuilder.Append("        </table>\r\n");
 	ViewBuilder.Append("        </td>\r\n");
@@ -73,7 +70,17 @@ override protected void OnInitComplete(EventArgs e)
 	ViewBuilder.Append("</form>\r\n");
 	ViewBuilder.Append("</body>\r\n");
 	ViewBuilder.Append("</html>\r\n");
-
+	if(iswrite==0)
+	{
 	Response.Write(ViewBuilder.ToString());
+	}
+	else if(iswrite==1)
+	{
+	Hashtable hash = new Hashtable();
+	hash["errcode"] = 0;
+	hash["errmsg"] ="";
+	hash["html"]=ViewBuilder.ToString();
+	FPResponse.WriteJson(hash);
+	}
 }
 </script>

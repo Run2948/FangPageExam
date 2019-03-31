@@ -2,15 +2,15 @@
 
 namespace FangPage.Data
 {
-	// Token: 0x02000016 RID: 22
+	// Token: 0x02000018 RID: 24
 	public class SqlParam
 	{
-		// Token: 0x060000DF RID: 223 RVA: 0x00005DFB File Offset: 0x00003FFB
+		// Token: 0x06000133 RID: 307 RVA: 0x0000C047 File Offset: 0x0000A247
 		public SqlParam()
 		{
 		}
 
-		// Token: 0x060000E0 RID: 224 RVA: 0x00005E0E File Offset: 0x0000400E
+		// Token: 0x06000134 RID: 308 RVA: 0x0000C05A File Offset: 0x0000A25A
 		public SqlParam(SqlType SqlType, string ParamName, object Value)
 		{
 			this.SqlType = SqlType;
@@ -18,7 +18,7 @@ namespace FangPage.Data
 			this.Value = Value;
 		}
 
-		// Token: 0x060000E1 RID: 225 RVA: 0x00005E36 File Offset: 0x00004036
+		// Token: 0x06000135 RID: 309 RVA: 0x0000C082 File Offset: 0x0000A282
 		public SqlParam(SqlType SqlType, string ParamName, WhereType WhereType, object Value)
 		{
 			this.SqlType = SqlType;
@@ -27,9 +27,17 @@ namespace FangPage.Data
 			this.Value = Value;
 		}
 
-		// Token: 0x17000020 RID: 32
-		// (get) Token: 0x060000E2 RID: 226 RVA: 0x00005E66 File Offset: 0x00004066
-		// (set) Token: 0x060000E3 RID: 227 RVA: 0x00005E6E File Offset: 0x0000406E
+		// Token: 0x06000136 RID: 310 RVA: 0x0000C0B2 File Offset: 0x0000A2B2
+		public SqlParam(string ParamName, OrderBy orderby)
+		{
+			this.SqlType = SqlType.OrderBy;
+			this.ParamName = ParamName;
+			this.Value = orderby.ToString();
+		}
+
+		// Token: 0x17000032 RID: 50
+		// (get) Token: 0x06000137 RID: 311 RVA: 0x0000C0E6 File Offset: 0x0000A2E6
+		// (set) Token: 0x06000138 RID: 312 RVA: 0x0000C0EE File Offset: 0x0000A2EE
 		public SqlType SqlType
 		{
 			get
@@ -42,9 +50,9 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x17000021 RID: 33
-		// (get) Token: 0x060000E4 RID: 228 RVA: 0x00005E77 File Offset: 0x00004077
-		// (set) Token: 0x060000E5 RID: 229 RVA: 0x00005E7F File Offset: 0x0000407F
+		// Token: 0x17000033 RID: 51
+		// (get) Token: 0x06000139 RID: 313 RVA: 0x0000C0F7 File Offset: 0x0000A2F7
+		// (set) Token: 0x0600013A RID: 314 RVA: 0x0000C0FF File Offset: 0x0000A2FF
 		public string ParamName
 		{
 			get
@@ -57,9 +65,9 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x17000022 RID: 34
-		// (get) Token: 0x060000E6 RID: 230 RVA: 0x00005E88 File Offset: 0x00004088
-		// (set) Token: 0x060000E7 RID: 231 RVA: 0x00005E90 File Offset: 0x00004090
+		// Token: 0x17000034 RID: 52
+		// (get) Token: 0x0600013B RID: 315 RVA: 0x0000C108 File Offset: 0x0000A308
+		// (set) Token: 0x0600013C RID: 316 RVA: 0x0000C110 File Offset: 0x0000A310
 		public WhereType WhereType
 		{
 			get
@@ -72,8 +80,8 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x17000023 RID: 35
-		// (get) Token: 0x060000E8 RID: 232 RVA: 0x00005E9C File Offset: 0x0000409C
+		// Token: 0x17000035 RID: 53
+		// (get) Token: 0x0600013D RID: 317 RVA: 0x0000C11C File Offset: 0x0000A31C
 		public string WhereTypeStr
 		{
 			get
@@ -116,18 +124,18 @@ namespace FangPage.Data
 			}
 		}
 
-		// Token: 0x17000024 RID: 36
-		// (get) Token: 0x060000E9 RID: 233 RVA: 0x00005F35 File Offset: 0x00004135
-		// (set) Token: 0x060000EA RID: 234 RVA: 0x00005F3D File Offset: 0x0000413D
+		// Token: 0x17000036 RID: 54
+		// (get) Token: 0x0600013E RID: 318 RVA: 0x0000C1B5 File Offset: 0x0000A3B5
+		// (set) Token: 0x0600013F RID: 319 RVA: 0x0000C1BD File Offset: 0x0000A3BD
 		public object Value { get; set; }
 
-		// Token: 0x0400002D RID: 45
+		// Token: 0x0400003E RID: 62
 		private SqlType m_SqlType;
 
-		// Token: 0x0400002E RID: 46
+		// Token: 0x0400003F RID: 63
 		private string m_ParamName = "";
 
-		// Token: 0x0400002F RID: 47
+		// Token: 0x04000040 RID: 64
 		private WhereType m_WhereType;
 	}
 }

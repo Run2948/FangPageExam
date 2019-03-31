@@ -1,15 +1,16 @@
 ﻿using System;
 using FangPage.Data;
 using FangPage.MVC;
-using FangPage.WMS.Task;
+using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200001C RID: 28
+	// Token: 0x02000023 RID: 35
 	public class taskadd : SuperController
 	{
-		// Token: 0x06000044 RID: 68 RVA: 0x00006368 File Offset: 0x00004568
-		protected override void View()
+		// Token: 0x06000054 RID: 84 RVA: 0x000072D8 File Offset: 0x000054D8
+		protected override void Controller()
 		{
 			if (this.id > 0)
 			{
@@ -18,7 +19,7 @@ namespace FangPage.WMS.Admin
 			if (this.ispost)
 			{
 				string @string = FPRequest.GetString("name");
-				string string2 = FPRequest.GetString("type");
+				FPRequest.GetString("type");
 				if (string.IsNullOrEmpty(@string))
 				{
 					this.ShowErr("计划任务名称不能为空!");
@@ -29,8 +30,7 @@ namespace FangPage.WMS.Admin
 				{
 					this.taskinfo.key = Guid.NewGuid().ToString();
 				}
-				int @int = FPRequest.GetInt("timeofday");
-				if (@int == 1)
+				if (FPRequest.GetInt("timeofday") == 1)
 				{
 					this.taskinfo.timeofday = FPRequest.GetInt("hour") * 60 + FPRequest.GetInt("minute");
 				}
@@ -47,16 +47,14 @@ namespace FangPage.WMS.Admin
 				{
 					DbHelper.ExecuteInsert<TaskInfo>(this.taskinfo);
 				}
-				TaskManager.Reset();
 				base.Response.Redirect("taskmanage.aspx");
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000036 RID: 54
+		// Token: 0x0400004F RID: 79
 		protected int id = FPRequest.GetInt("id");
 
-		// Token: 0x04000037 RID: 55
+		// Token: 0x04000050 RID: 80
 		protected TaskInfo taskinfo = new TaskInfo();
 	}
 }

@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x02000031 RID: 49
+	// Token: 0x0200003E RID: 62
 	public class sortdisplay : SuperController
 	{
-		// Token: 0x06000076 RID: 118 RVA: 0x0000A94C File Offset: 0x00008B4C
-		protected override void View()
+		// Token: 0x06000093 RID: 147 RVA: 0x0000C520 File Offset: 0x0000A720
+		protected override void Controller()
 		{
 			SqlParam[] sqlparams = new SqlParam[]
 			{
 				DbHelper.MakeAndWhere("channelid", this.channelid),
-				DbHelper.MakeAndWhere("parentid", this.parentid)
+				DbHelper.MakeAndWhere("parentid", this.parentid),
+				DbHelper.MakeOrderBy("display", OrderBy.ASC)
 			};
-			OrderByParam orderby = DbHelper.MakeOrderBy("display", OrderBy.ASC);
-			this.sortlist = DbHelper.ExecuteList<SortInfo>(orderby, sqlparams);
+			this.sortlist = DbHelper.ExecuteList<SortInfo>(sqlparams);
 			if (this.ispost)
 			{
 				int num = 0;
@@ -37,16 +38,15 @@ namespace FangPage.WMS.Admin
 					this.parentid
 				}));
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000070 RID: 112
+		// Token: 0x040000A8 RID: 168
 		protected int channelid = FPRequest.GetInt("channelid");
 
-		// Token: 0x04000071 RID: 113
+		// Token: 0x040000A9 RID: 169
 		public List<SortInfo> sortlist = new List<SortInfo>();
 
-		// Token: 0x04000072 RID: 114
+		// Token: 0x040000AA RID: 170
 		public int parentid = FPRequest.GetInt("parentid");
 	}
 }

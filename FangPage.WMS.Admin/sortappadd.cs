@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Bll;
+using FangPage.WMS.Config;
 using FangPage.WMS.Model;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
-	// Token: 0x0200002F RID: 47
+	// Token: 0x0200003C RID: 60
 	public class sortappadd : SuperController
 	{
-		// Token: 0x06000072 RID: 114 RVA: 0x0000A7CC File Offset: 0x000089CC
-		protected override void View()
+		// Token: 0x0600008F RID: 143 RVA: 0x0000C314 File Offset: 0x0000A514
+		protected override void Controller()
 		{
 			if (this.id > 0)
 			{
@@ -19,13 +22,15 @@ namespace FangPage.WMS.Admin
 			if (this.ispost)
 			{
 				this.sortappinfo = FPRequest.GetModel<SortAppInfo>(this.sortappinfo);
-				if (this.sortappinfo.appid > 0)
+				if (this.sortappinfo.guid != "")
 				{
-					AppInfo appInfo = DbHelper.ExecuteModel<AppInfo>(this.sortappinfo.appid);
-					this.sortappinfo.installpath = appInfo.installpath;
+					SetupInfo setupInfo = SetupBll.GetSetupInfo(this.sortappinfo.guid);
+					this.sortappinfo.type = setupInfo.type;
+					this.sortappinfo.installpath = setupInfo.installpath;
 				}
 				else
 				{
+					this.sortappinfo.type = "";
 					this.sortappinfo.installpath = "";
 				}
 				if (this.sortappinfo.id > 0)
@@ -37,18 +42,26 @@ namespace FangPage.WMS.Admin
 					DbHelper.ExecuteInsert<SortAppInfo>(this.sortappinfo);
 				}
 				CacheBll.RemoveSortCache();
+				FPCache.Remove("FP_SORTAPPLIST");
 				base.Response.Redirect("sortappmanage.aspx");
 			}
-			this.applist = DbHelper.ExecuteList<AppInfo>(OrderBy.ASC);
+			foreach (SiteConfig siteconfig in SiteConfigs.GetSysSiteList())
+			{
+				this.setuplist.Add(SetupBll.GetSetupInfo(siteconfig));
+			}
+			foreach (AppConfig appconfig in AppConfigs.GetMapAppList())
+			{
+				this.setuplist.Add(SetupBll.GetSetupInfo(appconfig));
+			}
 		}
 
-		// Token: 0x0400006C RID: 108
+		// Token: 0x040000A4 RID: 164
 		protected int id = FPRequest.GetInt("id");
 
-		// Token: 0x0400006D RID: 109
+		// Token: 0x040000A5 RID: 165
 		protected SortAppInfo sortappinfo = new SortAppInfo();
 
-		// Token: 0x0400006E RID: 110
-		protected List<AppInfo> applist = new List<AppInfo>();
+		// Token: 0x040000A6 RID: 166
+		protected List<SetupInfo> setuplist = new List<SetupInfo>();
 	}
 }

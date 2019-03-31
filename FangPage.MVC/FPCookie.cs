@@ -3,10 +3,10 @@ using System.Web;
 
 namespace FangPage.MVC
 {
-	// Token: 0x02000009 RID: 9
+	// Token: 0x02000004 RID: 4
 	public class FPCookie
 	{
-		// Token: 0x06000028 RID: 40 RVA: 0x00003328 File Offset: 0x00001528
+		// Token: 0x0600001C RID: 28 RVA: 0x00002540 File Offset: 0x00000740
 		public static void WriteCookie(string strName, string strValue)
 		{
 			HttpCookie httpCookie = HttpContext.Current.Request.Cookies[strName];
@@ -18,7 +18,7 @@ namespace FangPage.MVC
 			HttpContext.Current.Response.AppendCookie(httpCookie);
 		}
 
-		// Token: 0x06000029 RID: 41 RVA: 0x0000337C File Offset: 0x0000157C
+		// Token: 0x0600001D RID: 29 RVA: 0x00002584 File Offset: 0x00000784
 		public static void WriteCookie(string strName, string key, string strValue)
 		{
 			HttpCookie httpCookie = HttpContext.Current.Request.Cookies[strName];
@@ -30,7 +30,7 @@ namespace FangPage.MVC
 			HttpContext.Current.Response.AppendCookie(httpCookie);
 		}
 
-		// Token: 0x0600002A RID: 42 RVA: 0x000033D0 File Offset: 0x000015D0
+		// Token: 0x0600001E RID: 30 RVA: 0x000025CC File Offset: 0x000007CC
 		public static void WriteCookie(string strName, string strValue, int expires)
 		{
 			HttpCookie httpCookie = HttpContext.Current.Request.Cookies[strName];
@@ -43,34 +43,24 @@ namespace FangPage.MVC
 			HttpContext.Current.Response.AppendCookie(httpCookie);
 		}
 
-		// Token: 0x0600002B RID: 43 RVA: 0x00003438 File Offset: 0x00001638
+		// Token: 0x0600001F RID: 31 RVA: 0x00002628 File Offset: 0x00000828
 		public static string GetCookie(string strName)
 		{
-			string result;
 			if (HttpContext.Current.Request.Cookies != null && HttpContext.Current.Request.Cookies[strName] != null)
 			{
-				result = HttpContext.Current.Request.Cookies[strName].Value.ToString();
+				return HttpContext.Current.Request.Cookies[strName].Value.ToString();
 			}
-			else
-			{
-				result = "";
-			}
-			return result;
+			return "";
 		}
 
-		// Token: 0x0600002C RID: 44 RVA: 0x000034A4 File Offset: 0x000016A4
+		// Token: 0x06000020 RID: 32 RVA: 0x00002684 File Offset: 0x00000884
 		public static string GetCookie(string strName, string key)
 		{
-			string result;
 			if (HttpContext.Current.Request.Cookies != null && HttpContext.Current.Request.Cookies[strName] != null && HttpContext.Current.Request.Cookies[strName][key] != null)
 			{
-				result = HttpContext.Current.Request.Cookies[strName][key].ToString();
+				return HttpContext.Current.Request.Cookies[strName][key].ToString();
 			}
-			else
-			{
-				result = "";
-			}
-			return result;
+			return "";
 		}
 	}
 }

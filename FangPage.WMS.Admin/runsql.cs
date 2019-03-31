@@ -1,14 +1,15 @@
 ﻿using System;
 using FangPage.Data;
 using FangPage.MVC;
+using FangPage.WMS.Web;
 
 namespace FangPage.WMS.Admin
 {
 	// Token: 0x02000005 RID: 5
 	public class runsql : SuperController
 	{
-		// Token: 0x0600000B RID: 11 RVA: 0x00002934 File Offset: 0x00000B34
-		protected override void View()
+		// Token: 0x0600000B RID: 11 RVA: 0x00002750 File Offset: 0x00000950
+		protected override void Controller()
 		{
 			if (this.ispost)
 			{
@@ -24,10 +25,9 @@ namespace FangPage.WMS.Admin
 					return;
 				}
 			}
-			base.SaveRightURL();
 		}
 
-		// Token: 0x04000006 RID: 6
+		// Token: 0x04000007 RID: 7
 		protected string sqlstring = FPRequest.GetString("sqlstring");
 	}
 }
