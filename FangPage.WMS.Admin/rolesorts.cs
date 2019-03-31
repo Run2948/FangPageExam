@@ -39,10 +39,10 @@ namespace FangPage.WMS.Admin
 								text += text2.Substring(1, text2.Length - 1);
 							}
 						}
-						IL_E4:
+						//IL_E4:
 						i++;
-						continue;
-						goto IL_E4;
+						//continue;
+						//goto IL_E4;
 					}
 					this.roleinfo.sorts = text;
 					DbHelper.ExecuteUpdate<RoleInfo>(this.roleinfo);
